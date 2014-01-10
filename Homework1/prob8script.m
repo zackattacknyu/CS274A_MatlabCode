@@ -2,9 +2,7 @@
 %n = 100;
 %n = 1000;
 %n = 10000;
-%n = 100000;
-
-n = 10000000;
+n = 100000;
 
 %rand(1,n) will generate the X_i's for a particular y
 %they are summed up and then the result is divided by n to obtain Y
