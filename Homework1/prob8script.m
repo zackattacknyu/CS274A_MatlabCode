@@ -2,7 +2,9 @@
 %n = 100;
 %n = 1000;
 %n = 10000;
-n = 100000;
+%n = 100000;
+
+n = 10000000;
 
 %rand(1,n) will generate the X_i's for a particular y
 %they are summed up and then the result is divided by n to obtain Y
@@ -12,4 +14,8 @@ for j=1:1000
 end
 %plot the histogram of the Y vector
 histData = hist(Y,30);
-bar(histData)
+X = 0:1/30:1;
+plot(X(1:30),histData)
+meanY = mean(Y)
+varY = var(Y)
+%bar(X(1:30),histData)
