@@ -44,10 +44,10 @@ data2 = mvnrnd(mu2,cov2,n2);
 % points from data2 as red dots 'r.'.
 if plotflag==1
    figure  % open a figure window
-   plot(data1(:,1),data1(:,2),'g:')     % now plot data1
+   plot(data1(:,1),data1(:,2),'g.')     % now plot data1
    %axis([-6 6 -6 6]);  % fix the lengths of the axes
    hold on;               % hold the figure to overlay a 2nd plot
-   plot(data2(:,1),data2(:,2),'r:')     % now plot data 2
+   plot(data2(:,1),data2(:,2),'r.')     % now plot data 2
    xlabel('Dimension 1');
    ylabel('Dimension 2');
    title('Simulation of data from two Gaussians in two dimensions');
