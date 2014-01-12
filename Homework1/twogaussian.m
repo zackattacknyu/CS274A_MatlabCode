@@ -51,7 +51,7 @@ if plotflag==1
    xlabel('Dimension 1');
    ylabel('Dimension 2');
    title('Simulation of data from two Gaussians in two dimensions');
-   plot_gauss_parameters(data1,cov1,1,2,'g');  % plot covariance ellipse for data 1
-   plot_gauss_parameters(data2,cov2,1,2,'r');  % plot covariance ellipse for data 2
+   plot_gauss_parameters(mu1,cov1,1,2,'g');  % plot covariance ellipse for data 1
+   plot_gauss_parameters(mu2,cov2,1,2,'r');  % plot covariance ellipse for data 2
 end
 
