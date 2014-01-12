@@ -35,8 +35,8 @@ d = length(mu1);   % d is the dimensionality of the data
   if (d1~=d) error('cov2 is of different dimensionality to mu2'); end;
 
 % Call the function mvnrnd.m to generate the two data sets
-data1 = mvnrnd(....);
-data2 = mvnrnd(....);
+data1 = mvnrnd(mu1,cov1,n1);
+data2 = mvnrnd(mu2,cov2,n2);
    
 % Now plot the two data sets as a two-dimensional scatter plot
 % if d = 2: plot dimension1 on the xaxis and dimension 2 on the
@@ -44,14 +44,14 @@ data2 = mvnrnd(....);
 % points from data2 as red dots 'r.'.
 if plotflag==1
    figure  % open a figure window
-   plot(.....)     % now plot data1
+   plot(data1(:,1),data1(:,2),'g:')     % now plot data1
    %axis([-6 6 -6 6]);  % fix the lengths of the axes
    hold on;               % hold the figure to overlay a 2nd plot
-   plot(.....)     % now plot data 2
+   plot(data2(:,1),data2(:,2),'r:')     % now plot data 2
    xlabel('Dimension 1');
    ylabel('Dimension 2');
    title('Simulation of data from two Gaussians in two dimensions');
-   plot_gauss_parameters(.....);  % plot covariance ellipse for data 1
-   plot_gauss_parameters(.....);  % plot covariance ellipse for data 2
+   plot_gauss_parameters(data1,cov1,1,2,'g');  % plot covariance ellipse for data 1
+   plot_gauss_parameters(data2,cov2,1,2,'r');  % plot covariance ellipse for data 2
 end
 

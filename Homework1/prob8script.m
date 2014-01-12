@@ -13,7 +13,7 @@ end
 %plot the histogram of the Y vector
 histData = hist(Y,30);
 X = 0:1/30:1;
-plot(X(1:30),histData)
+%plot(X(1:30),histData)
 meanY = mean(Y)
 varY = var(Y)
-%bar(X(1:30),histData)
+bar(X(1:30),histData)
