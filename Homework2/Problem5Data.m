@@ -40,8 +40,28 @@ plot(pValues,lValues_p);
 %This plots the likelihood versus the lambda value for the poisson
 %   distribution
 lambdaValues = [0:1/100:10];
-lValues_lambda = -bigN*lambdaValues + bigK*log(lambdaValues) - bigQ
-plot(lambdaValues,lValues_lambda)
+lValues_lambda = -bigN*lambdaValues + bigK*log(lambdaValues) - bigQ;
+plot(lambdaValues,lValues_lambda);
 
 bestLambda = bigK/bigN;
-best_pValues = bigK/(bigN + bigK);
+best_pValue = bigK/(bigN + bigK);
+
+%the rest of this is used for part 5
+
+%this adds 10 to the end to the x axis will go from 0 to 10
+kValues = [kValues 10]
+numCusts = [numCusts 0];
+
+%this gets the regular probability distribution
+prob_kValues = [];
+for index = 1:1:11,
+   prob_k = numCusts(index)/bigN;
+   prob_kValues = [prob_kValues prob_k];
+end
+
+%this is the geometric probability distribution
+prob_geom = (1-best_pValue)*(best_pValue.^kValues);
+prob_poisson = exp(-1*bestLambda)*(bestLambda.^kValues)./(factorial(kValues));
+
+plot(kValues,prob_kValues,'o',kValues,prob_geom,'r-',kValues,prob_poisson,'g--');
+
