@@ -29,6 +29,8 @@ end
 logLike_mu = (-numDraws/2)*log(2*pi*varData) - (1/(2*varData)).*summationVector;
 subplot(1,2,1)
 plot(muValues,logLike_mu)
+xlabel('Value of mu')
+ylabel('log-likelihood of data')
 
 %generates the plot of sigma versus log-likelihood
 sigmaValues = minSigma:1/100:maxSigma;
@@ -38,6 +40,8 @@ summationValue = sum(summationTerms);
 logLike_sigma = (-numDraws/2)*log(2*pi.*varValues)-(summationValue./(2.*varValues));
 subplot(1,2,2)
 plot(sigmaValues,logLike_sigma)
+xlabel('Value of sigma')
+ylabel('log-likelihood of data')
 
 end
 
