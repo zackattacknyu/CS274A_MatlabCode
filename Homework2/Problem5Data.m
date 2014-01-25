@@ -33,15 +33,23 @@ bigQ = sum(log(factorial(xValues)));
 
 %This plots the likelihood versus the p value for the geometric
 %   distribution
-pValues = [0:1/100:1];
+pValues = 1/100:1/100:1;
 lValues_p = bigN*log(1-pValues) + bigK*log(pValues); 
+
 plot(pValues,lValues_p);
+xlabel('Value of p');
+ylabel('log-likelihood');
+title('Graph of log-likelihood for the Geometric Distribution');
 
 %This plots the likelihood versus the lambda value for the poisson
 %   distribution
-lambdaValues = [0:1/100:10];
+lambdaValues = 1/100:1/100:10;
 lValues_lambda = -bigN*lambdaValues + bigK*log(lambdaValues) - bigQ;
+
 plot(lambdaValues,lValues_lambda);
+xlabel('Value of lambda');
+ylabel('log-likelihood');
+title('Graph of log-likelihood for the Poisson Distribution');
 
 bestLambda = bigK/bigN;
 best_pValue = bigK/(bigN + bigK);
@@ -64,4 +72,7 @@ prob_geom = (1-best_pValue)*(best_pValue.^kValues);
 prob_poisson = exp(-1*bestLambda)*(bestLambda.^kValues)./(factorial(kValues));
 
 plot(kValues,prob_kValues,'o',kValues,prob_geom,'r-',kValues,prob_poisson,'g--');
-
+legend('Empirical Probability','Geometric Distribution Probability','Poisson Distribution Probablity');
+xlabel('Value of k');
+ylabel('Probability');
+title('Graph of Probability versus k for differerent distributions');

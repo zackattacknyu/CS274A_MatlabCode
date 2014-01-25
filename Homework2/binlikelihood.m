@@ -7,6 +7,9 @@ function [] = binlikelihood(rValue,nValue)
 pValues = [0:1/1000:1];
 L_Values = (pValues.^rValue).*((1-pValues).^(nValue-rValue));
 plot(pValues,L_Values);
+xlabel('Value of parameter p');
+ylabel('Likelihood of Data');
+title('Plot of p versus likelihood');
 
 end
 
