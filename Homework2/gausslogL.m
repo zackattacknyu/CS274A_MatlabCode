@@ -14,7 +14,7 @@ varData = var(data);
 meanData = mean(data);
 
 %min and max of sigma in the x-axis of its log-likelihood graph
-minSigma = 0.1;
+minSigma = 1;
 maxSigma = sqrt(varData)*5;
 
 %generates the plot of mu versus log-likelihood
@@ -31,6 +31,7 @@ subplot(1,2,1)
 plot(muValues,logLike_mu)
 xlabel('Value of mu')
 ylabel('log-likelihood of data')
+title(strcat('mu versus log-likelihood, sigma=',num2str(sqrt(varData))));
 
 %generates the plot of sigma versus log-likelihood
 sigmaValues = minSigma:1/100:maxSigma;
@@ -42,6 +43,7 @@ subplot(1,2,2)
 plot(sigmaValues,logLike_sigma)
 xlabel('Value of sigma')
 ylabel('log-likelihood of data')
+title(strcat('sigma versus log-likelihood, mu=',num2str(meanData)));
 
 end
 
