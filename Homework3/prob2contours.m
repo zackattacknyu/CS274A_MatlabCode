@@ -27,9 +27,6 @@ elseif(part == 1)
     alpha_3 = 1;
 end
 
-
-p_theta = eye(101);
-
 %The code here will be used
 %   http://www.mathworks.com/help/matlab/ref/contour.html
 %
