@@ -9,27 +9,28 @@
 
 theta_1 = 0:1/100:1;
 theta_2 = 0:1/100:1;
-%{
-%For Part 4
-alpha_1 = 8;
-alpha_2 = 1;
-alpha_3 = 1;
 
-%For Part 3
-alpha_1 = 0.1;
-alpha_2 = 0.1;
-alpha_3 = 0.1;
-%}
-%For Part 2
-alpha_1 = 10;
-alpha_2 = 10;
-alpha_3 = 10;
-%{
-%For Part 1
-alpha_1 = 1;
-alpha_2 = 1;
-alpha_3 = 1;
-%}
+part = 2;
+
+if(part == 4)
+    alpha_1 = 8;
+    alpha_2 = 1;
+    alpha_3 = 1;
+elseif(part == 3)
+    alpha_1 = 0.1;
+    alpha_2 = 0.1;
+    alpha_3 = 0.1;    
+elseif(part == 2)
+    alpha_1 = 10;
+    alpha_2 = 10;
+    alpha_3 = 10;
+elseif(part == 1)
+    alpha_1 = 1;
+    alpha_2 = 1;
+    alpha_3 = 1;
+end
+
+
 p_theta = eye(101);
 
 for row = 1:101,
