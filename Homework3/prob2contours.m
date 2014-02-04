@@ -10,7 +10,7 @@
 theta_1 = 0:1/100:1;
 theta_2 = 0:1/100:1;
 
-part = 2;
+part = 4;
 
 if(part == 4)
     alpha_1 = 8;
@@ -39,11 +39,6 @@ for row = 1:101,
        theta_2_current = theta_2(col);
        theta_3_current = 1- (theta_1_current + theta_2_current);
        
-       %MAKE SURE THERE ARE NO VALUES
-       %    WHERE THETA_3 < 0
-       %
-       %ALSO USE MESHGRID TO GENERATE THE FUNCTIONS
-       
        %does the normal likelihood
        
        if(theta_3_current >= 0)
@@ -54,14 +49,16 @@ for row = 1:101,
            p_theta(row,col) = 0;
        end
       
-       
-      
-      %does the log-likelihood
-      %{
-      p_theta(row,col) = (alpha_1-1)*log(theta_1_current)+...
-          (alpha_2-1)*log(theta_2_current)+...
-          (alpha_3-1)*log(theta_3_current);
-      %}
+       %does the log likelihood
+       %{
+       if(theta_3_current >= 0)
+           p_theta(row,col) = (alpha_1-1)*log(theta_1_current)+...
+                (alpha_2-1)*log(theta_2_current)+...
+                (alpha_3-1)*log(theta_3_current);
+       else
+           p_theta(row,col) = 0;
+       end
+        %}
       
    end
 end
