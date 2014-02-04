@@ -38,17 +38,29 @@ for row = 1:101,
        theta_2_current = theta_2(col);
        theta_3_current = 1- (theta_1_current + theta_2_current);
        
+       %MAKE SURE THERE ARE NO VALUES
+       %    WHERE THETA_3 < 0
+       %
+       %ALSO USE MESHGRID TO GENERATE THE FUNCTIONS
+       
        %does the normal likelihood
-       %{
-      p_theta(row,col) = theta_1_current^(alpha_1-1)*...
-          theta_2_current^(alpha_2-1)*...
-          theta_3_current^(alpha_3-1);
-       %}
+       
+       if(theta_3_current >= 0)
+           p_theta(row,col) = theta_1_current^(alpha_1-1)*...
+                theta_2_current^(alpha_2-1)*...
+                theta_3_current^(alpha_3-1);
+       else
+           p_theta(row,col) = 0;
+       end
+      
+       
       
       %does the log-likelihood
+      %{
       p_theta(row,col) = (alpha_1-1)*log(theta_1_current)+...
           (alpha_2-1)*log(theta_2_current)+...
           (alpha_3-1)*log(theta_3_current);
+      %}
       
    end
 end
