@@ -10,7 +10,7 @@
 theta_1 = 0:1/100:1;
 theta_2 = 0:1/100:1;
 
-part = 4;
+part = 1;
 
 if(part == 4)
     alpha_1 = 8;
@@ -62,5 +62,14 @@ for row = 1:101,
       
    end
 end
+
+beta = alpha_1 + alpha_2 + alpha_3;
+mean_alpha1 = alpha_1/beta
+mean_alpha2 = alpha_2/beta
+mean_alpha3 = alpha_3/beta
+
+var_alpha1 = alpha_1*(beta - alpha_1)/(beta^2*(beta+1))
+var_alpha2 = alpha_2*(beta - alpha_2)/(beta^2*(beta+1))
+var_alpha3 = alpha_3*(beta - alpha_3)/(beta^2*(beta+1))
 
 contour(theta_2,theta_1,p_theta)
