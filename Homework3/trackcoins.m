@@ -6,11 +6,9 @@ function trackcoins( p, q , N, alpha, beta, k)
 % p: probability of heads for "coin 1"
 % q: parameter of the Geometric distribution for "run length"
 % N: number of coin tosses that will be simulated
-% alpha: alpha parameter for the beta prior before the first coin tossHomework 3: CS 274A, Probabilistic Learning: Winter 2014 7
+% alpha: alpha parameter for the beta prior before the first coin toss
 % beta: beta parameter for the beta prior before the first coin toss
 % k: integer indicating the window size for "forgetting"
-%
-% HW3, CS 274A Winter 2014, Prof. Padhraic Smyth
 % simulate a sequence of coins:
 pheads = p;
 for i=1:N
