@@ -7,7 +7,7 @@
 
 %}
 
-part = 4;
+part = 3;
 
 if(part == 4)
     alpha_1 = 8;
@@ -32,7 +32,7 @@ end
 %
 
 theta_1 = linspace(0,1);
-theta_2 = 1-theta_1;
+theta_2 = linspace(0,1);
 
 [THETA_1,THETA_2] = meshgrid(theta_1,theta_2);
 THETA_3 = 1-(THETA_1+THETA_2);
@@ -43,6 +43,13 @@ P_THETA = (THETA_1.^(alpha_1-1))...
     .*(THETA_3.^(alpha_3-1));
 for row = 1:sizeVector(1),
    for col = 1:sizeVector(2),
+       
+       if(THETA_1(row,col) <= 0)
+         P_THETA(row,col) = 0; 
+       end
+      if(THETA_2(row,col) <= 0)
+         P_THETA(row,col) = 0; 
+      end
       if(THETA_3(row,col) <= 0)
          P_THETA(row,col) = 0; 
       end

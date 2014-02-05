@@ -7,21 +7,20 @@
 
 %}
 
-%for Part 1 Data
-r_1 = 8;
-r_2 = 1;
-r_3 = 1;
+probPart = 1;
 
-%for Part 2 Data
-%{
-r_1 = 1;
-r_2 = 18;
-r_3 = 1;
-%}
+if(probPart == 1)
+    r_1 = 8;
+    r_2 = 1;
+    r_3 = 1;
+elseif(probPart == 2)
+    r_1 = 1;
+    r_2 = 18;
+    r_3 = 1;   
+end
 
 %The code here will be used
 %   http://www.mathworks.com/help/matlab/ref/contour.html
-%
 
 theta_1 = linspace(0,1);
 theta_2 = linspace(0,1);
@@ -62,16 +61,24 @@ for part = 1:4,
     
     subplot(2,2,part);
     contour(THETA_1,THETA_2,P_THETA)
+    title(strcat('Contours using parameters from Problem 2, Part ',num2str(part)));
+    xlabel('theta_1');
+    ylabel('theta_2');
+    
+    beta = alpha_1 + alpha_2 + alpha_3 + r_1 + r_2 + r_3;
+    mean_alpha1 = (alpha_1+r_1)/beta;
+    mean_alpha2 = (alpha_2+r_2)/beta;
+    mean_alpha3 = (alpha_3+r_3)/beta;
+
+    var_alpha1 = (alpha_1+r_1)*(beta - (alpha_1+r_1))/(beta^2*(beta+1));
+    var_alpha2 = (alpha_2+r_2)*(beta - (alpha_2+r_2))/(beta^2*(beta+1));
+    var_alpha3 = (alpha_3+r_3)*(beta - (alpha_3+r_3))/(beta^2*(beta+1));
+    
+    meanVec = [mean_alpha1 mean_alpha2 mean_alpha3]
+    varianceVec = [var_alpha1 var_alpha2 var_alpha3]
     
     
 end
 
-beta = alpha_1 + alpha_2 + alpha_3;
-mean_alpha1 = alpha_1/beta;
-mean_alpha2 = alpha_2/beta;
-mean_alpha3 = alpha_3/beta;
 
-var_alpha1 = alpha_1*(beta - alpha_1)/(beta^2*(beta+1));
-var_alpha2 = alpha_2*(beta - alpha_2)/(beta^2*(beta+1));
-var_alpha3 = alpha_3*(beta - alpha_3)/(beta^2*(beta+1));
 
