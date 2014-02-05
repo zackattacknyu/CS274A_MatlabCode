@@ -18,6 +18,10 @@ remainingTosses = geornd(q);
 %preallocating data and prob arrays
 data = 1:1:N;
 prob = 1:1:N;
+mpe = 1:1:N;
+
+%number of heads in the current window
+rValue = 0;
 
 %toss the coin
 for i=1:N
@@ -40,6 +44,31 @@ for i=1:N
     
     %decrement the remaining tosses before the switch
     remainingTosses = remainingTosses - 1;
+    
+    %update the alpha/beta and r value at time t
+    if(data(i) == 1)
+       rValue = rValue + 1;
+       alpha = alpha + 1;
+    else
+        beta = beta + 1;
+    end
+    
+    
+    if (i > k)
+        
+        %update the alpha/beta and r values
+        if(data(i-k) == 1)
+           rValue = rValue - 1; 
+           alpha = alpha - 1;
+        else
+            beta = beta - 1;
+        end
+
+    end
+    
+    %update the probabilities
+    mpe(i) = (alpha + rValue)/(alpha + k + beta);
+    
 end
 fprintf('\n');
 % plot the coin tosses, true probabilities, and estimated posterior mean
@@ -47,6 +76,6 @@ xvalues = 1:N;
 figure; plot(xvalues,data,'r.'); % plot data, the binary coin tosses (0 or 1)
 hold on;
 plot(xvalues,prob,'b*'); % plot the true coin probability for each turn
-%plot(xvalues,mpe,'g:','linewidth',3); % plot the estimated posterior mean
+plot(xvalues,mpe,'g:','linewidth',3); % plot the estimated posterior mean
 axis([0 N+1 -0.1 1.1]);
 
