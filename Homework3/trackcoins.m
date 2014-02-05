@@ -78,4 +78,5 @@ hold on;
 plot(xvalues,prob,'b*'); % plot the true coin probability for each turn
 plot(xvalues,mpe,'g:','linewidth',3); % plot the estimated posterior mean
 axis([0 N+1 -0.1 1.1]);
+title(strcat('p=',num2str(p),' q=',num2str(q),' k=',num2str(k)));
 

@@ -17,7 +17,7 @@ N = 1000;
 alpha = 1;
 beta = 1;
 
-part = 1;
+part = 6;
 
 if(part == 1)
     p = 0.9;
