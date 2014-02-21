@@ -21,5 +21,9 @@ function [weights] = logistic_train(data,labels,epsilon,maxiterations)
 %   weights = (d+1) x 1 vector of weights where the weights
 %           correspond to the columns of "data"
 
+%Using equations 17.4.28 and 17.4.30 for the code
+
+load('HW4data.mat')
+
 end
 
