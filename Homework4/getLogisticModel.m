@@ -1,5 +1,5 @@
 %config type variables
-N = 100;
+N = 1000;
 numIterations = 100;
 epsilon = 10^(-5);
 load('HW4data.mat');
