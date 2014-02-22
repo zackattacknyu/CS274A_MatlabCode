@@ -66,4 +66,8 @@ for iteration = 1:numIterations
 
 end
 
-plot(iterationNumbers,trainingAccuracy,iterationNumbers,testAccuracy);
+plot(iterationNumbers,trainingAccuracy,'g',iterationNumbers,testAccuracy,'r');
+title('Classification Error during different iterations');
+xlabel('Iteration Number');
+ylabel('Accuracy of Classifier');
+legend('Training Data Accuracy','Test Data Accuracy');
