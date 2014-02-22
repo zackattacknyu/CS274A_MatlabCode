@@ -23,6 +23,10 @@ testAccuracy = [];
 trainingLogLikelihood = [];
 testLogLikelihood = [];
 
+firstWeight = [0];
+secondWeight = [0];
+lastWeight = [0];
+
 
 %get the initial accuracies
 trainingAccuracy = [trainingAccuracy getAccuracy(data(1:N,:),labels(1:N),b_current)];
@@ -71,6 +75,10 @@ for iteration = 1:numIterations
     %make vector for iteration numbers to be used in plotting
     iterationNumbers = [iterationNumbers iteration];
     
+    firstWeight = [firstWeight b_current(1)];
+    secondWeight = [secondWeight b_current(2)];
+    lastWeight = [lastWeight b_current(d)];
+    
     totalChange = sum(abs(b_change));
     if(totalChange < minError)
         break;
@@ -78,16 +86,23 @@ for iteration = 1:numIterations
 
 end
 
-subplot(1,2,1);
+subplot(1,3,1);
 plot(iterationNumbers,trainingAccuracy,'g',iterationNumbers,testAccuracy,'r');
 title('Classification Error during different iterations');
 xlabel('Iteration Number');
 ylabel('Accuracy of Classifier');
 legend('Training Data Accuracy','Test Data Accuracy');
 
-subplot(1,2,2);
+subplot(1,3,2);
 plot(iterationNumbers,trainingLogLikelihood,'g',iterationNumbers,testLogLikelihood,'r');
 title('Log Likelihood during different iterations');
 xlabel('Iteration Number');
 ylabel('Log-Likelihood');
 legend('Training Data Log Likelihood','Test Data Log Likelihood');
+
+subplot(1,3,3);
+plot(iterationNumbers,firstWeight,'g',iterationNumbers,secondWeight,'r',iterationNumbers,lastWeight,'b');
+title('Weights during different iterations');
+xlabel('Iteration Number');
+ylabel('Weight Value');
+legend('First Weight','Second Weight','Last Weight');
