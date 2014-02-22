@@ -17,8 +17,13 @@ b0 = zeros(d,1); %initial term for convergence
 b_current = b0;
 %b_history = zeros(d,numIterations+1);
 %b_history(:,1) = b0;
-trainingAccuracy = zeros(numIterations,1);
-testAccuracy = zeros(numIterations,1);
+trainingAccuracy = [];
+testAccuracy = [];
+
+%get the initial accuracies
+trainingAccuracy = [trainingAccuracy getAccuracy(data(1:N,:),labels(1:N),b_current)];
+testAccuracy = [testAccuracy getAccuracy(test_data(1:1000,:),labels(1001:2000),b_current)];
+iterationNumbers = [0];
 
 for iteration = 1:numIterations
     
@@ -46,39 +51,13 @@ for iteration = 1:numIterations
     b_current = b_current + b_change; 
     
     %find the classification accuracy for training data
-    numAccurate = 0;
-    currentClassification = 0;
-    for row = 1:N
-        currentDataRow = data(row,:);
-        if( dot(currentDataRow,b_current) > 0)
-           currentClassification = 1; 
-        else
-           currentClassification = 0;
-        end
-        if(labels(row) == currentClassification)
-           numAccurate = numAccurate + 1; 
-        end
-    end
-    currentAccuracy = numAccurate/N;
-    trainingAccuracy(iteration) = currentAccuracy;
+    trainingAccuracy = [trainingAccuracy getAccuracy(data(1:N,:),labels(1:N),b_current)];
     
     %find the classification accuracy for test data
-    numAccurate = 0;
-    currentClassification = 0;
-    for row = 1:1000
-        currentDataRow = test_data(row,:);
-        if( dot(currentDataRow,b_current) > 0)
-           currentClassification = 1; 
-        else
-           currentClassification = 0;
-        end
-        if(labels(row + 1000) == currentClassification)
-           numAccurate = numAccurate + 1; 
-        end
-    end
-    currentAccuracy = numAccurate/(1000);
-    testAccuracy(iteration) = currentAccuracy;
+    testAccuracy = [testAccuracy getAccuracy(test_data(1:1000,:),labels(1001:2000),b_current)];
     
+    %make vector for iteration numbers to be used in plotting
+    iterationNumbers = [iterationNumbers iteration];
     
     totalChange = sum(abs(b_change));
     if(totalChange < minError)
@@ -86,3 +65,5 @@ for iteration = 1:numIterations
     end
 
 end
+
+plot(iterationNumbers,trainingAccuracy,iterationNumbers,testAccuracy);
