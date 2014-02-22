@@ -1,18 +1,15 @@
 %config type variables
-N = 20;
-numIterations = 10;
+N = 100;
+numIterations = 100;
 epsilon = 10^(-5);
-
 load('HW4data.mat');
-
-%This is used as a reference
-%http://socserv.mcmaster.ca/jfox/Courses/UCLA/logistic-regression-notes.pdf
 
 dataSize = size(features); 
 numDataPoints = dataSize(1);
 d = dataSize(2) + 1; %number of features
 all_data = [features ones(numDataPoints,1)]; %adds the intercept term
 data = all_data(1:N,:);
+minError = N*epsilon;
 
 
 b0 = zeros(d,1); %initial term for convergence
@@ -25,9 +22,10 @@ for iteration = 1:numIterations
     %vector of fitted response probabilities
     pVector = zeros(N,1);
     for row = 1:N
-        dotProd = dot( b_current, data(row,:) );
+        currentDataRow = data(row,:);
+        dotProd = dot( b_current, currentDataRow );
         pVecDenom = 1 + exp(-1*dotProd);
-       pVector(row) = 1/pVecDenom; 
+        pVector(row) = 1/pVecDenom; 
     end
 
     %diffVector is the difference between y and the fitted response
@@ -38,14 +36,14 @@ for iteration = 1:numIterations
     vMatrix = diag(pVector.*(1-pVector));
 
     %this is X'V*X
-    hessian = (data')*vMatrix*data;
+    hessian = (transpose(data))*vMatrix*data;
 
-    b_change = inv(hessian)*(data')*diffVector;
+    b_change = inv(hessian)*(transpose(data))*diffVector;
 
-    b_current = b_current - b_change; 
+    b_current = b_current + b_change; 
     
     totalChange = sum(abs(b_change));
-    if(totalChange < N*epsilon)
+    if(totalChange < minError)
         break;
     end
 
