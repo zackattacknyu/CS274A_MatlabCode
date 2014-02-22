@@ -20,9 +20,17 @@ b_current = b0;
 trainingAccuracy = [];
 testAccuracy = [];
 
+trainingLogLikelihood = [];
+testLogLikelihood = [];
+
+
 %get the initial accuracies
 trainingAccuracy = [trainingAccuracy getAccuracy(data(1:N,:),labels(1:N),b_current)];
 testAccuracy = [testAccuracy getAccuracy(test_data(1:1000,:),labels(1001:2000),b_current)];
+
+%get the initial log likelihoods
+trainingLogLikelihood = [trainingLogLikelihood getLogLikelihood(data(1:N,:),labels(1:N),b_current)];
+testLogLikelihood = [testLogLikelihood getLogLikelihood(test_data(1:1000,:),labels(1001:2000),b_current)];
 iterationNumbers = [0];
 
 for iteration = 1:numIterations
@@ -56,6 +64,10 @@ for iteration = 1:numIterations
     %find the classification accuracy for test data
     testAccuracy = [testAccuracy getAccuracy(test_data(1:1000,:),labels(1001:2000),b_current)];
     
+    trainingLogLikelihood = [trainingLogLikelihood getLogLikelihood(data(1:N,:),labels(1:N),b_current)];
+    
+    testLogLikelihood = [testLogLikelihood getLogLikelihood(test_data(1:1000,:),labels(1001:2000),b_current)];
+    
     %make vector for iteration numbers to be used in plotting
     iterationNumbers = [iterationNumbers iteration];
     
@@ -66,8 +78,16 @@ for iteration = 1:numIterations
 
 end
 
+subplot(1,2,1);
 plot(iterationNumbers,trainingAccuracy,'g',iterationNumbers,testAccuracy,'r');
 title('Classification Error during different iterations');
 xlabel('Iteration Number');
 ylabel('Accuracy of Classifier');
 legend('Training Data Accuracy','Test Data Accuracy');
+
+subplot(1,2,2);
+plot(iterationNumbers,trainingLogLikelihood,'g',iterationNumbers,testLogLikelihood,'r');
+title('Log Likelihood during different iterations');
+xlabel('Iteration Number');
+ylabel('Log-Likelihood');
+legend('Training Data Log Likelihood','Test Data Log Likelihood');
