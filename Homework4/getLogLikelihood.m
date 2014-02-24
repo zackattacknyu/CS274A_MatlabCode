@@ -1,4 +1,4 @@
-function [ logLikelihood ] = getAccuracy( featureData,labelData,currentWeights )
+function [ logLikelihood ] = getLogLikelihood( featureData,labelData,currentWeights )
 %GETACCURACY gets the log-likelihood of the classification model
 %   Detailed explanation goes here
 
