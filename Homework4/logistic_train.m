@@ -115,21 +115,21 @@ end
 
 weights = b_current;
 
-subplot(1,3,1);
+figure
 plot(iterationNumbers,trainingAccuracy,'g',iterationNumbers,testAccuracy,'r');
 title('Classification Error during different iterations');
 xlabel('Iteration Number');
 ylabel('Accuracy of Classifier');
 legend('Training Data Accuracy','Test Data Accuracy');
 
-subplot(1,3,2);
+figure
 plot(iterationNumbers,trainingLogLikelihood,'g',iterationNumbers,testLogLikelihood,'r');
 title('Log Likelihood during different iterations');
 xlabel('Iteration Number');
 ylabel('Log-Likelihood');
 legend('Training Data Log Likelihood','Test Data Log Likelihood');
 
-subplot(1,3,3);
+figure
 plot(iterationNumbers,firstWeight,'g',iterationNumbers,secondWeight,'r',iterationNumbers,lastWeight,'b');
 title('Weights during different iterations');
 xlabel('Iteration Number');
