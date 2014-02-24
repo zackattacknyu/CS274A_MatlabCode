@@ -24,6 +24,8 @@ function [weights] = logistic_train(data,labels,epsilon,maxiterations)
 %config type variables
 N = 20;
 
+%TODO: Set default values
+%
 dataSize = size(data); 
 numDataPoints = dataSize(1);
 d = dataSize(2) + 1; %number of features
