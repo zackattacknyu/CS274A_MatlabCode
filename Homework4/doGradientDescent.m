@@ -5,6 +5,10 @@ epsilon = 10^(-5);
 stepSize = 10^(-4);
 
 %config type variables
+
+%TODO: Set stepSize based on N value as it seems that smaller step sizes
+%       are needed when the amount of data points is larger
+%       For N=100, the stepSize should be 10^(-4)
 N = 100;
 
 dataSize = size(data); 
