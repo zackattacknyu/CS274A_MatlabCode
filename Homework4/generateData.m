@@ -1,5 +1,5 @@
 numEntries = 2000;
-features = rand([numEntries 2]);
+features = normrnd(0.5,0.8,[numEntries 10]);
 labels = zeros([numEntries 1]);
 
 for row = 1:numEntries

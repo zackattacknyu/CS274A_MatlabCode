@@ -1,6 +1,6 @@
 %config type variables
-N = 1000;
-numIterations = 100;
+N = 50;
+numIterations = 50;
 epsilon = 10^(-5);
 load('HW4data.mat');
 
@@ -57,7 +57,12 @@ for iteration = 1:numIterations
 
     %this is X'V*X
     hessian = (transpose(data))*vMatrix*data;
-
+    
+    %if it is nearly singular, then the function has converged
+    if(det(hessian) < epsilon)
+       break; 
+    end
+    
     b_change = inv(hessian)*(transpose(data))*diffVector;
     
     b_current = b_current + b_change; 
