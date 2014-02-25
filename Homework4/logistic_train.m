@@ -22,10 +22,16 @@ function [weights] = logistic_train(data,labels,epsilon,maxiterations)
 %           correspond to the columns of "data"
 
 %config type variables
-N = 20;
+N = 50;
 
-%TODO: Set default values
-%
+if(nargin < 4)
+   maxiterations = 1000; 
+end
+
+if(nargin < 3)
+   epsilon = 10^(-5); 
+end
+
 dataSize = size(data); 
 numDataPoints = dataSize(1);
 d = dataSize(2) + 1; %number of features
@@ -86,9 +92,12 @@ for iteration = 1:maxiterations
     
     numIterations = numIterations + 1;
     
+    %get the new predictions to compare them against the old predictions
     dotProdVector_new = data(1:N,:)*b_current;
     pVector_new = 1./(1+exp(-1.*dotProdVector_new));
     totalChange = sum(abs(pVector_new-pVector));
+    
+    %stopping condition
     if(totalChange < minError)
         break;
     end
