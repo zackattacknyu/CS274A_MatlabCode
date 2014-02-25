@@ -21,8 +21,14 @@ function [weights] = logistic_train(data,labels,epsilon,maxiterations)
 %   weights = (d+1) x 1 vector of weights where the weights
 %           correspond to the columns of "data"
 
-%config type variables
-N = 50;
+%config variables
+N = 1000;
+
+%This will be used to toggle the method used
+%   1: Hessian matrix
+%   2: Gradient Descent
+%   3: Stochastic Gradient Descent
+method = 2;
 
 if(nargin < 4)
    maxiterations = 1000; 
@@ -53,6 +59,13 @@ lastWeight = ones(1,maxiterations);
 iterationNumbers = ones(1,maxiterations);
 numIterations = 0;
 
+if(method == 2) %gradient descent initial step size
+    stepSize = 0.005;
+elseif(method == 3) %Stochastic gradient descent init step size
+    stepSize = 350/N;
+end
+
+
 for iteration = 1:maxiterations
     
     %vector of fitted response probabilities
@@ -62,14 +75,38 @@ for iteration = 1:maxiterations
     %diffVector is the difference between y and the fitted response
     %   probabilities
     diffVector = labels(1:N,:)-pVector;
-
-    %vMatrix is a diagonal matrix where each entry is p(1-p)
-    vMatrix = diag(pVector.*(1-pVector));
-
-    %this is X'V*X
-    hessian = (transpose(data))*vMatrix*data;
     
-    b_change = hessian\(transpose(data))*diffVector;
+    if(method == 1) %Hessian matrix method
+        %vMatrix is a diagonal matrix where each entry is p(1-p)
+        vMatrix = diag(pVector.*(1-pVector));
+
+        %this is X'V*X
+        hessian = (transpose(data))*vMatrix*data;
+
+        b_change = hessian\(transpose(data))*diffVector;
+        
+    elseif(method == 2) %Gradient descent
+        
+        gradient = transpose(data)*diffVector;
+        b_change = stepSize*gradient;
+        stepSize = stepSize*0.9;
+        
+    elseif(method == 3) %Stochastic Gradient Descent
+        
+        %vector of fitted response probabilities
+        currentDataRow = data(iteration,:);
+        dotProd = dot( b_current, currentDataRow );
+        pValue = 1/(1 + exp(-1*dotProd));
+
+        %diffValue corresponds to (f_i - c_i) from class notes
+        diffValue = labels(iteration)-pValue;
+
+        gradient = transpose(data(iteration,:))*diffValue;
+
+        b_change = stepSize*gradient;
+        stepSize = stepSize*0.99;
+        
+    end
     
     b_current = b_current + b_change; 
     
@@ -92,15 +129,22 @@ for iteration = 1:maxiterations
     
     numIterations = numIterations + 1;
     
-    %get the new predictions to compare them against the old predictions
-    dotProdVector_new = data(1:N,:)*b_current;
-    pVector_new = 1./(1+exp(-1.*dotProdVector_new));
-    totalChange = sum(abs(pVector_new-pVector));
-    
-    %stopping condition
-    if(totalChange < minError)
-        break;
+    %if it is Stochastic Gradient Descent, then we run through all the data
+    %   otherwise, we check here if we need to stop the loop
+    if(method ~= 3)
+        
+        %get the new predictions to compare them against the old predictions
+        dotProdVector_new = data(1:N,:)*b_current;
+        pVector_new = 1./(1+exp(-1.*dotProdVector_new));
+        totalChange = sum(abs(pVector_new-pVector));
+
+        %stopping condition
+        if(totalChange < minError)
+            break;
+        end
+        
     end
+    
 
 end
 
