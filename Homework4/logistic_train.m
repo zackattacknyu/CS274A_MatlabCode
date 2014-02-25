@@ -22,7 +22,7 @@ function [weights] = logistic_train(data,labels,epsilon,maxiterations)
 %           correspond to the columns of "data"
 
 %config type variables
-N = 20;
+N = 1000;
 
 %TODO: Set default values
 %
@@ -62,14 +62,9 @@ iterationNumbers = [0];
 for iteration = 1:maxiterations
     
     %vector of fitted response probabilities
-    pVector = zeros(N,1);
-    for row = 1:N
-        currentDataRow = data(row,:);
-        dotProd = dot( b_current, currentDataRow );
-        pVecDenom = 1 + exp(-1*dotProd);
-        pVector(row) = 1/pVecDenom; 
-    end
-
+    dotProdVector = data(1:N,:)*b_current;
+    pVector = 1./(1+exp(-1.*dotProdVector));
+    
     %diffVector is the difference between y and the fitted response
     %   probabilities
     diffVector = labels(1:N,:)-pVector;
@@ -82,7 +77,7 @@ for iteration = 1:maxiterations
     
     %if it is nearly singular, then the function has converged
     if(det(hessian) < epsilon)
-       break; 
+       %break; 
     end
     
     b_change = inv(hessian)*(transpose(data))*diffVector;
