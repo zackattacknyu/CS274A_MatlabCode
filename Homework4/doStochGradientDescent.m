@@ -81,7 +81,7 @@ for iteration = 1:N
     if(totalChange < minError)
         break;
     end
-
+    %Suggestion: make totalChange = 0.99*totalChange and start at 350
 end
 
 weights = b_current;

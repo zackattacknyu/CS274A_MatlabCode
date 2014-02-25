@@ -22,7 +22,7 @@ function [weights] = logistic_train(data,labels,epsilon,maxiterations)
 %           correspond to the columns of "data"
 
 %config type variables
-N = 1000;
+N = 20;
 
 %TODO: Set default values
 %
@@ -34,30 +34,18 @@ data = all_data(1:N,:);
 minError = N*epsilon;
 test_data = all_data(1001:2000,:);
 
-
 b0 = zeros(d,1); %initial term for convergence
 b_current = b0;
-%b_history = zeros(d,numIterations+1);
-%b_history(:,1) = b0;
-trainingAccuracy = [];
-testAccuracy = [];
 
-trainingLogLikelihood = [];
-testLogLikelihood = [];
-
-firstWeight = [0];
-secondWeight = [0];
-lastWeight = [0];
-
-
-%get the initial accuracies
-trainingAccuracy = [trainingAccuracy getAccuracy(data(1:N,:),labels(1:N),b_current)];
-testAccuracy = [testAccuracy getAccuracy(test_data(1:1000,:),labels(1001:2000),b_current)];
-
-%get the initial log likelihoods
-trainingLogLikelihood = [trainingLogLikelihood getLogLikelihood(data(1:N,:),labels(1:N),b_current)];
-testLogLikelihood = [testLogLikelihood getLogLikelihood(test_data(1:1000,:),labels(1001:2000),b_current)];
-iterationNumbers = [0];
+trainingAccuracy = ones(1,maxiterations);
+testAccuracy = ones(1,maxiterations);
+trainingLogLikelihood = ones(1,maxiterations);
+testLogLikelihood = ones(1,maxiterations);
+firstWeight = ones(1,maxiterations);
+secondWeight = ones(1,maxiterations);
+lastWeight = ones(1,maxiterations);
+iterationNumbers = ones(1,maxiterations);
+numIterations = 0;
 
 for iteration = 1:maxiterations
     
@@ -75,38 +63,46 @@ for iteration = 1:maxiterations
     %this is X'V*X
     hessian = (transpose(data))*vMatrix*data;
     
-    %if it is nearly singular, then the function has converged
-    if(det(hessian) < epsilon)
-       %break; 
-    end
-    
-    b_change = inv(hessian)*(transpose(data))*diffVector;
+    b_change = hessian\(transpose(data))*diffVector;
     
     b_current = b_current + b_change; 
     
     %find the classification accuracy for training data
-    trainingAccuracy = [trainingAccuracy getAccuracy(data(1:N,:),labels(1:N),b_current)];
+    trainingAccuracy(iteration) = getAccuracy(data(1:N,:),labels(1:N),b_current);
     
     %find the classification accuracy for test data
-    testAccuracy = [testAccuracy getAccuracy(test_data(1:1000,:),labels(1001:2000),b_current)];
+    testAccuracy(iteration) = getAccuracy(test_data(1:1000,:),labels(1001:2000),b_current);
     
-    trainingLogLikelihood = [trainingLogLikelihood getLogLikelihood(data(1:N,:),labels(1:N),b_current)];
+    trainingLogLikelihood(iteration) = getLogLikelihood(data(1:N,:),labels(1:N),b_current);
     
-    testLogLikelihood = [testLogLikelihood getLogLikelihood(test_data(1:1000,:),labels(1001:2000),b_current)];
+    testLogLikelihood(iteration) = getLogLikelihood(test_data(1:1000,:),labels(1001:2000),b_current);
     
     %make vector for iteration numbers to be used in plotting
-    iterationNumbers = [iterationNumbers iteration];
+    iterationNumbers(iteration) = iteration;
     
-    firstWeight = [firstWeight b_current(1)];
-    secondWeight = [secondWeight b_current(2)];
-    lastWeight = [lastWeight b_current(d)];
+    firstWeight(iteration) = b_current(1);
+    secondWeight(iteration) = b_current(2);
+    lastWeight(iteration) = b_current(d);
     
-    totalChange = sum(abs(b_change));
+    numIterations = numIterations + 1;
+    
+    dotProdVector_new = data(1:N,:)*b_current;
+    pVector_new = 1./(1+exp(-1.*dotProdVector_new));
+    totalChange = sum(abs(pVector_new-pVector));
     if(totalChange < minError)
         break;
     end
 
 end
+
+trainingAccuracy = trainingAccuracy(1,1:numIterations);   
+testAccuracy = testAccuracy(1,1:numIterations);
+trainingLogLikelihood = trainingLogLikelihood(1,1:numIterations);
+testLogLikelihood = testLogLikelihood(1,1:numIterations);
+iterationNumbers = iterationNumbers(1,1:numIterations);
+firstWeight = firstWeight(1,1:numIterations);
+secondWeight = secondWeight(1,1:numIterations);
+lastWeight = lastWeight(1,1:numIterations);
 
 weights = b_current;
 
