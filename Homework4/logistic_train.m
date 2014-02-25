@@ -21,14 +21,11 @@ function [weights] = logistic_train(data,labels,epsilon,maxiterations)
 %   weights = (d+1) x 1 vector of weights where the weights
 %           correspond to the columns of "data"
 
-%config variables
-N = 1000;
-
-%This will be used to toggle the method used
-%   1: Hessian matrix
+%This will be used to toggle the method used to train the classifier
+%   1: Newton Method
 %   2: Gradient Descent
 %   3: Stochastic Gradient Descent
-method = 2;
+method = 1;
 
 if(nargin < 4)
    maxiterations = 1000; 
@@ -36,6 +33,20 @@ end
 
 if(nargin < 3)
    epsilon = 10^(-5); 
+end
+
+%number of data points used
+%For Gradient Descent and Stochastic Gradient Descent, 1000 will 
+%     automatically be used
+N = 1000;
+if(method ~= 1)
+   N = 1000; 
+end
+
+%In case of Stochastic Gradient Descent, this ensures that all the data
+%   points will be run through
+if(method == 3)
+   maxiterations = 1000; 
 end
 
 dataSize = size(data); 

@@ -1,3 +1,4 @@
+%BAD CODE, DO NOT USE
 load('HW4data.mat');
 data = features;
 maxiterations = 1000;
