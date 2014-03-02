@@ -5,6 +5,8 @@ load('dataset3.txt');
 plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2));
 
+
+
 maxiterations = 10;
 
 %does k-means
@@ -12,6 +14,9 @@ dataset = dataset1;
 k=2;
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
+
+%randomizes the order of the operant data set
+dataset = dataset(randperm(numPoints),:);
 
 randOrder = randperm(numPoints);
 meanRows = randOrder(1:k);
