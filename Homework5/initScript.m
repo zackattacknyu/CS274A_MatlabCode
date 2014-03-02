@@ -44,3 +44,7 @@ for dataPoint = 1:numPoints
 end
 
 plot(cluster1Rows(:,1),cluster1Rows(:,2),'r.',cluster2Rows(:,1),cluster2Rows(:,2),'b.');
+
+%reassign the clusters
+currentClusters(1,:) = [mean(cluster1Rows(:,1)) mean(cluster1Rows(:,2))];
+currentClusters(2,:) = [mean(cluster2Rows(:,1)) mean(cluster2Rows(:,2))];
