@@ -20,31 +20,43 @@ for row = 1:k
     currentClusters(row,:) = dataset(meanRows(row),:);
 end
 
-%loop through the data points finding the closest cluster
+
 currentClusterAssignments = zeros(numPoints,1);
-currentClusterAssn = 1;
-cluster1Rows = [];
-cluster2Rows = [];
-for dataPoint = 1:numPoints
-    currentMinDistance = 20;
-   for cluster = 1:k
-       currentDistance = norm(currentClusters(cluster,:)-dataset(dataPoint,:));
-       if(currentDistance < currentMinDistance)
-          currentClusterAssignments(dataPoint,1) = cluster; 
-          currentClusterAssn = cluster;
+
+for iteration = 1:3
+    currentNumChanged = 0;
+    cluster1Rows = [];
+    cluster2Rows = [];
+    
+    %loop through the data points finding the closest cluster for each point
+    for dataPoint = 1:numPoints
+        currentMinDistance = 20;
+       for cluster = 1:k
+           currentDistance = norm(currentClusters(cluster,:)-dataset(dataPoint,:));
+           if(currentDistance < currentMinDistance)
+               if(currentClusterAssignments(dataPoint,1) ~= cluster)
+                   currentClusterAssignments(dataPoint,1) = cluster;
+                   currentNumChanged = currentNumChanged + 1;
+               end
+              currentMinDistance = currentDistance;
+           end
+           
        end
-       currentMinDistance = currentDistance;
-   end
-   
-   if(currentClusterAssn == 1)
-      cluster1Rows = [cluster1Rows;dataset(dataPoint,:)]; 
-   elseif(currentClusterAssn == 2)
-       cluster2Rows = [cluster2Rows;dataset(dataPoint,:)]; 
-   end
+
+       if(currentClusterAssignments(dataPoint,1) == 1)
+          cluster1Rows = [cluster1Rows;dataset(dataPoint,:)]; 
+       elseif(currentClusterAssignments(dataPoint,1) == 2)
+           cluster2Rows = [cluster2Rows;dataset(dataPoint,:)]; 
+       end
+    end
+
+    
+    plot(cluster1Rows(:,1),cluster1Rows(:,2),'r.',...
+        cluster2Rows(:,1),cluster2Rows(:,2),'b.');
+    figure
+    
+    %reassign the clusters
+    currentClusters(1,:) = [mean(cluster1Rows(:,1)) mean(cluster1Rows(:,2))];
+    currentClusters(2,:) = [mean(cluster2Rows(:,1)) mean(cluster2Rows(:,2))];
 end
 
-plot(cluster1Rows(:,1),cluster1Rows(:,2),'r.',cluster2Rows(:,1),cluster2Rows(:,2),'b.');
-
-%reassign the clusters
-currentClusters(1,:) = [mean(cluster1Rows(:,1)) mean(cluster1Rows(:,2))];
-currentClusters(2,:) = [mean(cluster2Rows(:,1)) mean(cluster2Rows(:,2))];
