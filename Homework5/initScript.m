@@ -5,6 +5,8 @@ load('dataset3.txt');
 plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2));
 
+maxiterations = 10;
+
 %does k-means
 dataset = dataset1;
 k=2;
@@ -24,7 +26,7 @@ end
 
 currentClusterAssignments = zeros(numPoints,1);
 
-for iteration = 1:4
+for iteration = 1:maxiterations
     currentNumChanged = 0;
     cluster1Rows = [];
     cluster2Rows = [];
@@ -48,14 +50,17 @@ for iteration = 1:4
            cluster2Rows = [cluster2Rows;dataset(dataPoint,:)]; 
        end
     end
+    
+    %it has converged
+    if(currentNumChanged < 1)
+       break; 
+    end
 
-    figure
-    plot(cluster1Rows(:,1),cluster1Rows(:,2),'r.',...
-        cluster2Rows(:,1),cluster2Rows(:,2),'b.');
-    
-    
     %reassign the clusters
     currentClusters(1,:) = [mean(cluster1Rows(:,1)) mean(cluster1Rows(:,2))];
     currentClusters(2,:) = [mean(cluster2Rows(:,1)) mean(cluster2Rows(:,2))];
 end
+
+plot(cluster1Rows(:,1),cluster1Rows(:,2),'r.',...
+        cluster2Rows(:,1),cluster2Rows(:,2),'b.');
 
