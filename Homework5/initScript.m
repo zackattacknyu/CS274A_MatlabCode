@@ -14,6 +14,6 @@ r = 10;
 [finalCluster1Rows, finalCluster2Rows] = kMeansCluster(dataset,k,r,maxiterations);
 
 figure
-plot(finalCluster1Rows(:,1),finalCluster1Rows(:,2),'r.',...
-        finalCluster2Rows(:,1),finalCluster2Rows(:,2),'b.');
+plot(finalCluster1Rows(:,1),finalCluster1Rows(:,2),'.',...
+        finalCluster2Rows(:,1),finalCluster2Rows(:,2),'o');
 
