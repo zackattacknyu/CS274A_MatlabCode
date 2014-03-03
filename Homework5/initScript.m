@@ -25,18 +25,41 @@ plot(finalCluster1Rows(:,1),finalCluster1Rows(:,2),'.',...
 
 %randomizes the order of the operant data set
 dataset = dataset(randperm(numPoints),:);
-
-%method 1
-K = 2;
-memberProbs = initValuesMethod1(dataset,K);
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
+K = 2;
 
-%init M step
-alphaValues = computeNewAlphaValues(numPoints,memberProbs);
-muVector = computeNewMuValues(dataset,memberProbs,K);
-sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
+method = 2;
+
+if(method == 1)
+    
+    %method 1, random membership probabilities
+    
+    memberProbs = initValuesMethod1(dataset,K);
+    %init M step
+    alphaValues = computeNewAlphaValues(numPoints,memberProbs);
+    muVector = computeNewMuValues(dataset,memberProbs,K);
+    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
+    
+elseif(method == 2)
+   
+    %method 2, random points for the means
+    randOrder = randperm(numPoints);
+    muVector = dataset(randOrder(1:K),:);
+    overallCov = cov(dataset);
+    sigmaVector = zeros([numDimensions numDimensions K]);
+    for k = 1:K
+       sigmaVector(:,:,k) = overallCov; 
+    end
+    alphaValues = rand([1 K]);
+    alphaValues = alphaValues./sum(alphaValues);
+    
+elseif(method == 3)
+    
+    %put the 3rd method code here
+    
+end
 
 firstLikelihood = computeLogLikelihood( dataset, alphaValues, K...
         , muVector, sigmaVector );
