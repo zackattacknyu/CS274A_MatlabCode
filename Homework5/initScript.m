@@ -37,3 +37,5 @@ sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
 
 %first E values
 memberProbs = computeMemberProbs(dataset,alphaValues,K,muVector,sigmaVector);
+
+initLikelihood = computeLogLikelihood( dataset, alphaValues, K, muVector, sigmaVector );
