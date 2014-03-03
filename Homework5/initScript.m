@@ -13,13 +13,16 @@ k=2;
 maxiterations = 10;
 r = 10;
 
-[finalClusterRows] = kMeansCluster(dataset,k,r,maxiterations);
+[finalClusterRows,finalNumPointsCluster,finalClusters] = ...
+    kMeansCluster(dataset,k,r,maxiterations);
 
 figure
-plot(finalCluster1Rows(:,1),finalCluster1Rows(:,2),'.',...
-        finalCluster2Rows(:,1),finalCluster2Rows(:,2),'o');
-
-break;
+%{
+plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
+    finalClusterRows(1:finalNumPointsCluster(1),2,1),'.',...
+        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
+        finalClusterRows(1:finalNumPointsCluster(1),2,2),'o');
+%}
 
 %randomizes the order of the operant data set
 dataset = dataset(randperm(numPoints),:);
@@ -28,7 +31,7 @@ numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
 K = 2;
 
-method = 2;
+method = 3;
 
 if(method == 1)
     
@@ -56,6 +59,14 @@ elseif(method == 2)
 elseif(method == 3)
     
     %put the 3rd method code here
+    muVector = finalClusters;
+    overallCov = cov(dataset);
+    sigmaVector = zeros([numDimensions numDimensions K]);
+    for k = 1:K
+       sigmaVector(:,:,k) = overallCov; 
+    end
+    alphaValues = rand([1 K]);
+    alphaValues = alphaValues./sum(alphaValues);
     
 end
 

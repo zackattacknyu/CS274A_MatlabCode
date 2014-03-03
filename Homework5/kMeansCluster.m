@@ -1,4 +1,4 @@
-function [ finalClusterRows] = kMeansCluster( dataset, k, r, maxiterations )
+function [ finalClusterRows, finalNumPointsCluster, finalClusters] = kMeansCluster( dataset, k, r, maxiterations )
 %KMEANSCLUSTER Does k-means clustering of the dataset
 %   
 
@@ -18,7 +18,7 @@ for instance = 1:r
     meanRows = randOrder((k*instance - k + 1):(k*instance));
 
     %assign the cluster rows randomly
-    currentClusters = zeros(k,2);
+    currentClusters = zeros(k,numDimensions);
     currentClusterDistances = zeros(k,1);
     for row = 1:k
         currentClusters(row,:) = dataset(meanRows(row),:);
@@ -71,6 +71,8 @@ for instance = 1:r
     
     if(currentSumOfSquares < currentMinSumOfSquares)
         finalClusterRows = clusterRows;
+        finalNumPointsCluster = numPointsCluster;
+        finalClusters = currentClusters;
     end 
     
 end
