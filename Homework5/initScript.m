@@ -13,15 +13,13 @@ k=2;
 maxiterations = 10;
 r = 10;
 
-%{
-UNCOMMENT AFTER EM IS CODED
-[finalCluster1Rows, finalCluster2Rows] = kMeansCluster(dataset,k,r,maxiterations);
+[finalClusterRows] = kMeansCluster(dataset,k,r,maxiterations);
 
 figure
 plot(finalCluster1Rows(:,1),finalCluster1Rows(:,2),'.',...
         finalCluster2Rows(:,1),finalCluster2Rows(:,2),'o');
 
-%}
+break;
 
 %randomizes the order of the operant data set
 dataset = dataset(randperm(numPoints),:);

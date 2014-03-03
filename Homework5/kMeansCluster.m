@@ -1,10 +1,11 @@
-function [ finalCluster1Rows, finalCluster2Rows ] = kMeansCluster( dataset, k, r, maxiterations )
+function [ finalClusterRows] = kMeansCluster( dataset, k, r, maxiterations )
 %KMEANSCLUSTER Does k-means clustering of the dataset
 %   
 
 %does k-means
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
+numDimensions = datasetSize(2);
 
 %randomizes the order of the operant data set
 dataset = dataset(randperm(numPoints),:);
@@ -24,12 +25,12 @@ for instance = 1:r
     end
 
     currentClusterAssignments = zeros(numPoints,1);
-
+    
     for iteration = 1:maxiterations
         currentNumChanged = 0;
         currentSumOfSquares = 0;
-        cluster1Rows = [];
-        cluster2Rows = [];
+        numPointsCluster = zeros(1,k);
+        clusterRows = zeros(numPoints,2,k);
 
         %loop through the data points finding the closest cluster for each point
         for dataPoint = 1:numPoints
@@ -44,12 +45,11 @@ for instance = 1:r
                currentClusterAssignments(dataPoint) = bestCluster;
                currentNumChanged = currentNumChanged + 1;
            end
+           
+           numPointsCluster(bestCluster) = numPointsCluster(bestCluster) + 1;
+           
+           clusterRows( numPointsCluster(bestCluster) , : , bestCluster) = dataset(dataPoint,:);
 
-           if(currentClusterAssignments(dataPoint) == 1)
-              cluster1Rows = [cluster1Rows;dataset(dataPoint,:)]; 
-           elseif(currentClusterAssignments(dataPoint) == 2)
-               cluster2Rows = [cluster2Rows;dataset(dataPoint,:)]; 
-           end
         end
 
         %it has converged
@@ -58,14 +58,19 @@ for instance = 1:r
         end
 
         %reassign the clusters
-        currentClusters(1,:) = [mean(cluster1Rows(:,1)) mean(cluster1Rows(:,2))];
-        currentClusters(2,:) = [mean(cluster2Rows(:,1)) mean(cluster2Rows(:,2))];
+        for cluster = 1:k
+            for dimension = 1:numDimensions
+                currentClusters(cluster,dimension) =...
+                    mean( clusterRows( 1:numPointsCluster(cluster) ,...
+                    dimension,cluster) );
+            end
+        end
+
     end
 
     
     if(currentSumOfSquares < currentMinSumOfSquares)
-        finalCluster1Rows = cluster1Rows;
-        finalCluster2Rows = cluster2Rows;
+        finalClusterRows = clusterRows;
     end 
     
 end
