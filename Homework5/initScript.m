@@ -38,9 +38,11 @@ alphaValues = computeNewAlphaValues(numPoints,memberProbs);
 muVector = computeNewMuValues(dataset,memberProbs,K);
 sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
 
-maxiterations = 200;
+firstLikelihood = computeLogLikelihood( dataset, alphaValues, K...
+        , muVector, sigmaVector );
+previousLikelihood = 0;
+maxiterations = 400;
 likelihoods = zeros(1,maxiterations);
-iterations = 1:1:maxiterations;
 for iteration = 1:maxiterations
     
     %does the E-step
@@ -56,7 +58,16 @@ for iteration = 1:maxiterations
         , muVector, sigmaVector );
     
     likelihoods(iteration) = currentLikelihood;
+    
+    %possible converge criteria
+    if( abs(currentLikelihood-previousLikelihood) < 0.00001*(abs(currentLikelihood-firstLikelihood)) )
+       break; 
+    end
+    
+    previousLikelihood = currentLikelihood;
 end
 
-plot(iterations,likelihoods);
+likelihoods = likelihoods(1:iteration);
+
+plot(likelihoods);
 
