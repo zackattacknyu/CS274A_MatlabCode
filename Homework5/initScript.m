@@ -28,8 +28,12 @@ K = 2;
 memberProbs = initValuesMethod1(dataset,K);
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
+numDimensions = datasetSize(2);
 [Nvector,alphaValues] = computeNewAlphaValues(numPoints,memberProbs);
 
 %init M step
 muVector = computeNewMuValues(dataset,memberProbs,K);
 sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
+
+%first E values
+memberProbs = computeMemberProbs(dataset,alphaValues,K,muVector,sigmaVector);
