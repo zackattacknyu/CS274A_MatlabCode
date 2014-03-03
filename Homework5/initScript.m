@@ -23,19 +23,40 @@ plot(finalCluster1Rows(:,1),finalCluster1Rows(:,2),'.',...
 
 %}
 
+%randomizes the order of the operant data set
+dataset = dataset(randperm(numPoints),:);
+
 %method 1
 K = 2;
 memberProbs = initValuesMethod1(dataset,K);
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
-[Nvector,alphaValues] = computeNewAlphaValues(numPoints,memberProbs);
 
 %init M step
+alphaValues = computeNewAlphaValues(numPoints,memberProbs);
 muVector = computeNewMuValues(dataset,memberProbs,K);
 sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
 
-%first E values
-memberProbs = computeMemberProbs(dataset,alphaValues,K,muVector,sigmaVector);
+maxiterations = 200;
+likelihoods = zeros(1,maxiterations);
+iterations = 1:1:maxiterations;
+for iteration = 1:maxiterations
+    
+    %does the E-step
+    memberProbs = computeMemberProbs(dataset,alphaValues,K,...
+        muVector,sigmaVector);
+    
+    %does the M-step
+    alphaValues = computeNewAlphaValues(numPoints,memberProbs);
+    muVector = computeNewMuValues(dataset,memberProbs,K);
+    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
 
-initLikelihood = computeLogLikelihood( dataset, alphaValues, K, muVector, sigmaVector );
+    currentLikelihood = computeLogLikelihood( dataset, alphaValues, K...
+        , muVector, sigmaVector );
+    
+    likelihoods(iteration) = currentLikelihood;
+end
+
+plot(iterations,likelihoods);
+
