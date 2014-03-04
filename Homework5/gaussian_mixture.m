@@ -89,8 +89,11 @@ previousLikelihood = 0;
 maxiterations = 400;
 likelihoods = zeros(1,maxiterations);
 
-%firstMuVector = muVector;
-%firstSigmaVector = sigmaVector;
+firstMuVector = muVector;
+firstSigmaVector = sigmaVector;
+[~,firstClusterRows,firstNumPointsCluster] = computeMemberProbs(dataset,alphaValues,K,...
+        muVector,sigmaVector);
+
 
 for iteration = 1:maxiterations
     
@@ -123,7 +126,14 @@ plot(likelihoods);
 
 memberships = memberProbs;
 gparams = eye(2);
+
+figure
+subplot(1,2,1);
+plotClusters(firstClusterRows,firstNumPointsCluster,K,firstMuVector,firstSigmaVector);
+title('EM clusters with initial parameters');
+subplot(1,2,2);
 plotClusters(finalClusterRows,finalNumPointsCluster,K,muVector,sigmaVector);
+title('EM clusters with final parameters');
 
 
 

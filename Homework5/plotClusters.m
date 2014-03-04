@@ -11,7 +11,7 @@ else
 end
 
 if(K == 2)
-    figure
+    %figure
     hold on
     if(gaussianFlag)
         plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
@@ -23,7 +23,7 @@ if(K == 2)
         clusterRows(1:numPointsCluster(2),2,2),'go');
     hold off
 elseif(K == 3)
-    figure
+    %figure
     hold on
     if(gaussianFlag)
         plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
