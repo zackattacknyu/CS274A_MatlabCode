@@ -30,7 +30,7 @@ for instance = 1:r
         currentNumChanged = 0;
         currentSumOfSquares = 0;
         numPointsCluster = zeros(1,k);
-        clusterRows = zeros(numPoints,2,k);
+        clusterRows = zeros(numPoints,numDimensions,k);
 
         %loop through the data points finding the closest cluster for each point
         for dataPoint = 1:numPoints
