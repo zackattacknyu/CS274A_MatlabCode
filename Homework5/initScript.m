@@ -5,7 +5,7 @@ load('dataset3.txt');
 %plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2),'r.');
 %plot(dataset3(:,1),dataset3(:,2),'r.');
-dataset = dataset1;
+dataset = dataset2;
 
 maxiterations = 10;
 r = 10;
@@ -49,7 +49,7 @@ bicValues(1) = currentLikelihood - (numParams/2)*log(numPoints);
 
 likelihoodValues = ones(1,3);
 for method = 1:3
-    [~,~,likelihoodValues(method)] = gaussian_mixture(dataset,2,method,0.00001,100,1,3);
+    [~,~,likelihoodValues(method)] = gaussian_mixture(dataset,K,method,0.00001,100,1,3);
 end
 [bestLikelihood,bestMethod] = max(likelihoodValues);
 

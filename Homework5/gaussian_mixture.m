@@ -123,6 +123,9 @@ likelihoods = likelihoods(1:iteration);
 
 figure
 plot(likelihoods);
+xlabel('Iteration Number');
+ylabel('Log Likelihood');
+title('Plot of Log Likelihood vs Iteration Number');
 
 memberships = memberProbs;
 gparams = eye(2);
