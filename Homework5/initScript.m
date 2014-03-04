@@ -5,12 +5,12 @@ load('dataset3.txt');
 %plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2),'r.');
 %plot(dataset3(:,1),dataset3(:,2),'r.');
-dataset = dataset2;
+dataset = dataset1;
 
 maxiterations = 10;
 r = 10;
-k=3;
-
+k=2;
+%{
 [finalClusterRows,finalNumPointsCluster,finalClusters] = ...
     kMeansCluster(dataset,k,r,maxiterations);
 
@@ -29,8 +29,7 @@ elseif(k == 3)
         finalClusterRows(1:finalNumPointsCluster(3),1,3),...
         finalClusterRows(1:finalNumPointsCluster(3),2,3),'bx');
 end
-
-break;
+%}
 
 %randomizes the order of the operant data set
 datasetSize = size(dataset);
@@ -47,8 +46,12 @@ currentLikelihood = computeLogLikelihood(dataset,1,1,mean(dataset),cov(dataset))
 numParams = getPkValue(1,numDimensions);
 bicValues(1) = currentLikelihood - (numParams/2)*log(numPoints);
 
-method = 3;
-gaussian_mixture(dataset,2,method,0.00001,100,1,3);
+likelihoodValues = ones(1,3);
+for method = 1:3
+    [~,~,likelihoodValues(method)] = gaussian_mixture(dataset,2,method,0.00001,100,1,3);
+end
+[bestLikelihood,bestMethod] = max(likelihoodValues);
+
 break;
 for K = 2:endK
     [~,~,currentLikelihood] = gaussian_mixture(dataset,K,3,0.00001,100,1,3);

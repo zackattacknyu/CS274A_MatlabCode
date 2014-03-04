@@ -89,12 +89,12 @@ for instance = 1:r
     end 
     
 end
-
+%{
 figure
 plot(finalSumOfSquaresArray);
 xlabel('Iteration Number');
 ylabel('Sum of Squared Error');
 title('Plot of Squared Error vs Iteration Number');
-
+%}
 end
 

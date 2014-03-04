@@ -114,22 +114,38 @@ end
 
 likelihoods = likelihoods(1:iteration);
 
+figure
 plot(likelihoods);
 
 memberships = memberProbs;
 gparams = eye(2);
-%{
-figure
-hold on
-plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
-plot_gauss_parameters(muVector(2,:),sigmaVector(:,:,2),1,2,'g');
-plot_gauss_parameters(muVector(3,:),sigmaVector(:,:,3),1,2,'b');
-plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
-    finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
-    finalClusterRows(1:finalNumPointsCluster(2),1,2),...
-    finalClusterRows(1:finalNumPointsCluster(2),2,2),'g.',...
-    finalClusterRows(1:finalNumPointsCluster(3),1,3),...
-    finalClusterRows(1:finalNumPointsCluster(3),2,3),'b.');
-%}
+
+if(K == 2)
+    figure
+    hold on
+    plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
+    plot_gauss_parameters(muVector(2,:),sigmaVector(:,:,2),1,2,'g');
+    plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
+        finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
+        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
+        finalClusterRows(1:finalNumPointsCluster(2),2,2),'go');
+    hold off
+elseif(K == 3)
+    figure
+    hold on
+    plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
+    plot_gauss_parameters(muVector(2,:),sigmaVector(:,:,2),1,2,'g');
+    plot_gauss_parameters(muVector(3,:),sigmaVector(:,:,3),1,2,'b');
+    plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
+        finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
+        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
+        finalClusterRows(1:finalNumPointsCluster(2),2,2),'go',...
+        finalClusterRows(1:finalNumPointsCluster(3),1,3),...
+        finalClusterRows(1:finalNumPointsCluster(3),2,3),'bx');
+    hold off
+end
+
+
+
 end
 
