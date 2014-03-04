@@ -34,6 +34,7 @@ end
 %randomizes the order of the operant data set
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
+numDimensions = datasetSize(2);
 dataset = dataset(randperm(numPoints),:);
 K = 3;
 endK = 5;

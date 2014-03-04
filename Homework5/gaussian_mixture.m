@@ -88,6 +88,10 @@ firstLikelihood = computeLogLikelihood( dataset, alphaValues, K...
 previousLikelihood = 0;
 maxiterations = 400;
 likelihoods = zeros(1,maxiterations);
+
+%firstMuVector = muVector;
+%firstSigmaVector = sigmaVector;
+
 for iteration = 1:maxiterations
     
     %does the E-step
@@ -119,31 +123,7 @@ plot(likelihoods);
 
 memberships = memberProbs;
 gparams = eye(2);
-
-if(K == 2)
-    figure
-    hold on
-    plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
-    plot_gauss_parameters(muVector(2,:),sigmaVector(:,:,2),1,2,'g');
-    plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
-        finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
-        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
-        finalClusterRows(1:finalNumPointsCluster(2),2,2),'go');
-    hold off
-elseif(K == 3)
-    figure
-    hold on
-    plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
-    plot_gauss_parameters(muVector(2,:),sigmaVector(:,:,2),1,2,'g');
-    plot_gauss_parameters(muVector(3,:),sigmaVector(:,:,3),1,2,'b');
-    plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
-        finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
-        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
-        finalClusterRows(1:finalNumPointsCluster(2),2,2),'go',...
-        finalClusterRows(1:finalNumPointsCluster(3),1,3),...
-        finalClusterRows(1:finalNumPointsCluster(3),2,3),'bx');
-    hold off
-end
+plotClusters(finalClusterRows,finalNumPointsCluster,K,muVector,sigmaVector);
 
 
 
