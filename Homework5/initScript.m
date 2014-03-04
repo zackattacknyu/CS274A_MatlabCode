@@ -5,7 +5,7 @@ load('dataset3.txt');
 %plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2),'r.');
 %plot(dataset3(:,1),dataset3(:,2),'r.');
-dataset = dataset2;
+dataset = dataset3;
 
 maxiterations = 10;
 r = 10;
@@ -36,7 +36,7 @@ datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
 dataset = dataset(randperm(numPoints),:);
-K = 3;
+K = 2;
 endK = 5;
 
 bicValues = ones(1,endK);
