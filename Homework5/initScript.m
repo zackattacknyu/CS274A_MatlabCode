@@ -5,24 +5,32 @@ load('dataset3.txt');
 %plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2),'r.');
 %plot(dataset3(:,1),dataset3(:,2),'r.');
-dataset = dataset1;
+dataset = dataset3;
 
 maxiterations = 10;
 r = 10;
-k=3;
-%{
+k=2;
+
 [finalClusterRows,finalNumPointsCluster,finalClusters] = ...
     kMeansCluster(dataset,k,r,maxiterations);
 
 figure
 
-plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
+if(k == 2)
+   plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
     finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
         finalClusterRows(1:finalNumPointsCluster(2),1,2),...
-        finalClusterRows(1:finalNumPointsCluster(2),2,2),'g.',...
+        finalClusterRows(1:finalNumPointsCluster(2),2,2),'go');
+elseif(k == 3)
+    plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
+    finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
+        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
+        finalClusterRows(1:finalNumPointsCluster(2),2,2),'go',...
         finalClusterRows(1:finalNumPointsCluster(3),1,3),...
-        finalClusterRows(1:finalNumPointsCluster(3),2,3),'b.');
-%}
+        finalClusterRows(1:finalNumPointsCluster(3),2,3),'bx');
+end
+
+break;
 
 %randomizes the order of the operant data set
 datasetSize = size(dataset);
@@ -39,6 +47,9 @@ currentLikelihood = computeLogLikelihood(dataset,1,1,mean(dataset),cov(dataset))
 numParams = getPkValue(1,numDimensions);
 bicValues(1) = currentLikelihood - (numParams/2)*log(numPoints);
 
+method = 3;
+gaussian_mixture(dataset,2,method,0.00001,100,1,3);
+break;
 for K = 2:endK
     [~,~,currentLikelihood] = gaussian_mixture(dataset,K,3,0.00001,100,1,3);
     numParams = getPkValue(K,numDimensions);
