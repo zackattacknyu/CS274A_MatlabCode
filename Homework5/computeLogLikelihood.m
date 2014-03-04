@@ -9,6 +9,6 @@ pVector = computePvector(dataset, K, muVector, sigmaVector);
 for dataPt = 1:numPoints
     logLikelihood = logLikelihood + log(dot(pVector(dataPt,:),alphaValues));
 end 
-
+logLikelihood = logLikelihood/numPoints;
 end
 
