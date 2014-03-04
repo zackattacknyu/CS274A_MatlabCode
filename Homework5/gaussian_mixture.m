@@ -118,15 +118,15 @@ plot(likelihoods);
 
 memberships = memberProbs;
 
-%{
+
 figure
 
 plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
     finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
         finalClusterRows(1:finalNumPointsCluster(2),1,2),...
         finalClusterRows(1:finalNumPointsCluster(2),2,2),'g.',...
-        finalClusterRows(1:finalNumPointsCluster(3),1,2),...
-        finalClusterRows(1:finalNumPointsCluster(3),2,2),'b.');
-%}
+        finalClusterRows(1:finalNumPointsCluster(3),1,3),...
+        finalClusterRows(1:finalNumPointsCluster(3),2,3),'b.');
+
 end
 

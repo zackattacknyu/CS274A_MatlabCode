@@ -51,7 +51,17 @@ for instance = 1:r
            clusterRows( numPointsCluster(bestCluster) , : , bestCluster) = dataset(dataPoint,:);
 
         end
+        
+        %{
+        plot(clusterRows(1:numPointsCluster(1),1,1),...
+            clusterRows(1:numPointsCluster(1),2,1),'r.',...
+            clusterRows(1:numPointsCluster(2),1,2),...
+            clusterRows(1:numPointsCluster(2),2,2),'g.',...
+            clusterRows(1:numPointsCluster(3),1,3),...
+            clusterRows(1:numPointsCluster(3),2,3),'b.');
 
+        %}
+        
         %it has converged
         if(currentNumChanged < 1)
            break; 
