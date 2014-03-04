@@ -91,7 +91,7 @@ likelihoods = zeros(1,maxiterations);
 for iteration = 1:maxiterations
     
     %does the E-step
-    memberProbs = computeMemberProbs(dataset,alphaValues,K,...
+    [memberProbs,finalClusterRows,finalNumPointsCluster] = computeMemberProbs(dataset,alphaValues,K,...
         muVector,sigmaVector);
     
     %does the M-step
@@ -114,9 +114,16 @@ end
 
 likelihoods = likelihoods(1:iteration);
 
-plot(likelihoods);
+%plot(likelihoods);
 
 memberships = memberProbs;
+
+figure
+
+plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
+    finalClusterRows(1:finalNumPointsCluster(1),2,1),'.',...
+        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
+        finalClusterRows(1:finalNumPointsCluster(2),2,2),'o');
 
 end
 
