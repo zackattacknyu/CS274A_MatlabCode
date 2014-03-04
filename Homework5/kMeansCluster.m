@@ -25,7 +25,7 @@ for instance = 1:r
     end
 
     currentClusterAssignments = zeros(numPoints,1);
-    
+    currentSumOfSquaresArray = zeros(1,maxiterations);
     for iteration = 1:maxiterations
         currentNumChanged = 0;
         currentSumOfSquares = 0;
@@ -62,6 +62,8 @@ for instance = 1:r
 
         %}
         
+        currentSumOfSquaresArray(iteration) = currentSumOfSquares/numPoints;
+        
         %it has converged
         if(currentNumChanged < 1)
            break; 
@@ -78,15 +80,21 @@ for instance = 1:r
 
     end
 
-    
+    currentSumOfSquaresArray = currentSumOfSquaresArray(1:iteration);
     if(currentSumOfSquares < currentMinSumOfSquares)
         finalClusterRows = clusterRows;
         finalNumPointsCluster = numPointsCluster;
         finalClusters = currentClusters;
+        finalSumOfSquaresArray = currentSumOfSquaresArray;
     end 
     
 end
 
+figure
+plot(finalSumOfSquaresArray);
+xlabel('Iteration Number');
+ylabel('Sum of Squared Error');
+title('Plot of Squared Error vs Iteration Number');
 
 end
 

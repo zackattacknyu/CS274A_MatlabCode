@@ -5,11 +5,11 @@ load('dataset3.txt');
 %plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2),'r.');
 %plot(dataset3(:,1),dataset3(:,2),'r.');
-dataset = dataset3;
+dataset = dataset2;
 
 maxiterations = 10;
 r = 10;
-k=2;
+k=3;
 
 [finalClusterRows,finalNumPointsCluster,finalClusters] = ...
     kMeansCluster(dataset,k,r,maxiterations);
