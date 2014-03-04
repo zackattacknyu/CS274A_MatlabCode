@@ -25,10 +25,10 @@ plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
 %}
 
 %randomizes the order of the operant data set
-dataset = dataset(randperm(numPoints),:);
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
+dataset = dataset(randperm(numPoints),:);
 K = 2;
 
 method = 3;
