@@ -36,48 +36,24 @@
 
  \newpage
 
-\section*{What to Submit}
+\section*{K-means plots}
 
- 
-\begin{itemize} \item Submit your MATLAB  code to the
-Homework 5 dropbox in EEE, including a script that loads each data set and runs your code on each data set. Please upload all of your functions in a single compressed
-file (please use .gz or zip format). If you are using something other than MATLAB please also provide a README file to explain to us how to use your code.
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset1_kMeansPlot.jpg}
+\caption{The k-Means plot for dataset1, K=2}
+\end{figure}
 
-\item Submit a written hardcopy summary of your results in class with the information below.
-\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset2_kMeansPlot.jpg}
+\caption{The k-Means plot for dataset2, K=3}
+\end{figure}
 
-
- Please try to put multiple plots on the same page using ``subplots" in MATLAB
-(where different pages could correspond to different data sets and different
-algorithms), to avoid printing lots of pages. For each data set, using the
-true $K$ value for each one, show the following
-\begin{enumerate}
-\item The $K$-means solution (scatter plot in
- two dimensions (any two dimensions for Data Set 4)
- illustrating the location of the solution (i.e.,
- the cluster means), and plotting the data from different
- clusters with different symbols (and/or in color if you would like to use color).
-\item A plot of the sum-squared-error (divided by $n$) as a function of
-iteration number in the $K$-means algorithm. 
-\item The initial parameter values
-and the final parameter values (2 plots, each showing means and covariances for
-each cluster) for the EM/Gaussian mixtures code  for the
-highest-likelihood solution. You can use or modify the code from Homework 1 to do the plotting. 
-
-\item A plot of the log-likelihood (for one run of your algorithm) as a
-function of iteration number during EM. 
-
-\item Add some brief comments (1
-paragraph) on the difference between $K$-means and EM for each data set. 
-\item  Generate a table of log-likelihood and BIC scores for
-$K$ going from $K=1$ to some maximum value (e.g., $K=5$). Comment briefly on the results.  
-%\item For data set 4, generate an image where you replace each original pixel value with the mean of the cluster it is assigned to by $K$-means, for $K=5, 10, 15$. This is essentially how image data compression works. Comment on the visual quality of the ``compressed" images (with the pixel rgb values replaced by their cluster means) compared to the original images.
-
-%\item An additional 2 to 3 page report for the extra credit portion, if you do the extra credit part. Your extra credit report should be clearly labeled with "ExtraCredit" in the title.
-
-\end{enumerate}
-
-
-
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset3_kMeansPlot.jpg}
+\caption{The k-Means plot for dataset3, K=2}
+\end{figure}
 
 \end{document}
