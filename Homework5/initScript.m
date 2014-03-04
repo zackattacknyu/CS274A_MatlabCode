@@ -5,7 +5,7 @@ load('dataset3.txt');
 %plot(dataset1(:,1),dataset1(:,2),'r.');
 %plot(dataset2(:,1),dataset2(:,2),'r.');
 %plot(dataset3(:,1),dataset3(:,2),'r.');
-dataset = dataset2;
+dataset = dataset1;
 
 maxiterations = 10;
 r = 10;
@@ -28,14 +28,24 @@ plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
 dataset = dataset(randperm(numPoints),:);
-K = 4;
+K = 3;
+endK = 5;
 
-gaussian_mixture(dataset,K,3,0.00001,100,1,3);
+bicValues = ones(1,endK);
+bicValues = bicValues*(-inf);
 
-%calculate # of parameters
-d = numDimensions;
-numParams = d*(d+1)/2; %covariance matrix
-numParams = numParams + d; % mean vector
-numParams = numParams + 1; % alpha value
-numParams = numParams*K; %across the k clusters
+%gets the values for K=1
+currentLikelihood = computeLogLikelihood(dataset,1,1,mean(dataset),cov(dataset));
+numParams = getPkValue(1,numDimensions);
+bicValues(1) = currentLikelihood - (numParams/2)*log(numPoints);
+
+for K = 2:endK
+    [~,~,currentLikelihood] = gaussian_mixture(dataset,K,3,0.00001,100,1,3);
+    numParams = getPkValue(K,numDimensions);
+    bicValues(K) = currentLikelihood - (numParams/2)*log(numPoints);
+end
+
+[bestBIC,bestKval] = max(bicValues);
+
+
 

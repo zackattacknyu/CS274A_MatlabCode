@@ -1,4 +1,4 @@
-function [gparams,memberships] =  gaussian_mixture(data,K,init_method,epsilon, niterations,plotflag, RSEED)
+function [gparams,memberships,currentLikelihood] =  gaussian_mixture(data,K,init_method,epsilon, niterations,plotflag, RSEED)
 % [gparams,memberships] =  gaussian_mixture(data,K,init_method,epsilon, 
 %                                                niterations,plotflag, RSEED)
 %
@@ -117,8 +117,8 @@ likelihoods = likelihoods(1:iteration);
 plot(likelihoods);
 
 memberships = memberProbs;
-
-
+gparams = eye(2);
+%{
 figure
 hold on
 plot_gauss_parameters(muVector(1,:),sigmaVector(:,:,1),1,2,'r');
@@ -126,10 +126,10 @@ plot_gauss_parameters(muVector(2,:),sigmaVector(:,:,2),1,2,'g');
 plot_gauss_parameters(muVector(3,:),sigmaVector(:,:,3),1,2,'b');
 plot(finalClusterRows(1:finalNumPointsCluster(1),1,1),...
     finalClusterRows(1:finalNumPointsCluster(1),2,1),'r.',...
-        finalClusterRows(1:finalNumPointsCluster(2),1,2),...
-        finalClusterRows(1:finalNumPointsCluster(2),2,2),'g.',...
-        finalClusterRows(1:finalNumPointsCluster(3),1,3),...
-        finalClusterRows(1:finalNumPointsCluster(3),2,3),'b.');
-
+    finalClusterRows(1:finalNumPointsCluster(2),1,2),...
+    finalClusterRows(1:finalNumPointsCluster(2),2,2),'g.',...
+    finalClusterRows(1:finalNumPointsCluster(3),1,3),...
+    finalClusterRows(1:finalNumPointsCluster(3),2,3),'b.');
+%}
 end
 
