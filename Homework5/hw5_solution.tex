@@ -68,7 +68,7 @@
 
 \subsection{Comments on k-Means and EM Results}
 
-For dataset1, there was not much of a difference between the K-means result and the EM algorithm result. This was likely due to the fact that the two Gaussians did not overlap so K-means put the points in the correct cluster easily. Because the data was able to be grouped into two clusters easily using K-means, it made sense that the k-means initialization method for the EM algorithm proved to be the preferred method. 
+For dataset1, there was not much of a difference between the K-means result and the EM algorithm result. This was likely due to the fact that the two Gaussians did not overlap so K-means put the points in the correct cluster easily. When I computed the best initialization method, k-Means proved to be the best one for this data set. This makes sense because the data was easily able to be grouped into two sets using k-Means. 
 
 \subsection{Comments on BIC test results}
 
@@ -77,7 +77,7 @@ For dataset1, there was not much of a difference between the K-means result and 
   \begin{tabular}{|c|c|c|}
     \hline
     \multicolumn{3}{|c|}{Dataset 1} \\\hline
-    K & log-L & BIC \\\hline
+    K & log likelihood & BIC value \\\hline
     1 & -5459.40 & -5481.53 \\
 		2 & -5344.47 & -5388.73 \\
 		3 & -5343.42 & -5409.82 \\
@@ -86,7 +86,11 @@ For dataset1, there was not much of a difference between the K-means result and 
   \end{tabular}
 \end{table}
 
+For dataset1, as expected, the log likelihood increases when you increase K, the number of clusters. When you use BIC to get the ideal number of clusters, we find that the BIC value is maximized at K=2. This is the solution we want since the data should be grouped into 2 clusters. 
+
 \section{Plots for Dataset2}
+
+\subsection{k-Means Plots}
 
 \begin{figure}[H]
 \centering
@@ -99,6 +103,8 @@ For dataset1, there was not much of a difference between the K-means result and 
 \includegraphics[height=3.25in]{dataset2_kMeans_squaredErrorPlot.jpg}
 \caption{The Sum of Squared Error plot for dataset2, K=3}
 \end{figure}
+
+\subsection{EM Plots}
 
 \begin{figure}[H]
 \centering
@@ -114,7 +120,7 @@ For dataset1, there was not much of a difference between the K-means result and 
 
 \subsection{Comments on k-Means and EM Results}
 
-With dataset2, there was a substantial difference. The EM algorithm seemed to capture the clusters much better than K-means. This is likely due to the fact that two of the Gaussians had an overlapping mean. Since K-means just clusters them into groups, it would not detect the differing Gaussians, whereas since EM is specifically trying to fit to Gaussians, it would detect it. It was thus much better to use the EM algorithm to cluster this data set. 
+With dataset2, there was a substantial difference between the two methods. The EM algorithm seemed to capture the clusters much better than K-means. This is likely due to the fact that two of the Gaussians used to generate the data had an overlapping mean. Since K-means just clusters them into groups, it would struggle to group those two sets. However, EM is specifically fitting the data to Gaussians. It was thus much better to use the EM algorithm to cluster this data set. For the initialization method, assigning random member weights proved to be the best one when I compared the methods. It is to be expected that there would not be much of a difference between random member weights and using k-means when initializing the data due to the fact that k-means did not give us representative groups in the first place. 
 
 \subsection{Comments on BIC test results}
 
@@ -123,7 +129,7 @@ With dataset2, there was a substantial difference. The EM algorithm seemed to ca
   \begin{tabular}{|c|c|c|}
     \hline
     \multicolumn{3}{|c|}{Dataset 2} \\\hline
-    K & log-L & BIC \\\hline
+    K & log likelihood & BIC value \\\hline
     1 & -4676.77 & -4698.72 \\
 		2 & -4449.92 & -4493.80 \\
 		3 & -3993.20 & -3993.20 \\
@@ -131,6 +137,8 @@ With dataset2, there was a substantial difference. The EM algorithm seemed to ca
     5 & -3921.62 & -4031.31 \\\hline
   \end{tabular}
 \end{table}
+
+For dataset2 as with the other data sets, the log likelihood increases when we increase K, the number of clusters. When computing the BIC value, we find that it is maximized at K=3. This is what we want since the data was generated from 3 Gaussians so we wanted the best result to occur when we put the data into 3 clusters. 
 
 \section{Plots for Dataset3}
 
@@ -149,16 +157,18 @@ With dataset2, there was a substantial difference. The EM algorithm seemed to ca
 \begin{figure}[H]
 \centering
 \includegraphics[height=3.25in]{dataset3_EMclusterPlots.jpg}
-\caption{The EM cluster plots for dataset3, K=2, using initialization method 1}
+\caption{The EM cluster plots for dataset3, K=2, using initialization method 3}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=3.25in]{dataset3_EMlogLikelihoodPlot.jpg}
-\caption{The likelihood plot for dataset3, K=2, using initialization method 1}
+\caption{The likelihood plot for dataset3, K=2, using initialization method 3}
 \end{figure}
 
 \subsection{Comments on k-Means and EM Results}
+
+For dataset3, we are trying to take real world patient data and cluster the patients into two groups. Both methods perform very well in this case likely due to the fact that there are no two overlapping cluster centers. I calculated the accuracy of the cluster results and found that the EM algorithm has an accuracy of 96.7\%. The k-Means algorithm produced an accuracy of 96.15\%. Thus, EM did end up performing slightly better but not by much at clustering our data. This could be because in general the two groups of patients have a normal distribution for those numbers so if we got more data, then EM would possibly perform even better. When I went to calculate the best initialization method for the EM run, K-means proved to be the best one. This is to be expected because it performed very well at clustering the data in the beginning. 
 
 \subsection{Comments on BIC test results}
 
@@ -167,7 +177,7 @@ With dataset2, there was a substantial difference. The EM algorithm seemed to ca
   \begin{tabular}{|c|c|c|}
     \hline
     \multicolumn{3}{|c|}{Dataset 3} \\\hline
-    K & log-L & BIC \\\hline
+    K & log likelihood & BIC value \\\hline
     1 & 402.79 & 387.17 \\
 		2 & 485.35 & 454.13 \\
 		3 & 494.04 & 447.20 \\
@@ -176,20 +186,6 @@ With dataset2, there was a substantial difference. The EM algorithm seemed to ca
   \end{tabular}
 \end{table}
 
-\section{Comments on Results}
-
-  For dataset3, the algorithm performed slightly better. 
-
-EM algorithm gives accuracy of 96.7\% for dataset 3. For k-means it was 96.15\%. 
-
-**Mention the initialization methods used and why those could have been the best ones**
-
-In the end, because this data was generated from Gaussian densities and the EM algorithm fits the data to Gaussians, the EM algorithm was ideally suited to find the clusters in our case. However, if our need was to put data into two groups, as with dataset3, without much knowledge of the underlying model, then k-means is the ideal solution. 
-
-
-
-
-
-
+For dataset3, as with the other data sets, the likelihood increases as K increases. However, the BIC value is maximized at K=2. This is exactly what we want since we want to cluster patients into two groups. 
 
 \end{document}

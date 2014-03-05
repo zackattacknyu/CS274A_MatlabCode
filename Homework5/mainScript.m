@@ -1,7 +1,7 @@
 clear all
 algorithm = 2;
 datasetNum = 3;
-findBestInitMethodFlag = 0;
+findBestInitMethodFlag = 1;
 
 maxiterations = 10;
 r = 10;
