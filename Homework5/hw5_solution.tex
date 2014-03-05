@@ -126,4 +126,29 @@ EM algorithm gives accuracy of 45.6\% for dataset 3. For k-means it was 42.3\%.
 
 In the end, because this data was generated from Gaussian densities and the EM algorithm fits the data to Gaussians, the EM algorithm was ideally suited to find the clusters in our case. However, if our need was to put data into two groups, as with dataset3, without much knowledge of the underlying model, then k-means is the ideal solution. **INSERT COMMENT AFTER RUNNING COMPARISON WITH DATASET3**
 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \multicolumn{3}{|c|}{Dataset 1} \\\hline
+    K & log-L & BIC \\\hline
+    1 & -5 & -0 \\
+    5 & -1 & -5 \\\hline
+  \end{tabular}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \multicolumn{3}{|c|}{Dataset 2} \\\hline
+    K & log-L & BIC \\\hline
+    1 & -4 & -4 \\
+    5 & -3 & -4 \\\hline
+  \end{tabular}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \multicolumn{3}{|c|}{Dataset 3} \\\hline
+    K & log-L & BIC \\\hline
+    1 & 4 & 3 \\
+    5 & 5 & 4 \\\hline
+  \end{tabular}
+\end{table}
+
 \end{document}
