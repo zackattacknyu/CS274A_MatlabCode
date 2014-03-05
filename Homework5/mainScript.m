@@ -1,6 +1,6 @@
 clear all
-algorithm = 1;
-datasetNum = 3;
+algorithm = 3;
+datasetNum = 1;
 findBestInitMethodFlag = 0;
 
 maxiterations = 10;
