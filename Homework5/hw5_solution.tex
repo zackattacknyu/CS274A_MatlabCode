@@ -84,19 +84,19 @@
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3in]{dataset1_EMclusterPlots.jpg}
+\includegraphics[height=3.25in]{dataset1_EMclusterPlots.jpg}
 \caption{The EM cluster plots for dataset1, K=2, using initialization method 3}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3in]{dataset2_EMclusterPlots.jpg}
+\includegraphics[height=3.25in]{dataset2_EMclusterPlots.jpg}
 \caption{The EM cluster plots for dataset2, K=3, using initialization method 1}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3in]{dataset3_EMclusterPlots.jpg}
+\includegraphics[height=3.25in]{dataset3_EMclusterPlots.jpg}
 \caption{The EM cluster plots for dataset3, K=2, using initialization method 1}
 \end{figure}
 
@@ -119,5 +119,11 @@
 \includegraphics[height=3.25in]{dataset3_EMlogLikelihoodPlot.jpg}
 \caption{The likelihood plot for dataset3, K=2, using initialization method 1}
 \end{figure}
+
+\section*{Comments on Results}
+
+For dataset1, there was not much of a difference between the K-means result and the EM algorithm result. This was likely due to the fact that the two Gaussians did not overlap so K-means put the points in the correct Gaussian cluster more easily. With dataset2, there was a substantial difference. The EM algorithm seemed to capture the Guassians much better than K-means. This is likely due to the fact that two of the Gaussians had an overlapping mean. Since K-means just clusters them into groups, it would not detect the differing Gaussians, whereas since EM is specifically trying to fit to Gaussians, it would detect it. For dataset3, the algorithm performed slightly better. **INSERT COMMENT ABOUT RESULT WHEN COMPARING WITH LABELSET3**
+
+In the end, because this data was generated from Gaussian densities and the EM algorithm fits the data to Gaussians, the EM algorithm was ideally suited to find the clusters in our case. However, if our need was to put data into two groups, as with dataset3, without much knowledge of the underlying model, then k-means is the ideal solution. **INSERT COMMENT AFTER RUNNING COMPARISON WITH DATASET3**
 
 \end{document}
