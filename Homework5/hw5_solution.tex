@@ -36,9 +36,7 @@
 
  \newpage
 
-\section*{K-means plots}
-
-\subsection*{Plots of Clusters}
+\section*{Plots for Dataset1}
 
 \begin{figure}[H]
 \centering
@@ -48,22 +46,28 @@
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3.25in]{dataset2_kMeansPlot.jpg}
-\caption{The k-Means plot for dataset2, K=3}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[height=3.25in]{dataset3_kMeansPlot.jpg}
-\caption{The k-Means plot for dataset3, K=2}
-\end{figure}
-
-\subsection*{Plots of Sum of Squared Errors versus Iteration}
-
-\begin{figure}[H]
-\centering
 \includegraphics[height=3.25in]{dataset1_kMeans_squaredErrorPlot.jpg}
 \caption{The Sum of Squared Error plot for dataset1, K=2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset1_EMclusterPlots.jpg}
+\caption{The EM cluster plots for dataset1, K=2, using initialization method 3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset1_EMlogLikelihoodPlot.jpg}
+\caption{The likelihood plot for dataset1, K=2, using initialization method 3}
+\end{figure}
+
+\section*{Plots for Dataset2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset2_kMeansPlot.jpg}
+\caption{The k-Means plot for dataset2, K=3}
 \end{figure}
 
 \begin{figure}[H]
@@ -74,44 +78,34 @@
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3.25in]{dataset3_kMeans_squaredErrorPlot.jpg}
-\caption{The Sum of Squared Error plot for dataset3, K=2}
-\end{figure}
-
-\section*{EM plots}
-
-\subsection*{Plots of clusters using EM algorithm}
-
-\begin{figure}[H]
-\centering
-\includegraphics[height=3.25in]{dataset1_EMclusterPlots.jpg}
-\caption{The EM cluster plots for dataset1, K=2, using initialization method 3}
-\end{figure}
-
-\begin{figure}[H]
-\centering
 \includegraphics[height=3.25in]{dataset2_EMclusterPlots.jpg}
 \caption{The EM cluster plots for dataset2, K=3, using initialization method 1}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3.25in]{dataset3_EMclusterPlots.jpg}
-\caption{The EM cluster plots for dataset3, K=2, using initialization method 1}
-\end{figure}
-
-\subsection*{Plots of likelihood using EM algorithm}
-
-\begin{figure}[H]
-\centering
-\includegraphics[height=3.25in]{dataset1_EMlogLikelihoodPlot.jpg}
-\caption{The likelihood plot for dataset1, K=2, using initialization method 3}
-\end{figure}
-
-\begin{figure}[H]
-\centering
 \includegraphics[height=3.25in]{dataset2_EMlogLikelihoodPlot.jpg}
 \caption{The likelihood plot for dataset2, K=3, using initialization method 1}
+\end{figure}
+
+\section*{Plots for Dataset3}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset3_kMeansPlot.jpg}
+\caption{The k-Means plot for dataset3, K=2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset3_kMeans_squaredErrorPlot.jpg}
+\caption{The Sum of Squared Error plot for dataset3, K=2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{dataset3_EMclusterPlots.jpg}
+\caption{The EM cluster plots for dataset3, K=2, using initialization method 1}
 \end{figure}
 
 \begin{figure}[H]
@@ -122,7 +116,11 @@
 
 \section*{Comments on Results}
 
+*Make new plots after comparing with Bailey*
+
 For dataset1, there was not much of a difference between the K-means result and the EM algorithm result. This was likely due to the fact that the two Gaussians did not overlap so K-means put the points in the correct Gaussian cluster more easily. With dataset2, there was a substantial difference. The EM algorithm seemed to capture the Guassians much better than K-means. This is likely due to the fact that two of the Gaussians had an overlapping mean. Since K-means just clusters them into groups, it would not detect the differing Gaussians, whereas since EM is specifically trying to fit to Gaussians, it would detect it. For dataset3, the algorithm performed slightly better. **INSERT COMMENT ABOUT RESULT WHEN COMPARING WITH LABELSET3**
+
+EM algorithm gives accuracy of 45.6\% for dataset 3. For k-means it was 42.3\%. 
 
 In the end, because this data was generated from Gaussian densities and the EM algorithm fits the data to Gaussians, the EM algorithm was ideally suited to find the clusters in our case. However, if our need was to put data into two groups, as with dataset3, without much knowledge of the underlying model, then k-means is the ideal solution. **INSERT COMMENT AFTER RUNNING COMPARISON WITH DATASET3**
 

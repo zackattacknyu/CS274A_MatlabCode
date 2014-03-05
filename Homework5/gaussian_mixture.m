@@ -1,4 +1,4 @@
-function [gparams,memberships,currentLikelihood] =  gaussian_mixture(data,K,init_method,epsilon, niterations,plotflag, RSEED)
+function [gparams,memberships,currentLikelihood,finalClusterAssigments] =  gaussian_mixture(data,K,init_method,epsilon, niterations,plotflag, RSEED)
 % [gparams,memberships] =  gaussian_mixture(data,K,init_method,epsilon, 
 %                                                niterations,plotflag, RSEED)
 %
@@ -98,8 +98,8 @@ firstSigmaVector = sigmaVector;
 for iteration = 1:maxiterations
     
     %does the E-step
-    [memberProbs,finalClusterRows,finalNumPointsCluster] = computeMemberProbs(dataset,alphaValues,K,...
-        muVector,sigmaVector);
+    [memberProbs,finalClusterRows,finalNumPointsCluster,finalClusterAssigments]...
+        = computeMemberProbs(dataset,alphaValues,K,muVector,sigmaVector);
     
     %does the M-step
     alphaValues = computeNewAlphaValues(numPoints,memberProbs);
@@ -121,22 +121,28 @@ end
 
 likelihoods = likelihoods(1:iteration);
 
-figure
-plot(likelihoods);
-xlabel('Iteration Number');
-ylabel('Log Likelihood');
-title('Plot of Log Likelihood vs Iteration Number');
-
 memberships = memberProbs;
 gparams = eye(2);
+if(plotflag == 1)
+    
+    figure
+    plot(likelihoods);
+    xlabel('Iteration Number');
+    ylabel('Log Likelihood');
+    title('Plot of Log Likelihood vs Iteration Number');
 
-figure
-subplot(1,2,1);
-plotClusters(firstClusterRows,firstNumPointsCluster,K,firstMuVector,firstSigmaVector);
-title('EM clusters with initial parameters');
-subplot(1,2,2);
-plotClusters(finalClusterRows,finalNumPointsCluster,K,muVector,sigmaVector);
-title('EM clusters with final parameters');
+
+
+    figure
+    subplot(1,2,1);
+    plotClusters(firstClusterRows,firstNumPointsCluster,K,firstMuVector,firstSigmaVector);
+    title('EM clusters with initial parameters');
+    subplot(1,2,2);
+    plotClusters(finalClusterRows,finalNumPointsCluster,K,muVector,sigmaVector);
+    title('EM clusters with final parameters');
+ 
+end
+
 
 
 

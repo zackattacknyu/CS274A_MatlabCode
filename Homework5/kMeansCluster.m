@@ -1,4 +1,4 @@
-function [ finalClusterRows, finalNumPointsCluster, finalClusters] = kMeansCluster( dataset, k, r, maxiterations )
+function [ finalClusterRows, finalNumPointsCluster, finalClusters,finalClusterAssignments] = kMeansCluster( dataset, k, r, maxiterations )
 %KMEANSCLUSTER Does k-means clustering of the dataset
 %   
 
@@ -35,6 +35,7 @@ for instance = 1:r
         %loop through the data points finding the closest cluster for each point
         for dataPoint = 1:numPoints
            for cluster = 1:k
+               %TODO: Square the norm
                currentClusterDistances(cluster) = norm(currentClusters(cluster,:)-dataset(dataPoint,:));
            end
 
@@ -85,11 +86,13 @@ for instance = 1:r
         finalClusterRows = clusterRows;
         finalNumPointsCluster = numPointsCluster;
         finalClusters = currentClusters;
+        finalClusterAssignments = currentClusterAssignments;
         finalSumOfSquaresArray = currentSumOfSquaresArray;
     end 
     
 end
 %{
+TODO: Plot the cluster center
 figure
 plot(finalSumOfSquaresArray);
 xlabel('Iteration Number');
