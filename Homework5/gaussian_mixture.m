@@ -104,7 +104,7 @@ for iteration = 1:maxiterations
     %does the M-step
     alphaValues = computeNewAlphaValues(numPoints,memberProbs);
     muVector = computeNewMuValues(dataset,memberProbs,K);
-    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
+    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector,epsilon);
 
     currentLikelihood = computeLogLikelihood( dataset, alphaValues, K...
         , muVector, sigmaVector );
@@ -112,7 +112,7 @@ for iteration = 1:maxiterations
     likelihoods(iteration) = currentLikelihood;
     
     %possible converge criteria
-    if( abs(currentLikelihood-previousLikelihood) < epsilon*(abs(currentLikelihood-firstLikelihood)) )
+    if( abs(currentLikelihood-previousLikelihood) < 0.00001*(abs(currentLikelihood-firstLikelihood)) )
        break; 
     end
     

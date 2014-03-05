@@ -84,7 +84,7 @@ elseif(algorithm == 3) %find best K using BIC
     likelihoods(1) = currentLikelihood;
 
     for K = 2:endK
-        [~,~,currentLikelihood] = gaussian_mixture(dataset,K,3,0.00001,100,0,3);
+        [~,~,currentLikelihood] = gaussian_mixture(dataset,K,3,10^(-4),100,0,3);
         numParams = getPkValue(K,numDimensions);
         bicValues(K) = currentLikelihood - (numParams/2)*log(numPoints);
         likelihoods(K) = currentLikelihood;
