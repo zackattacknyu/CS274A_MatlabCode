@@ -68,7 +68,7 @@
 
 \subsection{Comments on k-Means and EM Results}
 
-For dataset1, there was not much of a difference between the K-means result and the EM algorithm result. This was likely due to the fact that the two Gaussians did not overlap so K-means put the points in the correct cluster easily. When I computed the best initialization method, k-Means proved to be the best one for this data set. This makes sense because the data was easily able to be grouped into two sets using k-Means. 
+For dataset1, there was not much of a difference between the k-Means result and the EM algorithm result. This was likely due to the fact that the two Gaussians did not overlap so k-Means put the points in the correct cluster easily. When I computed the best initialization method, k-Means proved to be the best one for this data set. This makes sense because the data was easily able to be grouped into two sets using k-Means. 
 
 \subsection{Comments on BIC test results}
 
@@ -120,7 +120,7 @@ For dataset1, as expected, the log likelihood increases when you increase K, the
 
 \subsection{Comments on k-Means and EM Results}
 
-With dataset2, there was a substantial difference between the two methods. The EM algorithm seemed to capture the clusters much better than K-means. This is likely due to the fact that two of the Gaussians used to generate the data had an overlapping mean. Since K-means just clusters them into groups, it would struggle to group those two sets. However, EM is specifically fitting the data to Gaussians. It was thus much better to use the EM algorithm to cluster this data set. For the initialization method, assigning random member weights proved to be the best one when I compared the methods. It is to be expected that there would not be much of a difference between random member weights and using k-means when initializing the data due to the fact that k-means did not give us representative groups in the first place. 
+With dataset2, there was a substantial difference between the two methods. The EM algorithm seemed to capture the clusters much better than k-Means. This is likely due to the fact that two of the Gaussians used to generate the data had an overlapping mean. Since k-Means just clusters them into groups, it would struggle to group those two sets. However, EM is specifically fitting the data to Gaussians. It was thus much better to use the EM algorithm to cluster this data set. For the initialization method, assigning random member weights proved to be the best one when I compared the methods. It is to be expected that there would not be much of a difference between random member weights and using k-Means when initializing the data due to the fact that k-Means did not give us representative groups in the first place. 
 
 \subsection{Comments on BIC test results}
 
@@ -168,7 +168,7 @@ For dataset2 as with the other data sets, the log likelihood increases when we i
 
 \subsection{Comments on k-Means and EM Results}
 
-For dataset3, we are trying to take real world patient data and cluster the patients into two groups. Both methods perform very well in this case likely due to the fact that there are no two overlapping cluster centers. I calculated the accuracy of the cluster results and found that the EM algorithm has an accuracy of 96.7\%. The k-Means algorithm produced an accuracy of 96.15\%. Thus, EM did end up performing slightly better but not by much at clustering our data. This could be because in general the two groups of patients have a normal distribution for those numbers so if we got more data, then EM would possibly perform even better. When I went to calculate the best initialization method for the EM run, K-means proved to be the best one. This is to be expected because it performed very well at clustering the data in the beginning. 
+For dataset3, we are trying to take real world patient data and cluster the patients into two groups. Both methods perform very well in this case likely due to the fact that there are no two overlapping cluster centers. I calculated the accuracy of the cluster results and found that the EM algorithm has an accuracy of 96.7\%. The k-Means algorithm produced an accuracy of 96.15\%. Thus, EM did end up performing slightly better but not by much at clustering our data. This could be because in general the two groups of patients possibly have a normal distribution for those numbers so if we got more data, then EM would possibly perform even better. When I went to calculate the best initialization method for the EM run, k-Means proved to be the best one. This is to be expected because it performed very well at clustering the data in the beginning. 
 
 \subsection{Comments on BIC test results}
 
