@@ -1,4 +1,4 @@
-function [gparams,memberships,currentLikelihood,finalClusterAssigments] =  gaussian_mixture(data,K,init_method,epsilon, niterations,plotflag, RSEED)
+function [gparams,memberships,currentLikelihood,finalClusterAssigments] =  gaussian_mixture(data,K,init_method,epsilon, ~,plotflag, ~)
 % [gparams,memberships] =  gaussian_mixture(data,K,init_method,epsilon, 
 %                                                niterations,plotflag, RSEED)
 %
@@ -10,19 +10,16 @@ function [gparams,memberships,currentLikelihood,finalClusterAssigments] =  gauss
 %  K: number of clusters (mixture components)
 %  initialization_method: 1 for memberships, 2 for parameters, 3 for kmeans 
 %  epsilon: convergence threshold used to detect convergence
-%  niterations (optional): maximum number of iterations to perform (default 500)
 %  plotflag (optional): equals 1 to plot parameters during learning, 
 %                       0 for no plotting (default is 0)
-%  RSEED (optional): initial seed value for the random number generator
 %  
 %
 % OUTPUTS
-%  gparams:  2d structure array containing the learned mixture model parameters: 
-%           gparams(k).weight = weight of component k
-%           gparams(k).mean = d-dimensional mean vector for kth component 
-%           gparams(k).covariance = d x d covariance vector for kth component
-%
+%  gparams (dummy output)
 %  memberships: n x K matrix of probability memberships for "data"
+%  currentLikelihood: outputs the final log likelihood found
+%  finalClusterAssigments: outputs the cluster assignment for each data
+%                           point
 %
 %  Note: Interpretation of gparams and memberships:
 %    - gparams(k).weight is the probability that a randomly selected row
@@ -41,9 +38,7 @@ numDimensions = datasetSize(2);
 
 bestLikelihood = -Inf;
 
-%TODO: make the gparams output and the optional input parameters
-
-r = 10;
+r = 2;
 for instance = 1:r
     
     if(method == 1)
@@ -116,7 +111,7 @@ for instance = 1:r
         likelihoods(iteration) = currentLikelihood;
 
         %possible converge criteria
-        if( abs(currentLikelihood-previousLikelihood) < 0.00001*(abs(currentLikelihood-firstLikelihood)) )
+        if( abs(currentLikelihood-previousLikelihood) < epsilon*(abs(currentLikelihood-firstLikelihood)) )
            break; 
         end
 
@@ -152,7 +147,7 @@ sigmaVector = bestSigmaVector;
 likelihoods = likelihoods(1:iteration);
 
 memberships = memberProbs;
-gparams = eye(2);
+
 if(plotflag == 1)
     
     figure
@@ -173,7 +168,8 @@ if(plotflag == 1)
  
 end
 
-
+%dummy output
+gparams = eye(2);
 
 
 end
