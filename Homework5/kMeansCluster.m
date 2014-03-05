@@ -5,7 +5,6 @@ if(nargin < 5)
    plotflag = 0; 
 end
 
-%does k-means
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
@@ -51,16 +50,6 @@ for instance = 1:r
            clusterRows( numPointsCluster(bestCluster) , : , bestCluster) = dataset(dataPoint,:);
 
         end
-        
-        %{
-        plot(clusterRows(1:numPointsCluster(1),1,1),...
-            clusterRows(1:numPointsCluster(1),2,1),'r.',...
-            clusterRows(1:numPointsCluster(2),1,2),...
-            clusterRows(1:numPointsCluster(2),2,2),'g.',...
-            clusterRows(1:numPointsCluster(3),1,3),...
-            clusterRows(1:numPointsCluster(3),2,3),'b.');
-
-        %}
         
         currentSumOfSquaresArray(iteration) = currentSumOfSquares/numPoints;
         

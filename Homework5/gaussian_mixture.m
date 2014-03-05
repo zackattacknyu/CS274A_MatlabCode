@@ -39,85 +39,115 @@ datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
 
-%TODO: make the gparams output
-%TODO: run the algorithm r times
+bestLikelihood = -Inf;
 
-if(method == 1)
-    
-    %method 1, random membership probabilities
-    
-    memberProbs = initValuesMethod1(dataset,K);
-    %init M step
-    alphaValues = computeNewAlphaValues(numPoints,memberProbs);
-    muVector = computeNewMuValues(dataset,memberProbs,K);
-    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector,epsilon);
-    
-elseif(method == 2)
-   
-    %method 2, random points for the means
-    randOrder = randperm(numPoints);
-    muVector = dataset(randOrder(1:K),:);
-    overallCov = cov(dataset);
-    sigmaVector = zeros([numDimensions numDimensions K]);
-    for k = 1:K
-       sigmaVector(:,:,k) = overallCov; 
-    end
-    alphaValues = rand([1 K]);
-    alphaValues = alphaValues./sum(alphaValues);
-    
-elseif(method == 3)
-    
-    maxiterations = 10;
-    r = 10;
-    [~,~,finalClusters] = ...
-    kMeansCluster(dataset,K,r,maxiterations);
+%TODO: make the gparams output and the optional input parameters
 
-    muVector = finalClusters;
-    overallCov = cov(dataset);
-    sigmaVector = zeros([numDimensions numDimensions K]);
-    for k = 1:K
-       sigmaVector(:,:,k) = overallCov; 
+r = 10;
+for instance = 1:r
+    
+    if(method == 1)
+    
+        %method 1, random membership probabilities
+
+        memberProbs = initValuesMethod1(dataset,K);
+        %init M step
+        alphaValues = computeNewAlphaValues(numPoints,memberProbs);
+        muVector = computeNewMuValues(dataset,memberProbs,K);
+        sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector,epsilon);
+
+    elseif(method == 2)
+
+        %method 2, random points for the means
+        randOrder = randperm(numPoints);
+        muVector = dataset(randOrder(1:K),:);
+        overallCov = cov(dataset);
+        sigmaVector = zeros([numDimensions numDimensions K]);
+        for k = 1:K
+           sigmaVector(:,:,k) = overallCov; 
+        end
+        alphaValues = rand([1 K]);
+        alphaValues = alphaValues./sum(alphaValues);
+
+    elseif(method == 3)
+
+        maxiterations = 10;
+        r = 10;
+        [~,~,finalClusters] = ...
+        kMeansCluster(dataset,K,r,maxiterations);
+
+        muVector = finalClusters;
+        overallCov = cov(dataset);
+        sigmaVector = zeros([numDimensions numDimensions K]);
+        for k = 1:K
+           sigmaVector(:,:,k) = overallCov; 
+        end
+        alphaValues = rand([1 K]);
+        alphaValues = alphaValues./sum(alphaValues);
+
     end
-    alphaValues = rand([1 K]);
-    alphaValues = alphaValues./sum(alphaValues);
+
+    firstLikelihood = computeLogLikelihood( dataset, alphaValues, K...
+            , muVector, sigmaVector );
+    previousLikelihood = 0;
+    maxiterations = 400;
+    likelihoods = zeros(1,maxiterations);
+
+    firstMuVector = muVector;
+    firstSigmaVector = sigmaVector;
+    [~,firstClusterRows,firstNumPointsCluster] = computeMemberProbs(dataset,alphaValues,K,...
+            muVector,sigmaVector);
+
+
+    for iteration = 1:maxiterations
+
+        %does the E-step
+        [memberProbs,finalClusterRows,finalNumPointsCluster,finalClusterAssigments]...
+            = computeMemberProbs(dataset,alphaValues,K,muVector,sigmaVector);
+
+        %does the M-step
+        alphaValues = computeNewAlphaValues(numPoints,memberProbs);
+        muVector = computeNewMuValues(dataset,memberProbs,K);
+        sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector,epsilon);
+
+        currentLikelihood = computeLogLikelihood( dataset, alphaValues, K...
+            , muVector, sigmaVector );
+
+        likelihoods(iteration) = currentLikelihood;
+
+        %possible converge criteria
+        if( abs(currentLikelihood-previousLikelihood) < 0.00001*(abs(currentLikelihood-firstLikelihood)) )
+           break; 
+        end
+
+        previousLikelihood = currentLikelihood;
+    end
+    
+    if(currentLikelihood > bestLikelihood)
+       bestLikelihood = currentLikelihood;
+       bestLikelihoods = likelihoods;
+       bestFirstClusterRows = firstClusterRows;
+       bestFirstNumPointsCluster = firstNumPointsCluster;
+       bestFirstMuVector = firstMuVector;
+       bestFirstSigmaVector = firstSigmaVector;
+       bestFinalClusterRows = finalClusterRows;
+       bestFinalNumPointsCluster = finalNumPointsCluster;
+       bestMuVector = muVector;
+       bestSigmaVector = sigmaVector;
+    end
     
 end
 
-firstLikelihood = computeLogLikelihood( dataset, alphaValues, K...
-        , muVector, sigmaVector );
-previousLikelihood = 0;
-maxiterations = 400;
-likelihoods = zeros(1,maxiterations);
+likelihoods = bestLikelihoods;
+firstClusterRows = bestFirstClusterRows;
+firstNumPointsCluster = bestFirstNumPointsCluster;
+firstMuVector = bestFirstMuVector;
+firstSigmaVector = bestFirstSigmaVector;
+finalClusterRows = bestFinalClusterRows;
+finalNumPointsCluster = bestFinalNumPointsCluster;
+muVector = bestMuVector;
+sigmaVector = bestSigmaVector;
 
-firstMuVector = muVector;
-firstSigmaVector = sigmaVector;
-[~,firstClusterRows,firstNumPointsCluster] = computeMemberProbs(dataset,alphaValues,K,...
-        muVector,sigmaVector);
-
-
-for iteration = 1:maxiterations
-    
-    %does the E-step
-    [memberProbs,finalClusterRows,finalNumPointsCluster,finalClusterAssigments]...
-        = computeMemberProbs(dataset,alphaValues,K,muVector,sigmaVector);
-    
-    %does the M-step
-    alphaValues = computeNewAlphaValues(numPoints,memberProbs);
-    muVector = computeNewMuValues(dataset,memberProbs,K);
-    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector,epsilon);
-
-    currentLikelihood = computeLogLikelihood( dataset, alphaValues, K...
-        , muVector, sigmaVector );
-    
-    likelihoods(iteration) = currentLikelihood;
-    
-    %possible converge criteria
-    if( abs(currentLikelihood-previousLikelihood) < 0.00001*(abs(currentLikelihood-firstLikelihood)) )
-       break; 
-    end
-    
-    previousLikelihood = currentLikelihood;
-end
 
 likelihoods = likelihoods(1:iteration);
 

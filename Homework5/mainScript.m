@@ -1,11 +1,11 @@
 clear all
 algorithm = 2;
-datasetNum = 3;
-findBestInitMethodFlag = 1;
+datasetNum = 2;
+findBestInitMethodFlag = 0;
 
 maxiterations = 10;
 r = 10;
-
+%TODO: Loop through the data sets
 load('dataset1.txt');
 load('dataset2.txt');
 load('dataset3.txt');
