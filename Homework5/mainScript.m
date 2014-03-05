@@ -1,5 +1,5 @@
 clear all
-algorithm = 3;
+algorithm = 2;
 datasetNum = 3;
 findBestInitMethodFlag = 0;
 
@@ -28,17 +28,16 @@ end
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
-dataset = dataset(randperm(numPoints),:);
+randomPerm = randperm(numPoints);
+dataset = dataset(randomPerm,:);
 
 if(algorithm == 1) %k-means cluster
     
     [finalClusterRows,finalNumPointsCluster,finalClusters,finalClusterAssignments] = ...
     kMeansCluster(dataset,K,r,maxiterations,1);
-
+    
     if(datasetNum == 3)
-        load('labelset3.txt');
-        accuracyVector = (finalClusterAssignments==labelset3);
-        accuracy = sum(accuracyVector)/numPoints;
+        accuracy = computeAccuracy(randomPerm,finalClusterAssignments,numPoints);
     end
 
     figure
@@ -60,9 +59,7 @@ elseif(algorithm == 2) %EM algorithm
         [~,~,~,finalAssignments] = gaussian_mixture(dataset,K,EM_init_method,0.00001,100,1,3);
 
         if(datasetNum == 3)    
-            load('labelset3.txt');
-            accuracyVector = (finalAssignments==labelset3);
-            accuracy = sum(accuracyVector)/numPoints;
+            accuracy = computeAccuracy(randomPerm,finalAssignments,numPoints);
         end
         
     end

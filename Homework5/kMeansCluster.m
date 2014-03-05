@@ -10,9 +10,6 @@ datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
 
-%randomizes the order of the operant data set
-dataset = dataset(randperm(numPoints),:);
-
 %repeats k-means for r different starting points
 randOrder = randperm(numPoints);
 currentMinSumOfSquares = inf;

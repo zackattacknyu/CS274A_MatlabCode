@@ -38,9 +38,9 @@ method = init_method;
 datasetSize = size(dataset);
 numPoints = datasetSize(1);
 numDimensions = datasetSize(2);
-dataset = dataset(randperm(numPoints),:);
 
-
+%TODO: make the gparams output
+%TODO: run the algorithm r times
 
 if(method == 1)
     
@@ -50,7 +50,7 @@ if(method == 1)
     %init M step
     alphaValues = computeNewAlphaValues(numPoints,memberProbs);
     muVector = computeNewMuValues(dataset,memberProbs,K);
-    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector);
+    sigmaVector = computeNewSigmaValues(dataset,memberProbs,K,muVector,epsilon);
     
 elseif(method == 2)
    
