@@ -1,6 +1,6 @@
 clear all
 algorithm = 3;
-datasetNum = 1;
+datasetNum = 2;
 findBestInitMethodFlag = 0;
 
 maxiterations = 10;
