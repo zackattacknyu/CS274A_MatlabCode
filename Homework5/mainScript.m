@@ -1,5 +1,6 @@
+clear all
 algorithm = 1;
-datasetNum = 1;
+datasetNum = 3;
 findBestInitMethodFlag = 0;
 
 maxiterations = 10;
@@ -19,7 +20,7 @@ elseif(datasetNum == 2)
     EM_init_method = 1;
 elseif(datasetNum == 3)
     dataset = dataset3;
-    K = 3;
+    K = 2;
     EM_init_method = 1;
 end
 
@@ -32,7 +33,7 @@ dataset = dataset(randperm(numPoints),:);
 if(algorithm == 1) %k-means cluster
     
     [finalClusterRows,finalNumPointsCluster,finalClusters,finalClusterAssignments] = ...
-    kMeansCluster(dataset,K,r,maxiterations);
+    kMeansCluster(dataset,K,r,maxiterations,1);
 
     if(datasetNum == 3)
         load('labelset3.txt');
@@ -42,7 +43,7 @@ if(algorithm == 1) %k-means cluster
 
     figure
 
-    plotClusters(finalClusterRows,finalNumPointsCluster,K);
+    plotClusters(finalClusterRows,finalNumPointsCluster,K,finalClusters);
     
 elseif(algorithm == 2) %EM algorithm
 

@@ -1,6 +1,9 @@
-function [ finalClusterRows, finalNumPointsCluster, finalClusters,finalClusterAssignments] = kMeansCluster( dataset, k, r, maxiterations )
+function [ finalClusterRows, finalNumPointsCluster, finalClusters,finalClusterAssignments] = kMeansCluster( dataset, k, r, maxiterations ,plotflag )
 %KMEANSCLUSTER Does k-means clustering of the dataset
 %   
+if(nargin < 5)
+   plotflag = 0; 
+end
 
 %does k-means
 datasetSize = size(dataset);
@@ -35,8 +38,7 @@ for instance = 1:r
         %loop through the data points finding the closest cluster for each point
         for dataPoint = 1:numPoints
            for cluster = 1:k
-               %TODO: Square the norm
-               currentClusterDistances(cluster) = norm(currentClusters(cluster,:)-dataset(dataPoint,:));
+               currentClusterDistances(cluster) = (norm(currentClusters(cluster,:)-dataset(dataPoint,:)))^2;
            end
 
            [currentMinDistance,bestCluster] = min(currentClusterDistances);
@@ -91,13 +93,15 @@ for instance = 1:r
     end 
     
 end
-%{
-TODO: Plot the cluster center
-figure
-plot(finalSumOfSquaresArray);
-xlabel('Iteration Number');
-ylabel('Sum of Squared Error');
-title('Plot of Squared Error vs Iteration Number');
-%}
+
+if(plotflag)
+    figure
+    plot(finalSumOfSquaresArray);
+    xlabel('Iteration Number');
+    ylabel('Sum of Squared Error');
+    title('Plot of Squared Error vs Iteration Number');
+end
+
+
 end
 
