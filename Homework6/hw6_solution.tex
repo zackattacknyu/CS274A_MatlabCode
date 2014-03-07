@@ -1,0 +1,137 @@
+\documentclass[11pt,psfig]{article}
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{float}
+
+\newcount\refno\refno=1
+\def\ref{\the\refno \global\advance\refno by 1}
+\def\ux{\underline{x}}
+\def\uw{\underline{w}}
+\def\bw{\underline{w}}
+\def\ut{\underline{\theta}}
+\def\umu{\underline{\mu}} 
+\def\bmu{\underline{\mu}} 
+\def\be{p_e^*}
+\newcount\eqnumber\eqnumber=1
+\def\eq{\the \eqnumber \global\advance\eqnumber by 1}
+\def\eqs{\eq}
+\def\eqn{\eqno(\eq)}
+
+ \pagestyle{empty}
+\def\baselinestretch{1.1}
+\topmargin1in \headsep0.3in
+\topmargin0in \oddsidemargin0in \textwidth6.5in \textheight8.5in
+\begin{document}
+\setlength{\parskip}{1.2ex plus0.3ex minus 0.3ex}
+
+
+\thispagestyle{empty} \pagestyle{myheadings} \markright{Homework
+6: CS 274A, Probabilistic Learning: Winter 2014}
+
+
+
+\title{CS 274A Homework 6}
+\author{Probabilistic Learning: Theory and Algorithms, CS 274A, Winter 2014}
+\date{Due Date: Wednesday March 12th in class}
+
+\maketitle
+
+\vfill\eject
+
+
+\subsection*{Problem \ref: (10 points)}
+Consider a classification problem with 2 classes and a single real-valued feature vector $X$, where class 1 has a Gaussian density $p(x|c_1)$ with parameters $\mu_1$ and $\sigma_1^2$, and class 2 has a Gaussian density $p(x|c_2)$ with parameters $\mu_2$ and $\sigma_2^2$.  
+\begin{enumerate}
+\item Derive a general expression for the location of the optimal decision regions as a function of the parameters.
+\item Now assume $\mu_1 = 0$ and $\sigma_1^2 = 1$ and $\mu_2=3$ and $\sigma_2^2 = 3$. Also assume $p(c_1) = p(c_2) = 0.5$.  Draw or plot each of $p(x|c_1)p(c_1)$ and $p(x|c_2)p(c_2)$, as a function of $x$, on the same plot, clearly showing the optimal decision boundary (or boundaries).
+\item Estimate the Bayes error rate for this problem within 3 decimal places of accuracy (you will need to use numerical tables for evaluating integrals of the Gaussian density function).
+\item Answer parts 2 and 3 above but now with $p(c_1) = 0.9$.
+    \end{enumerate}
+You can use results/solutions from earlier homeworks if you wish.
+
+Note that the Bayes error rate is defined as the minimum achievable (or optimal) classification error rate for a classification problem (assuming 0-1 loss). For two classes, in the general case it is defined as 
+\[\int_{\ux}  \ \min\{P(c_1|\ux), 1 - P(c_1|\ux\} \ p(\ux) \ d\ux\]
+
+\subsection{Solution to Problem 1}
+
+Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
+\[
+p(c_1|x) = \frac{p(x|c_1)p(c_1)}{p(x|c_1)p(c_1) + p(x|c_2)p(c_2)}
+\]
+Find when that is equal to 0.5 as that is the decision boundary. It occurs when
+\[
+\frac{p(x|c_2)p(c_2)}{p(x|c_1)p(c_1)} = 1
+\]
+TODO: Plug in the values and then dervive...
+
+
+\subsection*{Problem \ref: (10 points)}
+
+Consider a classification problem  with 2 classes and a single real-valued feature vector $X$.
+For class 1, $p(x|c_1)$ is uniform $U(a,b)$  with $a=2$ and $b=4$. For class 2, $p(x|c_2)$ is exponential with density $\lambda \exp(-\lambda x)$ where $\lambda=1$. Let $p(c_1) = p(c_2) = 0.5$.
+\begin{enumerate}
+\item Determine the location of the optimal decision regions
+\item Draw a sketch of the two class densities multiplied by $P(c_1)$ and $P(c_2)$ respectively, as a function of $x$, clearly showing the optimal decision boundary (or boundaries)
+\item Compute the Bayes error rate for this problem within 3 decimal places of accuracy
+    \item Answer the questions above but now with $a=2$ and $b=22$.
+    \end{enumerate}
+
+
+\subsection*{Problem \ref: (10 points)}
+
+Consider a 2-class classification problem with $d$-dimensional real-valued inputs $\ux$, where the class-conditional densities, $p(\ux|c_1)$ and $p(\ux|c_2)$ are multivariate Gaussian with different means $\umu_1$ and $\umu_2$ and a common covariance matrix $\Sigma$, with class probabilities $P(c_1)$ and $P(c_2)$.
+\begin{enumerate}
+\item Write the discriminant functions for this problem in the form of
+$g_1(\ux) = \log p(x|c_1) + \log p(c_1)$ (same for $g_2(\ux)$).
+\item Prove that the optimal decision boundary, at $g(\ux) = g_1(\ux) - g_2(\ux) = 0$, can be written in the form of a linear discriminant, $\uw^t \ux + w_0 = 0$, where $\uw$ is a $d$-dimensional weight vector and $w_0$ is a scalar, and clearly indicate what $\uw$ and $w_0$ are in terms of the parameters of the classification model.
+\item Show that if $P(c_1) = P(c_2)$ then the classifier can be viewed as a ``nearest mean" type of classifier, where a vector $\ux$ is assigned to the mean that it is closest to, and where distance is measured using Mahalanobis distance.
+\end{enumerate}
+
+\subsection*{Problem \ref: (10 points)}
+Consider the situation  in Problem 3, for the case of $d=2$ and $p(c_1) =
+p(c_2)$, and with the mean of class 1  at $(1,1)$ and the mean of the second
+class at $(4,4)$ and with a covariance matrix defined so that $\sigma_{11} =
+1$, $\sigma_{22} = 4$, and $\sigma_{12} = 1$.  Draw or plot a figure in the
+2-dimensional space ($x_1$, $x_2$) that shows  
+\begin{enumerate}
+%(a) probability contours for $p(\ux|c_i), i = 1, 2$, and (b) 
+\item the location of the optimal
+decision boundary relative to the two class means.  If you wish you can use
+MATLAB to generate the plots for you, but hand-drawn is also fine.
+\item the location of the optimal
+decision boundary relative with $p(c_1) = 0.8, p(c_2) = 0.2$. Provide a
+1-line interpretation of why the result is different to part 1.
+\end{enumerate}
+
+
+%
+%\subsection*{Problem \ref: (10 points)}
+%Consider a linear classifier  defined by linear discriminant functions \[
+%g_i(\ux) = \bw_i^T \ux + w_{i0} \ \ \ \ i = 1,\ldots, m.\] Prove that the
+%decision regions are {\bf convex} by showing that if $\ux_1 \in DR_i$ and
+%$\ux_2 \in DR_i$ then $\alpha \ux_1 + (1 - \alpha)\ux_2 \in DR_i$ if $0 \le
+%\alpha \le 1$. The notation $\ux_1 \in DR_i$ means that $\ux_1$ lies within the
+%decision
+%region $DR_i$. 
+
+
+
+\subsection*{Problem \ref: (10 points)}
+Consider a 2 class problem with labeled training data $D = \{\ux_i, c_i\}$, where $c_i \in \{0,1\}$ and $i=1,\ldots,N$. Assume you are working with 2 different classification models $M_1$ and $M_2$ with parameters $\theta$ and $\phi$ respectively, where each model's functional form can be written as
+$p(c | \ux, \hat{\theta})$ and $p(c | \ux, \hat{\phi})$ respectively, where
+$\hat{\theta}$ and $\hat{\phi}$ are point estimates of the parameters. For example $M_1$ could be   a logistic regression model   and   $M_2$ could be a neural network with a single hidden layer---the details of these models are not important for this problem. Assume you are fully Bayesian in the way you wish to approach the problem.  How would you make classification decisions as a Bayesian, i.e., how would you decide whether the probability of one class or the other is more likely given a new test vector $\ux$?  (Hint: it may help to start by thinking about $p(c | \ux, D)$). Clearly explain all steps in your answer.
+
+
+\subsection*{Problem \ref: (10 points)}
+In class we showed that least squares regression could be related to a conditional  Gaussian likelihood. Assume we have training data in the form  $D = \{x_i, y_i\}$, where $x$ and $y$ are both 1-dimensional and $i=1,\ldots,N$. Say we assume a model of the form $E[y] = a x + b$ with $y$ having Gaussian noise with variance $\sigma^2$ and mean $E[y]$. Derive maximum likelihood estimates for each of $a$, $b$, and $\sigma^2$.
+
+\end{document}
+
+
+
+
+
+
+
+
