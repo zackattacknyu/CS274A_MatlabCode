@@ -74,6 +74,42 @@ K_1 = \frac{1}{(2\pi)^{d/2}|\Sigma_1|^{1/2}}
 \[
 K_2 = \frac{1}{(2\pi)^{d/2}|\Sigma_2|^{1/2}}
 \]
+\[
+f_1(x) = (x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1)
+\]
+\[
+f_2(x) = (x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)
+\]
+We now have to solve the following
+\[
+\frac{K_2 \cdot e^{-f_2(x)/2}}{K_1 \cdot e^{-f_1(x)/2}} = \frac{p(c_1)}{p(c_2)}
+\]
+Let
+\[
+Q = \frac{p(c_1)K_1}{p(c_2)K_2} = \frac{p(c_1)|\Sigma_2|^{1/2}}{p(c_2)|\Sigma_1|^{1/2}}
+\]
+Then we have to solve the following
+\[
+e^{f_2(x) - f_1(x)} = Q^2
+\]
+\[
+f_2(x) - f_1(x) = 2 log(Q)
+\]
+\[
+(x^T \Sigma_2^{-1} x - x^T \Sigma_1^{-1} x) - (\mu_2^T \Sigma_2^{-1} \mu_2 - \mu_1^T \Sigma_1^{-1} \mu_1) = 2 log(Q)
+\]
+Let
+\[
+S = 2log(Q) + (\mu_2^T \Sigma_2^{-1} \mu_2 - \mu_1^T \Sigma_1^{-1} \mu_1)
+\]
+\[
+M = \Sigma_2^{-1} - \Sigma_1^{-1}
+\]
+Then we are finally left with solving
+\[
+x^T M x = T
+\]
+This is a quadratic form in d variables. 
 
 
 \subsection*{Problem \ref: (10 points)}
@@ -86,7 +122,32 @@ For class 1, $p(x|c_1)$ is uniform $U(a,b)$  with $a=2$ and $b=4$. For class 2, 
 \item Compute the Bayes error rate for this problem within 3 decimal places of accuracy
     \item Answer the questions above but now with $a=2$ and $b=22$.
     \end{enumerate}
+		
+\subsection{Solution to Problem 2}
 
+From previous problem we have to solve
+\[
+\frac{p(x|c_2)}{p(x|c_1)} \leq \frac{p(c_1)}{p(c_2)}
+\]
+Given our values we have
+\[
+\frac{p(x|c_2)}{p(x|c_1)} \leq 1
+\]
+\[
+p(x|c_2) \leq p(x|c_1)
+\]
+That is when it is optimal to choose $c_1$. This occurs when
+\[
+exp(-x) \leq 0.5
+\]
+\[
+x \geq log(2)
+\]
+However, we can only choose $c_1$ for $2 \leq x \leq 4$. Our condition is satisfied in that region, thus the decision regions are as follows:
+
+$c_1$ if $2 \leq x \leq 4$
+
+$c_2$ otherwise
 
 \subsection*{Problem \ref: (10 points)}
 
