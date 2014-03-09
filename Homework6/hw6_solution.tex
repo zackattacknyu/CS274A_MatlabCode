@@ -277,18 +277,39 @@ decision boundary relative with $p(c_1) = 0.8, p(c_2) = 0.2$. Provide a
 1-line interpretation of why the result is different to part 1.
 \end{enumerate}
 
+\subsection{Solution to Problem 4, Part 1}
 
-%
-%\subsection*{Problem \ref: (10 points)}
-%Consider a linear classifier  defined by linear discriminant functions \[
-%g_i(\ux) = \bw_i^T \ux + w_{i0} \ \ \ \ i = 1,\ldots, m.\] Prove that the
-%decision regions are {\bf convex} by showing that if $\ux_1 \in DR_i$ and
-%$\ux_2 \in DR_i$ then $\alpha \ux_1 + (1 - \alpha)\ux_2 \in DR_i$ if $0 \le
-%\alpha \le 1$. The notation $\ux_1 \in DR_i$ means that $\ux_1$ lies within the
-%decision
-%region $DR_i$. 
-
-
+After doing some algebraic manipulation, solving it turns out to be solving
+\[
+(x-1)^2 + (x-1)(y-1) + (x-1)(y-1) + 4(y-1)^2 = (x-4)^2 + (x-4)(y-4) + (x-4)(y-4) + 4(y-4)^2
+\]
+After more manipulation
+\[
+(x-1)^2 + 2(x-1)(y-1) + 4(y-1)^2 = (x-4)^2 + 2(x-4)(y-4)+ 4(y-4)^2
+\]
+Expanding we get
+\[
+(x^2-2x+1) + 2(xy-x-y+1) + 4(y^2-2y+1) = (x^2-8x+16) + 2(xy-4x-4y+16)+ 4(y^2-8y+16)
+\]
+After some cancelling
+\[
+(-2x+1) + 2(-x-y+1) + 4(-2y+1) = (-8x+16) + 2(-4x-4y+16)+ 4(-8y+16)
+\]
+Expanding out again
+\[
+-2x+1 - 2x - 2y + 2 -8y + 4 = -8x+16 -8x-8y+32 -32y+64
+\]
+\[
+-4x-10y+7 = -16x-40y+112
+\]
+\[
+y = \frac{-12x+105}{30}
+\]
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{plot4_part1.jpg}
+\caption{The decision boundary with the means}
+\end{figure}
 
 \subsection*{Problem \ref: (10 points)}
 Consider a 2 class problem with labeled training data $D = \{\ux_i, c_i\}$, where $c_i \in \{0,1\}$ and $i=1,\ldots,N$. Assume you are working with 2 different classification models $M_1$ and $M_2$ with parameters $\theta$ and $\phi$ respectively, where each model's functional form can be written as
