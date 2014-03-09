@@ -124,6 +124,73 @@ x^T M_1 x + M_2 x + x^T M_3 - M_4 = 0
 \]
 This is a quadratic form in d variables. 
 
+\subsection{Solution to Problem 1, Alternate}
+
+Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
+\[
+p(c_1|x) = \frac{p(x|c_1)p(c_1)}{p(x|c_1)p(c_1) + p(x|c_2)p(c_2)}
+\]
+Find when that is equal to 0.5 as that is the decision boundary. It occurs when
+\[
+\frac{p(x|c_2)p(c_2)}{p(x|c_1)p(c_1)} = 1
+\]
+This is the same as
+\[
+\frac{p(x|c_2)}{p(x|c_1)} = \frac{p(c_1)}{p(c_2)}
+\]
+Let
+\[
+K_1 = \frac{1}{\sigma_1 \sqrt{2\pi}}
+\]
+\[
+K_2 = \frac{1}{\sigma_2 \sqrt{2\pi}}
+\]
+\[
+f_1(x) = \frac{(x-\mu_1)^2}{\sigma_1^2}
+\]
+\[
+f_2(x) = \frac{(x-\mu_2)^2}{\sigma_2^2}
+\]
+We now have to solve the following
+\[
+\frac{K_2 \cdot e^{-f_2(x)/2}}{K_1 \cdot e^{-f_1(x)/2}} = \frac{p(c_1)}{p(c_2)}
+\]
+Let
+\[
+Q = \frac{p(c_1)K_1}{p(c_2)K_2} = \frac{p(c_1)\sigma_2}{p(c_2)\sigma_1}
+\]
+Then we have to solve the following
+\[
+e^{f_2(x) - f_1(x)} = Q^2
+\]
+\[
+f_2(x) - f_1(x) = 2 log(Q)
+\]
+\[
+\frac{(x-\mu_2)^2}{\sigma_2^2} - \frac{(x-\mu_1)^2}{\sigma_1^2} = 2 log(Q)
+\]
+Let $S = 2 log(Q) \sigma_2^2 \sigma_1^2$ then it holds that
+\[
+\sigma_1^2(x-\mu_2)^2 - \sigma_2^2(x-\mu_1)^2 = S
+\]
+Expanding and then collecting terms together we get
+\[
+x^2(\sigma_1^2 - \sigma_2^2) + 2x(\mu_1 \sigma_2^2 - \mu_2 \sigma_1^2) + (\sigma_1^2 \mu_2^2 - \sigma_2^2 \mu_1^2 - S) = 0
+\]
+We now let
+\[
+a = \sigma_1^2 - \sigma_2^2
+\]
+\[
+b = 2(\mu_1 \sigma_2^2 - \mu_2 \sigma_1^2)
+\]
+\[
+c = \sigma_1^2 \mu_2^2 - \sigma_2^2 \mu_1^2 - S
+\]
+Then the solutions are the roots of the quadratic equation $ax^2 + bx + c = 0$ which are as follows
+\[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\]
 
 \subsection*{Problem \ref: (10 points)}
 
