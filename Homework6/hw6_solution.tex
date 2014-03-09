@@ -96,20 +96,33 @@ e^{f_2(x) - f_1(x)} = Q^2
 f_2(x) - f_1(x) = 2 log(Q)
 \]
 \[
-(x^T \Sigma_2^{-1} x - x^T \Sigma_1^{-1} x) - (\mu_2^T \Sigma_2^{-1} \mu_2 - \mu_1^T \Sigma_1^{-1} \mu_1) = 2 log(Q)
+(x^T \Sigma_2^{-1} - \mu_2^T \Sigma_2^{-1})(x - \mu_2) - (x^T \Sigma_1^{-1} - \mu_1^T \Sigma_1^{-1})(x - \mu_1) = 2 log(Q)
+\]
+\[
+(x^T \Sigma_2^{-1} x - \mu_2^T \Sigma_2^{-1} x - x^T \Sigma_2^{-1} \mu_2 + \mu_2^T \Sigma_2^{-1} \mu_2) - (x^T \Sigma_1^{-1} x - \mu_1^T \Sigma_1^{-1} x - x^T \Sigma_1^{-1} \mu_1 + \mu_1^T \Sigma_1^{-1} \mu_1) = 2 log(Q)
 \]
 Let
 \[
-S = 2log(Q) + (\mu_2^T \Sigma_2^{-1} \mu_2 - \mu_1^T \Sigma_1^{-1} \mu_1)
+M_4 = 2log(Q) + (\mu_1^T \Sigma_1^{-1} \mu_1 - \mu_2^T \Sigma_2^{-1} \mu_2)
+\]
+Then we have to solve
+\[
+x^T (\Sigma_2^{-1} - \Sigma_1^{-1})x + (\mu_1^T \Sigma_1^{-1} - \mu_2^T \Sigma_2^{-1}) x + x^T (\Sigma_1^{-1} \mu_1 - \Sigma_2^{-1} \mu_2) = S
 \]
 \[
-M = \Sigma_2^{-1} - \Sigma_1^{-1}
+M_1 = \Sigma_2^{-1} - \Sigma_1^{-1}
+\]
+\[
+M_2 = \mu_1^T \Sigma_1^{-1} - \mu_2^T \Sigma_2^{-1}
+\]
+\[
+M_3 = \Sigma_1^{-1} \mu_1 - \Sigma_2^{-1} \mu_2
 \]
 Then we are finally left with solving
 \[
-x^T M x = T
+x^T M_1 x + M_2 x + x^T M_3 - M_4 = 0
 \]
-This is a quadratic form in d variables. It is all the points where the MH distance is equal to $T$. 
+This is a quadratic form in d variables. 
 
 
 \subsection*{Problem \ref: (10 points)}
@@ -208,8 +221,45 @@ Collecting terms we end up with
 \[
 (\mu_1^T \Sigma - \mu_2^T \Sigma) x + x^T (\Sigma \mu_1 - \Sigma \mu_2) + \mu_2^T \Sigma \mu_2 - \mu_1^T \Sigma \mu_1 = v
 \]
+If we let
+\[
+u = v - \mu_2^T \Sigma \mu_2 + \mu_1^T \Sigma \mu_1
+\]
+Then after some factoring we have
+\[
+(\mu_1^T - \mu_2^T) \Sigma x + x^T \Sigma (\mu_1 - \mu_2) = u
+\]
+If we let $\mu_0 = \mu_1 - \mu_2$ then we further have
+\[
+\mu_0 \Sigma x + x^T \Sigma \mu_0 = u
+\]
+If we let $m_1 = \mu_0 \Sigma$ and $m_2 = \Sigma \mu_0$ then we have
+\[
+m_1 x + x^T m_2 - u = 0
+\]
+By rules of linear algebra (TODO: prove), $m_1 x + x^T m_2 = (m_1 + m_2^T)x$ thus we finally have
+\[
+(m_1 + m_2^T)x - u = 0
+\]
+Thus finally let
+\[
+w = (m_1 + m_2^T)
+\]
+\[
+w_0 = -u
+\]
+then we have the linear decision boundary
 
+\subsection{Solution to Problem 3, Part 3}
 
+If $p(c_1) = p(c_2)$ then $v=0$ above, so we have
+\[
+f_1(x) = f_2(x)
+\]
+\[
+(x-\mu_1)^T \Sigma (x-\mu_1) = (x-\mu_2)^T \Sigma (x-\mu_2)
+\]
+The decision boundary is thus when the two MH distances are equal so the class will end up taking on the value of whichever mean is closer. 
 
 \subsection*{Problem \ref: (10 points)}
 Consider the situation  in Problem 3, for the case of $d=2$ and $p(c_1) =
