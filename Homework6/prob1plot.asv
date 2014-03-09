@@ -1,0 +1,2 @@
+xVals = -10:1/100:10;
+equ1Vals = exp((-1.*xVals.^2)

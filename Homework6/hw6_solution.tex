@@ -124,7 +124,7 @@ x^T M_1 x + M_2 x + x^T M_3 - M_4 = 0
 \]
 This is a quadratic form in d variables. 
 
-\subsection{Solution to Problem 1, Alternate}
+\subsection{Solution to Problem 1, Part 1, Alternate}
 
 Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
 \[
@@ -190,6 +190,16 @@ c = \sigma_1^2 \mu_2^2 - \sigma_2^2 \mu_1^2 - S
 Then the solutions are the roots of the quadratic equation $ax^2 + bx + c = 0$ which are as follows
 \[
 x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\]
+
+\subsection{Solution to Problem 1, Part 2}
+
+For this problem we will be using
+\[
+p(x|c_1) = \frac{1}{\sqrt{2\pi}} e^{- \frac{x^2}{2}}
+\]
+\[
+p(x|c_2) = \frac{1}{\sqrt{6\pi}} e^{- \frac{(x-3)^2}{6}}
 \]
 
 \subsection*{Problem \ref: (10 points)}
