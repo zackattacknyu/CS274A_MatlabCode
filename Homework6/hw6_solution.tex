@@ -501,8 +501,43 @@ a \\
 b \end{array} \right)=
 \left( \begin{array}{ccc}
 C \\
-D \end{array} \right)\] 
-
+D \end{array} \right)\]
+After doing the matrix inverse, we have the following 
+\[ 
+\left( \begin{array}{ccc}
+a \\
+b \end{array} \right) =
+\frac{1}{AN - B^2}
+\left( \begin{array}{ccc}
+N & -B \\
+-B & A \end{array} \right)
+\left( \begin{array}{ccc}
+C \\
+D \end{array} \right)
+\]
+Thus finally we can say that
+\[
+\hat{a}_{ML} = \frac{NC-BD}{AN-B^2}
+\]
+\[
+\hat{b}_{ML} = \frac{AD-BC}{AN-B^2}
+\]
+We now want to find $\hat{\sigma^2}_{ML}$. If we let
+\[
+K = \sum_{i=1}^N{(y_i - (ax_i + b))^2}
+\]
+then we will have after letting $v = \sigma^2$
+\[
+l(\theta) = -\frac{N}{2} log(2\pi v) - \frac{K}{2v}
+\]
+Taking the derivative with respect to v we have
+\[
+l'(\theta) = -\frac{N}{2v} + \frac{K}{2v^2}
+\]
+Setting it equal to zero we have to solve
+\[
+Kv = N v^2
+\]
 \end{document}
 
 
