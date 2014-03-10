@@ -53,78 +53,7 @@ You can use results/solutions from earlier homeworks if you wish.
 Note that the Bayes error rate is defined as the minimum achievable (or optimal) classification error rate for a classification problem (assuming 0-1 loss). For two classes, in the general case it is defined as 
 \[\int_{\ux}  \ \min\{P(c_1|\ux), 1 - P(c_1|\ux\} \ p(\ux) \ d\ux\]
 
-\subsection*{Solution to Problem 1}
-
-Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
-\[
-p(c_1|x) = \frac{p(x|c_1)p(c_1)}{p(x|c_1)p(c_1) + p(x|c_2)p(c_2)}
-\]
-Find when that is equal to 0.5 as that is the decision boundary. It occurs when
-\[
-\frac{p(x|c_2)p(c_2)}{p(x|c_1)p(c_1)} = 1
-\]
-This is the same as
-\[
-\frac{p(x|c_2)}{p(x|c_1)} = \frac{p(c_1)}{p(c_2)}
-\]
-Let
-\[
-K_1 = \frac{1}{(2\pi)^{d/2}|\Sigma_1|^{1/2}}
-\]
-\[
-K_2 = \frac{1}{(2\pi)^{d/2}|\Sigma_2|^{1/2}}
-\]
-\[
-f_1(x) = (x-\mu_1)^T \Sigma_1^{-1} (x-\mu_1)
-\]
-\[
-f_2(x) = (x-\mu_2)^T \Sigma_2^{-1} (x-\mu_2)
-\]
-We now have to solve the following
-\[
-\frac{K_2 \cdot e^{-f_2(x)/2}}{K_1 \cdot e^{-f_1(x)/2}} = \frac{p(c_1)}{p(c_2)}
-\]
-Let
-\[
-Q = \frac{p(c_1)K_1}{p(c_2)K_2} = \frac{p(c_1)|\Sigma_2|^{1/2}}{p(c_2)|\Sigma_1|^{1/2}}
-\]
-Then we have to solve the following
-\[
-e^{f_2(x) - f_1(x)} = Q^2
-\]
-\[
-f_2(x) - f_1(x) = 2 log(Q)
-\]
-\[
-(x^T \Sigma_2^{-1} - \mu_2^T \Sigma_2^{-1})(x - \mu_2) - (x^T \Sigma_1^{-1} - \mu_1^T \Sigma_1^{-1})(x - \mu_1) = 2 log(Q)
-\]
-\[
-(x^T \Sigma_2^{-1} x - \mu_2^T \Sigma_2^{-1} x - x^T \Sigma_2^{-1} \mu_2 + \mu_2^T \Sigma_2^{-1} \mu_2) - (x^T \Sigma_1^{-1} x - \mu_1^T \Sigma_1^{-1} x - x^T \Sigma_1^{-1} \mu_1 + \mu_1^T \Sigma_1^{-1} \mu_1) = 2 log(Q)
-\]
-Let
-\[
-M_4 = 2log(Q) + (\mu_1^T \Sigma_1^{-1} \mu_1 - \mu_2^T \Sigma_2^{-1} \mu_2)
-\]
-Then we have to solve
-\[
-x^T (\Sigma_2^{-1} - \Sigma_1^{-1})x + (\mu_1^T \Sigma_1^{-1} - \mu_2^T \Sigma_2^{-1}) x + x^T (\Sigma_1^{-1} \mu_1 - \Sigma_2^{-1} \mu_2) = S
-\]
-\[
-M_1 = \Sigma_2^{-1} - \Sigma_1^{-1}
-\]
-\[
-M_2 = \mu_1^T \Sigma_1^{-1} - \mu_2^T \Sigma_2^{-1}
-\]
-\[
-M_3 = \Sigma_1^{-1} \mu_1 - \Sigma_2^{-1} \mu_2
-\]
-Then we are finally left with solving
-\[
-x^T M_1 x + M_2 x + x^T M_3 - M_4 = 0
-\]
-This is a quadratic form in d variables. 
-
-\subsection*{Solution to Problem 1, Part 1, Alternate}
+\subsection*{Solution to Problem 1, Part 1}
 
 Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
 \[
