@@ -53,7 +53,7 @@ You can use results/solutions from earlier homeworks if you wish.
 Note that the Bayes error rate is defined as the minimum achievable (or optimal) classification error rate for a classification problem (assuming 0-1 loss). For two classes, in the general case it is defined as 
 \[\int_{\ux}  \ \min\{P(c_1|\ux), 1 - P(c_1|\ux\} \ p(\ux) \ d\ux\]
 
-\subsection{Solution to Problem 1}
+\subsection*{Solution to Problem 1}
 
 Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
 \[
@@ -124,7 +124,7 @@ x^T M_1 x + M_2 x + x^T M_3 - M_4 = 0
 \]
 This is a quadratic form in d variables. 
 
-\subsection{Solution to Problem 1, Part 1, Alternate}
+\subsection*{Solution to Problem 1, Part 1, Alternate}
 
 Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
 \[
@@ -192,7 +192,7 @@ Then the solutions are the roots of the quadratic equation $ax^2 + bx + c = 0$ w
 x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 \]
 
-\subsection{Solution to Problem 1, Part 2}
+\subsection*{Solution to Problem 1, Part 2}
 
 For this problem we will be using
 \[
@@ -223,7 +223,7 @@ For class 1, $p(x|c_1)$ is uniform $U(a,b)$  with $a=2$ and $b=4$. For class 2, 
     \item Answer the questions above but now with $a=2$ and $b=22$.
     \end{enumerate}
 		
-\subsection{Solution to Problem 2}
+\subsection*{Solution to Problem 2}
 
 From previous problem we have to solve
 \[
@@ -259,7 +259,7 @@ $g_1(\ux) = \log p(x|c_1) + \log p(c_1)$ (same for $g_2(\ux)$).
 \item Show that if $P(c_1) = P(c_2)$ then the classifier can be viewed as a ``nearest mean" type of classifier, where a vector $\ux$ is assigned to the mean that it is closest to, and where distance is measured using Mahalanobis distance.
 \end{enumerate}
 
-\subsection{Solution to Problem 3, Part 1}
+\subsection*{Solution to Problem 3, Part 1}
 First, we will let
 \[
 K = \frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}
@@ -285,7 +285,7 @@ By the same token
 g_2(x) = -\frac{1}{2}( d \cdot log(2\pi) + log(|\Sigma|) + f_2(x)) + log(p(c_2))
 \]
 
-\subsection{Solution to Problem 3, Part 2}
+\subsection*{Solution to Problem 3, Part 2}
 
 By some algebraic manipulation, it holds that
 \[
@@ -324,7 +324,11 @@ If we let $m_1 = \mu_0 \Sigma$ and $m_2 = \Sigma \mu_0$ then we have
 \[
 m_1 x + x^T m_2 - u = 0
 \]
-By rules of linear algebra (TODO: prove), $m_1 x + x^T m_2 = (m_1 + m_2^T)x$ thus we finally have
+This is the same as
+\[
+dot(m_1,x) + dot(m_2,x) - u = 0
+\]
+Thus we can further day that
 \[
 (m_1 + m_2^T)x - u = 0
 \]
@@ -337,7 +341,7 @@ w_0 = -u
 \]
 then we have the linear decision boundary
 
-\subsection{Solution to Problem 3, Part 3}
+\subsection*{Solution to Problem 3, Part 3}
 
 If $p(c_1) = p(c_2)$ then $v=0$ above, so we have
 \[
@@ -364,7 +368,7 @@ decision boundary relative with $p(c_1) = 0.8, p(c_2) = 0.2$. Provide a
 1-line interpretation of why the result is different to part 1.
 \end{enumerate}
 
-\subsection{Solution to Problem 4, Part 1}
+\subsection*{Solution to Problem 4, Part 1}
 
 After doing some algebraic manipulation, solving it turns out to be solving
 \[
@@ -398,14 +402,48 @@ y = \frac{-12x+105}{30}
 \caption{The decision boundary with the means}
 \end{figure}
 
+\subsection*{Solution to Problem 4, Part 2}
+
+After plugging in values, we end up with
+\[
+w = (-12,-30)
+\]
+\[
+w_0 = 103.8
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=3.25in]{plot4_part2.jpg}
+\caption{The decision boundary with the means}
+\end{figure}
+
 \subsection*{Problem \ref: (10 points)}
 Consider a 2 class problem with labeled training data $D = \{\ux_i, c_i\}$, where $c_i \in \{0,1\}$ and $i=1,\ldots,N$. Assume you are working with 2 different classification models $M_1$ and $M_2$ with parameters $\theta$ and $\phi$ respectively, where each model's functional form can be written as
 $p(c | \ux, \hat{\theta})$ and $p(c | \ux, \hat{\phi})$ respectively, where
 $\hat{\theta}$ and $\hat{\phi}$ are point estimates of the parameters. For example $M_1$ could be   a logistic regression model   and   $M_2$ could be a neural network with a single hidden layer---the details of these models are not important for this problem. Assume you are fully Bayesian in the way you wish to approach the problem.  How would you make classification decisions as a Bayesian, i.e., how would you decide whether the probability of one class or the other is more likely given a new test vector $\ux$?  (Hint: it may help to start by thinking about $p(c | \ux, D)$). Clearly explain all steps in your answer.
 
+\subsection*{Solution to Problem 5}
+
+I would compute $p(c_1|x)$ in the following general way and see if it is greater than 0.5. 
+\[
+p(c_1|x) = \frac{p(x|c_1)p(c_1)}{p(x|c_1)p(c_1) + p(x|c_2)p(c_2)}
+\]
+
 
 \subsection*{Problem \ref: (10 points)}
 In class we showed that least squares regression could be related to a conditional  Gaussian likelihood. Assume we have training data in the form  $D = \{x_i, y_i\}$, where $x$ and $y$ are both 1-dimensional and $i=1,\ldots,N$. Say we assume a model of the form $E[y] = a x + b$ with $y$ having Gaussian noise with variance $\sigma^2$ and mean $E[y]$. Derive maximum likelihood estimates for each of $a$, $b$, and $\sigma^2$.
+
+\subsection*{Solution to Problem 6}
+
+We know that at the optimal value
+\[
+f(x;\theta) = E[y]
+\]
+If we let $\mu = E[y]$ then we want to solve
+\[
+\mu = ax+b
+\]
 
 \end{document}
 
