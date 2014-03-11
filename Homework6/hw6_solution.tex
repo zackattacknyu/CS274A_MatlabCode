@@ -168,7 +168,10 @@ E = \int_{-\infty}^{a}{p(c_1|x)p(x) \, dx} + \int_{a}^{b}{p(c_2|x)p(x) \, dx} + 
 \]
 For our case we can simplify this to
 \[
-E = \int_{-\infty}^{a}{p(x|c_1) \, dx} + \int_{a}^{b}{p(x|c_2) \, dx} + \int_{a}^{\infty}{p(x|c_2) \, dx}
+E = \int_{-\infty}^{a}{p(x|c_1)p(c_1) \, dx} + \int_{a}^{b}{p(x|c_2)p(c_2) \, dx} + \int_{a}^{\infty}{p(x|c_1)p(c_1) \, dx}
+\]
+\[
+E = 0.5(\int_{-\infty}^{a}{p(x|c_1) \, dx} + \int_{a}^{b}{p(x|c_2) \, dx} + \int_{a}^{\infty}{p(x|c_1) \, dx})
 \]
 For this case, according to the Matlab computation, we have $a=-4.3979$ and $b=1.3979$. \\
 According to Wolfram Alpha
@@ -183,7 +186,59 @@ According to Wolfram Alpha
 \]
 Summing these three together we get the following estimate
 \[
-E = 0.2586
+E = 0.1293
+\]
+
+\subsection*{Solution to Problem 1, Part 4}
+
+To get the decision boundaries we will solve the quadratic equation with
+\[
+a = 2
+\]
+\[
+b = 6
+\]
+\[
+Q = 9 \sqrt{3}
+\]
+\[
+S = 2 log(Q) 3 = 6 log(Q) = 6log( 9 \sqrt{3}) = 12 log(3) + 3 log(3) = 15 log(3)
+\]
+\[
+c = -9 - 15 log(3)
+\]
+After putting this all into Matlab, we end up with the following plot
+\begin{figure}[H]
+\centering
+\includegraphics[height=5in]{prob1part2plot.jpg}
+\caption{Probability of Class Labels with decision boundaries marked}
+\end{figure}
+
+For this case, if we let a and b be the decision boundaries and E be the error, then
+\[
+E = \int_{-\infty}^{a}{p(c_1|x)p(x) \, dx} + \int_{a}^{b}{p(c_2|x)p(x) \, dx} + \int_{a}^{\infty}{p(c_1|x)p(x) \, dx}
+\]
+For our case we can simplify this to
+\[
+E = \int_{-\infty}^{a}{p(x|c_1)p(c_1) \, dx} + \int_{a}^{b}{p(x|c_2)p(c_2) \, dx} + \int_{a}^{\infty}{p(x|c_1)p(c_1) \, dx}
+\]
+\[
+E = 0.9\int_{-\infty}^{a}{p(x|c_1) \, dx} + 0.1\int_{a}^{b}{p(x|c_2) \, dx} + 0.9\int_{a}^{\infty}{p(x|c_1) \, dx}
+\]
+For this case, according to the Matlab computation, we have $a=-5.3716$ and $b=2.3716$. \\
+According to Wolfram Alpha
+\[
+\int_{-\infty}^{a}{p(x|c_1) \, dx} = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{-5.3716}{e^{-x^2/2} \, dx} = \frac{9.781 \cdot 10^{-8}}{\sqrt{2\pi}} = 3.90205 \cdot 10^{-8}
+\]
+\[
+\int_{a}^{b}{p(x|c_2) \, dx} = \frac{1}{\sqrt{6\pi}} \int_{-5.3716}^{2.3716}{e^{-(x-3)^2/6} \, dx} = \frac{1.55592}{\sqrt{6\pi}} = 0.358374
+\]
+\[
+\int_{b}^{\infty}{p(x|c_1) \, dx} = \frac{1}{\sqrt{2\pi}} \int_{2.3716}^{\infty}{e^{-x^2/2} \, dx} = \frac{0.0221978}{\sqrt{2\pi}} = 0.00885564
+\]
+Summing these three together we get the following estimate
+\[
+E = 0.0438
 \]
 
 
