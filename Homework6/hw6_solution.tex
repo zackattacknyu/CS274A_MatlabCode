@@ -55,11 +55,15 @@ Note that the Bayes error rate is defined as the minimum achievable (or optimal)
 
 \subsection*{Solution to Problem 1, Part 1}
 
-Use Multivariate Gaussian from EM Notes to get $p(x|c_1)$ and $p(x|c_2)$. Compute the following
+Using Bayes rule we need to compute the following
 \[
 p(c_1|x) = \frac{p(x|c_1)p(c_1)}{p(x|c_1)p(c_1) + p(x|c_2)p(c_2)}
 \]
-Find when that is equal to 0.5 as that is the decision boundary. It occurs when
+Find when that is equal to 0.5 as that is the decision boundary. This occurs when
+\[
+\frac{1}{2} = \frac{1}{1 + \frac{p(x|c_2)p(c_2)}{p(x|c_1)p(c_1)}}
+\]
+It thus occurs when
 \[
 \frac{p(x|c_2)p(c_2)}{p(x|c_1)p(c_1)} = 1
 \]
@@ -90,17 +94,20 @@ Q = \frac{p(c_1)K_1}{p(c_2)K_2} = \frac{p(c_1)\sigma_2}{p(c_2)\sigma_1}
 \]
 Then we have to solve the following
 \[
-e^{f_2(x) - f_1(x)} = Q^2
+\frac{e^{-f_2(x)/2}}{e^{-f_1(x)/2}} = Q
 \]
 \[
-f_2(x) - f_1(x) = 2 log(Q)
+e^{f_1(x) - f_2(x)} = Q^2
 \]
 \[
-\frac{(x-\mu_2)^2}{\sigma_2^2} - \frac{(x-\mu_1)^2}{\sigma_1^2} = 2 log(Q)
+f_1(x) - f_2(x) = 2 log(Q)
+\]
+\[
+\frac{(x-\mu_1)^2}{\sigma_1^2} - \frac{(x-\mu_2)^2}{\sigma_2^2} = 2 log(Q)
 \]
 Let $S = 2 log(Q) \sigma_2^2 \sigma_1^2$ then it holds that
 \[
-\sigma_1^2(x-\mu_2)^2 - \sigma_2^2(x-\mu_1)^2 = S
+\sigma_2^2(x-\mu_1)^2 - \sigma_1^2(x-\mu_2)^2 = S
 \]
 Expanding and then collecting terms together we get
 \[
@@ -108,13 +115,13 @@ x^2(\sigma_1^2 - \sigma_2^2) + 2x(\mu_1 \sigma_2^2 - \mu_2 \sigma_1^2) + (\sigma
 \]
 We now let
 \[
-a = \sigma_1^2 - \sigma_2^2
+a = \sigma_2^2 - \sigma_1^2
 \]
 \[
-b = 2(\mu_1 \sigma_2^2 - \mu_2 \sigma_1^2)
+b = 2(\mu_2 \sigma_1^2 - \mu_1 \sigma_2^2)
 \]
 \[
-c = \sigma_1^2 \mu_2^2 - \sigma_2^2 \mu_1^2 - S
+c = \sigma_2^2 \mu_1^2 - \sigma_1^2 \mu_2^2 - S
 \]
 Then the solutions are the roots of the quadratic equation $ax^2 + bx + c = 0$ which are as follows
 \[
@@ -132,13 +139,19 @@ p(x|c_2) = \frac{1}{\sqrt{6\pi}} e^{- \frac{(x-3)^2}{6}}
 \]
 To get the decision boundaries we will solve the quadratic equation with
 \[
-a = -2
+a = 2
 \]
 \[
-b = -6
+b = 6
 \]
 \[
-c = 9 - 3 log(3)
+Q = \sqrt{3}
+\]
+\[
+S = 2 log(Q) 3 = 3log(3)
+\]
+\[
+c = -9 - 3 log(3)
 \]
 
 \subsection*{Problem \ref: (10 points)}
