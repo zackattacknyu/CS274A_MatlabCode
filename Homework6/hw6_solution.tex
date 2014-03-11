@@ -427,28 +427,28 @@ Let $v = -2( log(p(c_2)) - log(p(c_1)) )$ then we have to solve
 v = f_2(x) - f_1(x)
 \]
 \[
-(x^T \Sigma - \mu_2^T \Sigma)(x - \mu_2) - (x^T \Sigma - \mu_1^T \Sigma)(x - \mu_1) = v
+(x^T \Sigma - \mu_2^T \Sigma^{-1})(x - \mu_2) - (x^T \Sigma^{-1} - \mu_1^T \Sigma^{-1})(x - \mu_1) = v
 \]
 \[
-(x^T \Sigma x - \mu_2^T \Sigma x - x^T \Sigma \mu_2 + \mu_2^T \Sigma \mu_2) - (x^T \Sigma x - \mu_1^T \Sigma x - x^T \Sigma \mu_1 + \mu_1^T \Sigma \mu_1) = v
+(x^T \Sigma^{-1} x - \mu_2^T \Sigma^{-1} x - x^T \Sigma^{-1} \mu_2 + \mu_2^T \Sigma^{-1} \mu_2) - (x^T \Sigma^{-1} x - \mu_1^T \Sigma^{-1} x - x^T \Sigma^{-1} \mu_1 + \mu_1^T \Sigma^{-1} \mu_1) = v
 \]
 Collecting terms we end up with
 \[
-(\mu_1^T \Sigma - \mu_2^T \Sigma) x + x^T (\Sigma \mu_1 - \Sigma \mu_2) + \mu_2^T \Sigma \mu_2 - \mu_1^T \Sigma \mu_1 = v
+(\mu_1^T \Sigma^{-1} - \mu_2^T \Sigma) x + x^T (\Sigma^{-1} \mu_1 - \Sigma^{-1} \mu_2) + \mu_2^T \Sigma^{-1} \mu_2 - \mu_1^T \Sigma^{-1} \mu_1 = v
 \]
 If we let
 \[
-u = v - \mu_2^T \Sigma \mu_2 + \mu_1^T \Sigma \mu_1
+u = v - \mu_2^T \Sigma^{-1} \mu_2 + \mu_1^T \Sigma^{-1} \mu_1
 \]
 Then after some factoring we have
 \[
-(\mu_1^T - \mu_2^T) \Sigma x + x^T \Sigma (\mu_1 - \mu_2) = u
+(\mu_1^T - \mu_2^T) \Sigma^{-1} x + x^T \Sigma^{-1} (\mu_1 - \mu_2) = u
 \]
 If we let $\mu_0 = \mu_1 - \mu_2$ then we further have
 \[
-\mu_0 \Sigma x + x^T \Sigma \mu_0 = u
+\mu_0 \Sigma^{-1} x + x^T \Sigma^{-1} \mu_0 = u
 \]
-If we let $m_1 = \mu_0 \Sigma$ and $m_2 = \Sigma \mu_0$ then we have
+If we let $m_1 = \mu_0 \Sigma^{-1}$ and $m_2 = \Sigma^{-1} \mu_0$ then we have
 \[
 m_1 x + x^T m_2 - u = 0
 \]
