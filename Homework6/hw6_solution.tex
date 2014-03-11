@@ -288,6 +288,34 @@ After putting this all into Matlab, we end up with the following plot
 \caption{Probability of Class Labels with decision boundaries marked}
 \end{figure}
 
+\subsection*{Solution to Problem 2, Part 3}
+
+For this case, if we let a and b be the decision boundaries and E be the error, then
+\[
+E = \int_{-\infty}^{a}{p(c_1|x)p(x) \, dx} + \int_{a}^{b}{p(c_2|x)p(x) \, dx} + \int_{a}^{\infty}{p(c_1|x)p(x) \, dx}
+\]
+For our case we can simplify this to
+\[
+E = \int_{-\infty}^{a}{p(x|c_1)p(c_1) \, dx} + \int_{a}^{b}{p(x|c_2)p(c_2) \, dx} + \int_{a}^{\infty}{p(x|c_1)p(c_1) \, dx}
+\]
+\[
+E = 0.5\int_{-\infty}^{a}{p(x|c_1) \, dx} + 0.5\int_{a}^{b}{p(x|c_2) \, dx} + 0.5\int_{a}^{\infty}{p(x|c_1) \, dx}
+\]
+For this case we have $a=2$ and $b=4$. \\
+\[
+\int_{-\infty}^{a}{p(x|c_1) \, dx} = 0
+\]
+\[
+\int_{a}^{b}{p(x|c_2) \, dx} = \int_{2}^{4}{e^{-x} \, dx} = e^{-2} - e^{-4} = 0.1170
+\]
+\[
+\int_{b}^{\infty}{p(x|c_1) \, dx} = 0
+\]
+Summing these three together we get the following estimate
+\[
+E = 0.0585
+\]
+
 \subsection*{Problem \ref: (10 points)}
 
 Consider a 2-class classification problem with $d$-dimensional real-valued inputs $\ux$, where the class-conditional densities, $p(\ux|c_1)$ and $p(\ux|c_2)$ are multivariate Gaussian with different means $\umu_1$ and $\umu_2$ and a common covariance matrix $\Sigma$, with class probabilities $P(c_1)$ and $P(c_2)$.
