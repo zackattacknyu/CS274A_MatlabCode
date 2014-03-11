@@ -434,7 +434,7 @@ v = f_2(x) - f_1(x)
 \]
 Collecting terms we end up with
 \[
-(\mu_1^T \Sigma^{-1} - \mu_2^T \Sigma) x + x^T (\Sigma^{-1} \mu_1 - \Sigma^{-1} \mu_2) + \mu_2^T \Sigma^{-1} \mu_2 - \mu_1^T \Sigma^{-1} \mu_1 = v
+(\mu_1^T \Sigma^{-1} - \mu_2^T \Sigma^{-1}) x + x^T (\Sigma^{-1} \mu_1 - \Sigma^{-1} \mu_2) + \mu_2^T \Sigma^{-1} \mu_2 - \mu_1^T \Sigma^{-1} \mu_1 = v
 \]
 If we let
 \[
@@ -448,21 +448,21 @@ If we let $\mu_0 = \mu_1 - \mu_2$ then we further have
 \[
 \mu_0 \Sigma^{-1} x + x^T \Sigma^{-1} \mu_0 = u
 \]
-If we let $m_1 = \mu_0 \Sigma^{-1}$ and $m_2 = \Sigma^{-1} \mu_0$ then we have
+If we let $m = \mu_0^T \Sigma^{-1}$ then because $\Sigma^{-1}$ is symmetric, $m^T = \Sigma^{-1} \mu_0$. We thus have
 \[
-m_1 x + x^T m_2 - u = 0
+m x + x^T m^T - u = 0
 \]
 This is the same as
 \[
-dot(m_1,x) + dot(m_2,x) - u = 0
+dot(m,x) + dot(m,x) - u = 0
 \]
 Thus we can further day that
 \[
-(m_1 + m_2^T)x - u = 0
+2mx - u = 0
 \]
 Thus finally let
 \[
-w = (m_1 + m_2^T)
+w = 2m
 \]
 \[
 w_0 = -u
@@ -476,7 +476,7 @@ If $p(c_1) = p(c_2)$ then $v=0$ above, so we have
 f_1(x) = f_2(x)
 \]
 \[
-(x-\mu_1)^T \Sigma (x-\mu_1) = (x-\mu_2)^T \Sigma (x-\mu_2)
+(x-\mu_1)^T \Sigma^{-1} (x-\mu_1) = (x-\mu_2)^T \Sigma^{-1} (x-\mu_2)
 \]
 The decision boundary is thus when the two MH distances are equal so the class will end up taking on the value of whichever mean is closer. 
 
@@ -498,32 +498,44 @@ decision boundary relative with $p(c_1) = 0.8, p(c_2) = 0.2$. Provide a
 
 \subsection*{Solution to Problem 4, Part 1}
 
-After doing some algebraic manipulation, solving it turns out to be solving
+Using problem 3, but where $v=0$, we will use the following variables to simplify our problem
 \[
-(x-1)^2 + (x-1)(y-1) + (x-1)(y-1) + 4(y-1)^2 = (x-4)^2 + (x-4)(y-4) + (x-4)(y-4) + 4(y-4)^2
-\]
-After more manipulation
-\[
-(x-1)^2 + 2(x-1)(y-1) + 4(y-1)^2 = (x-4)^2 + 2(x-4)(y-4)+ 4(y-4)^2
-\]
-Expanding we get
-\[
-(x^2-2x+1) + 2(xy-x-y+1) + 4(y^2-2y+1) = (x^2-8x+16) + 2(xy-4x-4y+16)+ 4(y^2-8y+16)
-\]
-After some cancelling
-\[
-(-2x+1) + 2(-x-y+1) + 4(-2y+1) = (-8x+16) + 2(-4x-4y+16)+ 4(-8y+16)
-\]
-Expanding out again
-\[
--2x+1 - 2x - 2y + 2 -8y + 4 = -8x+16 -8x-8y+32 -32y+64
+u = \mu_1^T \Sigma^{-1} \mu_1 - \mu_2^T \Sigma^{-1} \mu_2 
 \]
 \[
--4x-10y+7 = -16x-40y+112
+\mu_0 = \mu_1 - \mu_2
 \]
 \[
-y = \frac{-12x+105}{30}
+m = \mu_0^T \Sigma^{-1}
 \]
+For our purposes, we have $\mu_1=(1,1)$ and $\mu_2=(4,4)$, thus $\mu_0=(-3,-3)$. Additionally
+\[
+\Sigma^{-1} = \frac{1}{3} \left( \begin{array}{ccc}
+4 & -1 \\
+-1 & 1 \end{array} \right)
+\]
+After computing these out, we get the following numbers
+\[
+u = -15
+\]
+\[
+m = (-3,0)
+\]
+This leads us to the following numbers for the line
+\[
+w = (-6, 0)
+\]
+\[
+w_0 = 15
+\]
+This leads us to the following linear equation
+\[
+-6 x_1 + 15 = 0
+\]
+\[
+x_1 = 2.5
+\]
+
 \begin{figure}[H]
 \centering
 \includegraphics[height=3.25in]{plot4_part1.jpg}
