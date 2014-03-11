@@ -455,10 +455,19 @@ $\hat{\theta}$ and $\hat{\phi}$ are point estimates of the parameters. For examp
 
 \subsection*{Solution to Problem 5}
 
-I would compute $p(c_1|x)$ in the following general way and see if it is greater than 0.5. 
+First, you would figure out a probability on the class labels given the parameters of the model, so you need
 \[
-p(c_1|x) = \frac{p(x|c_1)p(c_1)}{p(x|c_1)p(c_1) + p(x|c_2)p(c_2)}
+p(c|\hat{\theta})
 \]
+To figure out the class probability we will say that
+\[
+p(c|x,\hat{\theta}) = \frac{p(x|c,\hat{\theta})p(c|\hat{\theta})}{p(x)}
+\]
+By law of total probability, $p(x) = p(x|c,\hat{\phi}) + p(x|c,\hat{\theta})$. Thus we end up with
+\[
+p(c|x,\hat{\theta}) = \frac{p(x|c,\hat{\theta})p(c|\hat{\theta})}{p(x|c,\hat{\phi}) + p(x|c,\hat{\theta})}
+\]
+You do the same thing for $p(c|x,\hat{\phi})$ and figure out which probability is greater. 
 
 
 \subsection*{Problem \ref: (10 points)}
