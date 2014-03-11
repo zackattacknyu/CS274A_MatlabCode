@@ -39,20 +39,6 @@
 
 \vfill\eject
 
-
-\subsection*{Problem \ref: (10 points)}
-Consider a classification problem with 2 classes and a single real-valued feature vector $X$, where class 1 has a Gaussian density $p(x|c_1)$ with parameters $\mu_1$ and $\sigma_1^2$, and class 2 has a Gaussian density $p(x|c_2)$ with parameters $\mu_2$ and $\sigma_2^2$.  
-\begin{enumerate}
-\item Derive a general expression for the location of the optimal decision regions as a function of the parameters.
-\item Now assume $\mu_1 = 0$ and $\sigma_1^2 = 1$ and $\mu_2=3$ and $\sigma_2^2 = 3$. Also assume $p(c_1) = p(c_2) = 0.5$.  Draw or plot each of $p(x|c_1)p(c_1)$ and $p(x|c_2)p(c_2)$, as a function of $x$, on the same plot, clearly showing the optimal decision boundary (or boundaries).
-\item Estimate the Bayes error rate for this problem within 3 decimal places of accuracy (you will need to use numerical tables for evaluating integrals of the Gaussian density function).
-\item Answer parts 2 and 3 above but now with $p(c_1) = 0.9$.
-    \end{enumerate}
-You can use results/solutions from earlier homeworks if you wish.
-
-Note that the Bayes error rate is defined as the minimum achievable (or optimal) classification error rate for a classification problem (assuming 0-1 loss). For two classes, in the general case it is defined as 
-\[\int_{\ux}  \ \min\{P(c_1|\ux), 1 - P(c_1|\ux\} \ p(\ux) \ d\ux\]
-
 \subsection*{Solution to Problem 1, Part 1}
 
 Using Bayes rule we need to compute the following
@@ -240,18 +226,6 @@ Summing these three together we get the following estimate
 \[
 E = 0.0438
 \]
-
-
-\subsection*{Problem \ref: (10 points)}
-
-Consider a classification problem  with 2 classes and a single real-valued feature vector $X$.
-For class 1, $p(x|c_1)$ is uniform $U(a,b)$  with $a=2$ and $b=4$. For class 2, $p(x|c_2)$ is exponential with density $\lambda \exp(-\lambda x)$ where $\lambda=1$. Let $p(c_1) = p(c_2) = 0.5$.
-\begin{enumerate}
-\item Determine the location of the optimal decision regions
-\item Draw a sketch of the two class densities multiplied by $P(c_1)$ and $P(c_2)$ respectively, as a function of $x$, clearly showing the optimal decision boundary (or boundaries)
-\item Compute the Bayes error rate for this problem within 3 decimal places of accuracy
-    \item Answer the questions above but now with $a=2$ and $b=22$.
-    \end{enumerate}
 		
 \subsection*{Solution to Problem 2, Part 1}
 
@@ -377,16 +351,6 @@ Summing these three together we get the following estimate
 E = 0.0499
 \]
 
-\subsection*{Problem \ref: (10 points)}
-
-Consider a 2-class classification problem with $d$-dimensional real-valued inputs $\ux$, where the class-conditional densities, $p(\ux|c_1)$ and $p(\ux|c_2)$ are multivariate Gaussian with different means $\umu_1$ and $\umu_2$ and a common covariance matrix $\Sigma$, with class probabilities $P(c_1)$ and $P(c_2)$.
-\begin{enumerate}
-\item Write the discriminant functions for this problem in the form of
-$g_1(\ux) = \log p(x|c_1) + \log p(c_1)$ (same for $g_2(\ux)$).
-\item Prove that the optimal decision boundary, at $g(\ux) = g_1(\ux) - g_2(\ux) = 0$, can be written in the form of a linear discriminant, $\uw^t \ux + w_0 = 0$, where $\uw$ is a $d$-dimensional weight vector and $w_0$ is a scalar, and clearly indicate what $\uw$ and $w_0$ are in terms of the parameters of the classification model.
-\item Show that if $P(c_1) = P(c_2)$ then the classifier can be viewed as a ``nearest mean" type of classifier, where a vector $\ux$ is assigned to the mean that it is closest to, and where distance is measured using Mahalanobis distance.
-\end{enumerate}
-
 \subsection*{Solution to Problem 3, Part 1}
 First, we will let
 \[
@@ -480,22 +444,6 @@ f_1(x) = f_2(x)
 \]
 The decision boundary is thus when the two MH distances are equal so the class will end up taking on the value of whichever mean is closer. 
 
-\subsection*{Problem \ref: (10 points)}
-Consider the situation  in Problem 3, for the case of $d=2$ and $p(c_1) =
-p(c_2)$, and with the mean of class 1  at $(1,1)$ and the mean of the second
-class at $(4,4)$ and with a covariance matrix defined so that $\sigma_{11} =
-1$, $\sigma_{22} = 4$, and $\sigma_{12} = 1$.  Draw or plot a figure in the
-2-dimensional space ($x_1$, $x_2$) that shows  
-\begin{enumerate}
-%(a) probability contours for $p(\ux|c_i), i = 1, 2$, and (b) 
-\item the location of the optimal
-decision boundary relative to the two class means.  If you wish you can use
-MATLAB to generate the plots for you, but hand-drawn is also fine.
-\item the location of the optimal
-decision boundary relative with $p(c_1) = 0.8, p(c_2) = 0.2$. Provide a
-1-line interpretation of why the result is different to part 1.
-\end{enumerate}
-
 \subsection*{Solution to Problem 4, Part 1}
 
 Using problem 3, but where $v=0$, we will use the following variables to simplify our problem
@@ -544,12 +492,29 @@ x_1 = 2.5
 
 \subsection*{Solution to Problem 4, Part 2}
 
-After plugging in values, we end up with
+The vector for $w$ will be the same as Part 1. The vector for $u$ will be different. We have already found that $u=-15$ when $v=0$, thus for our case, $u = v-15$ so we just need to calculate $v$. By Problem 3, 
 \[
-w = (-12,-30)
+v = -2(log(p(c_2)) - log(p(c_1)))
+\]
+Thus plugging in our values
+\[
+v = -2( log(0.2) - log(0.8) )
 \]
 \[
-w_0 = 103.8
+v = -2 ( log(\frac{1}{5}) - log(\frac{4}{5}) )
+\]
+\[
+v = -2 ( -log(5) - ( log(4) - log(5) ) )
+\]
+\[
+v = 2 log(4)
+\]
+This means that $u = 2log(4)-15$ and thus of course $w_0 = 15-2log(4)$. Our equation for the decision boundary will then become
+\[
+-6 x_1 + 15 - 2log(4) = 0
+\]
+\[
+x_1 = \frac{15-2log(4)}{6} \approx 2.0379
 \]
 
 \begin{figure}[H]
@@ -558,30 +523,23 @@ w_0 = 103.8
 \caption{The decision boundary with the means}
 \end{figure}
 
-\subsection*{Problem \ref: (10 points)}
-Consider a 2 class problem with labeled training data $D = \{\ux_i, c_i\}$, where $c_i \in \{0,1\}$ and $i=1,\ldots,N$. Assume you are working with 2 different classification models $M_1$ and $M_2$ with parameters $\theta$ and $\phi$ respectively, where each model's functional form can be written as
-$p(c | \ux, \hat{\theta})$ and $p(c | \ux, \hat{\phi})$ respectively, where
-$\hat{\theta}$ and $\hat{\phi}$ are point estimates of the parameters. For example $M_1$ could be   a logistic regression model   and   $M_2$ could be a neural network with a single hidden layer---the details of these models are not important for this problem. Assume you are fully Bayesian in the way you wish to approach the problem.  How would you make classification decisions as a Bayesian, i.e., how would you decide whether the probability of one class or the other is more likely given a new test vector $\ux$?  (Hint: it may help to start by thinking about $p(c | \ux, D)$). Clearly explain all steps in your answer.
-
 \subsection*{Solution to Problem 5}
 
 First, you would figure out a probability on the class labels given the parameters of the model, so you need
-\[
-p(c|\hat{\theta})
-\]
+$p(c|\hat{\theta})$ and $p(c|\hat{\phi})$. You would also attach a prior to the parameters if desired, so you would want $p(\hat{\theta})$ and $p(\hat{\phi})$. 
 To figure out the class probability we will say that
 \[
-p(c|x,\hat{\theta}) = \frac{p(x|c,\hat{\theta})p(c|\hat{\theta})}{p(x)}
+p(c|x,\hat{\theta}) = \frac{p(x|c,\hat{\theta})p(c|\hat{\theta})p(\hat{\theta})}{p(x)}
 \]
 By law of total probability, $p(x) = p(x|c,\hat{\phi}) + p(x|c,\hat{\theta})$. Thus we end up with
 \[
-p(c|x,\hat{\theta}) = \frac{p(x|c,\hat{\theta})p(c|\hat{\theta})}{p(x|c,\hat{\phi}) + p(x|c,\hat{\theta})}
+p(c|x,\hat{\theta}) = \frac{p(x|c,\hat{\theta})p(c|\hat{\theta})p(\hat{\theta})}{p(x|c,\hat{\phi})p(c|\hat{\phi})p(\hat{\phi}) + p(x|c,\hat{\theta})p(c|\hat{\theta})p(\hat{\theta})}
 \]
-You do the same thing for $p(c|x,\hat{\phi})$ and figure out which probability is greater. 
-
-
-\subsection*{Problem \ref: (10 points)}
-In class we showed that least squares regression could be related to a conditional  Gaussian likelihood. Assume we have training data in the form  $D = \{x_i, y_i\}$, where $x$ and $y$ are both 1-dimensional and $i=1,\ldots,N$. Say we assume a model of the form $E[y] = a x + b$ with $y$ having Gaussian noise with variance $\sigma^2$ and mean $E[y]$. Derive maximum likelihood estimates for each of $a$, $b$, and $\sigma^2$.
+You do the same thing for $p(c|x,\hat{\phi})$ and you will end up with the following 
+\[
+p(c|x,\hat{\phi}) = \frac{p(x|c,\hat{\phi})p(c|\hat{\phi})p(\hat{\phi})}{p(x|c,\hat{\phi})p(c|\hat{\phi})p(\hat{\phi}) + p(x|c,\hat{\theta})p(c|\hat{\theta})p(\hat{\theta})}
+\]
+You compare the two probabilities and see which one is greater
 
 \subsection*{Solution to Problem 6}
 
