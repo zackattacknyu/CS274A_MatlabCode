@@ -32,28 +32,29 @@
 
 
 \title{CS 274A Homework 6}
-\author{Probabilistic Learning: Theory and Algorithms, CS 274A, Winter 2014}
+\author{Zachary DeStefano, 15247592}
 \date{Due Date: Wednesday March 12th in class}
 
 \maketitle
 
 \vfill\eject
 
+\section*{Solution to Problem 1}
+
 \subsection*{Solution to Problem 1, Part 1}
 
-Using Bayes rule we need to compute the following
+Using Bayes rule we will start with the following
 \[
 p(c_1|x) = \frac{p(x|c_1)p(c_1)}{p(x|c_1)p(c_1) + p(x|c_2)p(c_2)}
 \]
-Find when that is equal to 0.5 as that is the decision boundary. This occurs when
+We will find when that is equal to 0.5 as that is the decision boundary. This occurs when
 \[
 \frac{1}{2} = \frac{1}{1 + \frac{p(x|c_2)p(c_2)}{p(x|c_1)p(c_1)}}
 \]
-It thus occurs when
+After some simple manipulation
 \[
 \frac{p(x|c_2)p(c_2)}{p(x|c_1)p(c_1)} = 1
 \]
-This is the same as
 \[
 \frac{p(x|c_2)}{p(x|c_1)} = \frac{p(c_1)}{p(c_2)}
 \]
@@ -82,6 +83,7 @@ Then we have to solve the following
 \[
 \frac{e^{-f_2(x)/2}}{e^{-f_1(x)/2}} = Q
 \]
+After some algebraic manipulation
 \[
 e^{f_1(x) - f_2(x)} = Q^2
 \]
@@ -142,7 +144,7 @@ c = -9 - 3 log(3)
 After putting this all into Matlab, we end up with the following plot
 \begin{figure}[H]
 \centering
-\includegraphics[height=5in]{prob1plot.jpg}
+\includegraphics[height=4in]{prob1plot.jpg}
 \caption{Probability of Class Labels with decision boundaries marked}
 \end{figure}
 
@@ -196,7 +198,7 @@ c = -9 - 15 log(3)
 After putting this all into Matlab, we end up with the following plot
 \begin{figure}[H]
 \centering
-\includegraphics[height=5in]{prob1part2plot.jpg}
+\includegraphics[height=4in]{prob1part2plot.jpg}
 \caption{Probability of Class Labels with decision boundaries marked}
 \end{figure}
 
@@ -226,21 +228,25 @@ Summing these three together we get the following estimate
 \[
 E = 0.0438
 \]
-		
+
+\newpage
+
+\section*{Solution to Problem 2}		
 \subsection*{Solution to Problem 2, Part 1}
 
-From previous problem we have to solve
+Starting from one of the first steps of the last problem, we have to solve
 \[
 \frac{p(x|c_2)}{p(x|c_1)} \leq \frac{p(c_1)}{p(c_2)}
 \]
-Given our values we have
+Given our values this becomes
 \[
 \frac{p(x|c_2)}{p(x|c_1)} \leq 1
 \]
 \[
 p(x|c_2) \leq p(x|c_1)
 \]
-That is when it is optimal to choose $c_1$. This occurs when
+That is when it is optimal to choose $c_1$ \\
+Inserting the function this occurs when
 \[
 exp(-x) \leq 0.5
 \]
@@ -258,7 +264,7 @@ $c_2$ otherwise
 After putting this all into Matlab, we end up with the following plot
 \begin{figure}[H]
 \centering
-\includegraphics[height=5in]{prob2plot.jpg}
+\includegraphics[height=4in]{prob2plot.jpg}
 \caption{Probability of Class Labels with decision boundaries marked}
 \end{figure}
 
@@ -310,7 +316,7 @@ exp(-x) \leq 0.05
 \[
 x \geq log(20) = 2.9957
 \]
-However, we can only choose $c_1$ for $2 \leq x \leq 22$. 
+However, we can only choose $c_1$ for $2 \leq x \leq 22$. Thus our decision boundaries are as follows: 
 
 $c_2$ if $x \leq log(20)$
 
@@ -321,7 +327,7 @@ $c_2$ if $x \geq 22$
 After putting this all into Matlab, we end up with the following plot
 \begin{figure}[H]
 \centering
-\includegraphics[height=5in]{prob2part2plot.jpg}
+\includegraphics[height=4in]{prob2part2plot.jpg}
 \caption{Probability of Class Labels with decision boundaries marked}
 \end{figure}
 
@@ -350,7 +356,8 @@ Summing these three together we get the following estimate
 \[
 E = 0.0499
 \]
-
+\newpage
+\section*{Solution to Problem 3}
 \subsection*{Solution to Problem 3, Part 1}
 First, we will let
 \[
@@ -420,7 +427,7 @@ This is the same as
 \[
 dot(m,x) + dot(m,x) - u = 0
 \]
-Thus we can further day that
+Thus we can further say that
 \[
 2mx - u = 0
 \]
@@ -431,19 +438,21 @@ w = 2m
 \[
 w_0 = -u
 \]
-then we have the linear decision boundary
+then we have the linear decision boundary as described.
 
 \subsection*{Solution to Problem 3, Part 3}
 
-If $p(c_1) = p(c_2)$ then $v=0$ above, so we have
+If $p(c_1) = p(c_2)$ then $v=0$ in the above equations, thus they would end with
 \[
 f_1(x) = f_2(x)
 \]
+After substituting the equation back in, we have
 \[
 (x-\mu_1)^T \Sigma^{-1} (x-\mu_1) = (x-\mu_2)^T \Sigma^{-1} (x-\mu_2)
 \]
 The decision boundary is thus when the two MH distances are equal so the class will end up taking on the value of whichever mean is closer. 
-
+\newpage
+\section*{Solution to Problem 4}
 \subsection*{Solution to Problem 4, Part 1}
 
 Using problem 3, but where $v=0$, we will use the following variables to simplify our problem
@@ -486,7 +495,7 @@ x_1 = 2.5
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3.25in]{plot4_part1.jpg}
+\includegraphics[height=4in]{plot4_part1.jpg}
 \caption{The decision boundary with the means}
 \end{figure}
 
@@ -496,7 +505,7 @@ The vector for $w$ will be the same as Part 1. The vector for $u$ will be differ
 \[
 v = 2(log(p(c_2)) - log(p(c_1)))
 \]
-Thus plugging in our values
+Thus after plugging in the values
 \[
 v = 2( log(0.2) - log(0.8) )
 \]
@@ -520,32 +529,41 @@ Because class 1 is weighted higher in this case, its decision region will be big
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=3.25in]{plot4_part2.jpg}
+\includegraphics[height=4in]{plot4_part2.jpg}
 \caption{The decision boundary with the means}
 \end{figure}
 
-\subsection*{Solution to Problem 5}
+\newpage
+
+\section*{Solution to Problem 5}
 
 First, you would figure out a probability on the class labels given the parameters of the model, so you need
-$p(c|\hat{\theta})$ and $p(c|\hat{\phi})$. You would also attach a prior to the parameters if desired, so you would want $p(\hat{\theta})$ and $p(\hat{\phi})$. 
+$p(c|\hat{\theta},M_1)$ and $p(c|\hat{\phi},M_2)$. You would also attach a prior to the parameters if desired, so you would want $p(\hat{\theta}|M_1)$ and $p(\hat{\phi}|M_2)$. If desired, you would also want a probability assigned to the model's correctness, so you would find $p(M_1)$ and $p(M_2)$. 
 To figure out the class probability we will say that
 \[
 p(c|x) = \frac{p(x|c)p(c)}{p(x)}
 \]
-We can treat $p(x)$ as a normalization constant, thus
+We can treat $p(x)$ as a normalization constant because it will be the same for both classes, thus
 \[
 p(c|x) \propto p(x|c)p(c)
 \]
 By law of total probability and adding in the parameters of the model, we can further say that
 \[
-p(c|x) \propto p(x|c,\hat{\theta})p(c,\hat{\theta}) + p(x|c,\hat{\phi})p(c,\hat{\phi})
+p(c|x) \propto p(x|c,\hat{\theta},M_1)p(c,\hat{\theta},M_1) + p(x|c,\hat{\phi},M_2)p(c,\hat{\phi},M_2)
 \]
+We can factor out the c values in order to use the probability of the class label. This yields 
 \[
-p(c|x) \propto p(x|c,\hat{\theta})p(c|\hat{\theta})p(\hat{\theta}) + p(x|c,\hat{\phi})p(c|\hat{\phi})p(\hat{\phi})
+p(c|x) \propto p(x|c,\hat{\theta},M_1)p(c|\hat{\theta},M_1)p(\hat{\theta},M_1) + p(x|c,\hat{\phi},M_2)p(c|\hat{\phi},M_2)p(\hat{\phi},M_2)
 \]
-Do this for both classes and see which one yields a greater probability. 
+We can then factor out the probability of the parameters in order to use the prior on the parameters and the prior on the model, finally yielding
+\[
+p(c|x) \propto p(x|c,\hat{\theta},M_1)p(c|\hat{\theta},M_1)p(\hat{\theta}|M_1)p(M_1) + p(x|c,\hat{\phi},M_2)p(c|\hat{\phi},M_2)p(\hat{\phi}|M_2)p(M_2)
+\]
+Do this for both classes $c$ and see which one yields a greater probability. 
 
-\subsection*{Solution to Problem 6}
+\newpage
+
+\section*{Solution to Problem 6}
 
 For this problem, we are assuming that at each pair of points, there is a Gaussian distribution for $y$ given $x$ where the mean $\mu_y = ax+b$ and the variance is $\sigma^2$.
 \\
