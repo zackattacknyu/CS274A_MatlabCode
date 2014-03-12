@@ -537,9 +537,22 @@ Because class 1 is weighted higher in this case, its decision region will be big
 
 \section*{Solution to Problem 5}
 
-First, you would figure out a probability on the class labels given the parameters of the model, so you need
-$p(c|\hat{\theta},M_1)$ and $p(c|\hat{\phi},M_2)$. You would also attach a prior to the parameters if desired, so you would want $p(\hat{\theta}|M_1)$ and $p(\hat{\phi}|M_2)$. If desired, you would also want a probability assigned to the model's correctness, so you would find $p(M_1)$ and $p(M_2)$. 
-To figure out the class probability we will say that
+Here are the initial steps:
+\begin{enumerate}
+\item Figure out a probability on the class labels given the parameters of the model, which are specified as follows
+\[
+p(c|\hat{\theta},M_1),p(c|\hat{\phi},M_2)
+\]
+\item Attach a prior to the parameters if desired, which are specified as
+\[
+p(\hat{\theta}|M_1),p(\hat{\phi}|M_2)
+\]
+\item Get a probability for the model correctness, which will be specified as
+\[
+p(M_1),p(M_2)
+\]
+\end{enumerate}
+To figure out the class probability we will start by saying that
 \[
 p(c|x) = \frac{p(x|c)p(c)}{p(x)}
 \]
@@ -559,7 +572,7 @@ We can then factor out the probability of the parameters in order to use the pri
 \[
 p(c|x) \propto p(x|c,\hat{\theta},M_1)p(c|\hat{\theta},M_1)p(\hat{\theta}|M_1)p(M_1) + p(x|c,\hat{\phi},M_2)p(c|\hat{\phi},M_2)p(\hat{\phi}|M_2)p(M_2)
 \]
-Do this for both classes $c$ and see which one yields a greater probability. 
+The final step is to do this for both classes $c$ and see which one yields a greater probability. 
 
 \newpage
 
