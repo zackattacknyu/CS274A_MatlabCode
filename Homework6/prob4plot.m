@@ -8,7 +8,7 @@ numYvals = sizeBounds(2);
 %xVals = (ones(1,numYvals))*2.5;
 
 %for part 2
-xVals = (ones(1,numYvals))*((15-2*log(4))/6);
+xVals = (ones(1,numYvals))*((15+2*log(4))/6);
 
 
 figure

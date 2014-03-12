@@ -386,7 +386,7 @@ g(x) = g_1(x)-g_2(x) = - \frac{1}{2} f_1(x) + \frac{1}{2} f_2(x) + log(p(c_1)) -
 \[
 g(x) = \frac{1}{2} ( f_2(x) - f_1(x) ) + log(p(c_1)) - log(p(c_2))
 \]
-Let $v = -2( log(p(c_2)) - log(p(c_1)) )$ then we have to solve
+Let $v = 2( log(p(c_2)) - log(p(c_1)) )$ then we have to solve
 \[
 v = f_2(x) - f_1(x)
 \]
@@ -494,28 +494,29 @@ x_1 = 2.5
 
 The vector for $w$ will be the same as Part 1. The vector for $u$ will be different. We have already found that $u=-15$ when $v=0$, thus for our case, $u = v-15$ so we just need to calculate $v$. By Problem 3, 
 \[
-v = -2(log(p(c_2)) - log(p(c_1)))
+v = 2(log(p(c_2)) - log(p(c_1)))
 \]
 Thus plugging in our values
 \[
-v = -2( log(0.2) - log(0.8) )
+v = 2( log(0.2) - log(0.8) )
 \]
 \[
-v = -2 ( log(\frac{1}{5}) - log(\frac{4}{5}) )
+v = 2 ( log(\frac{1}{5}) - log(\frac{4}{5}) )
 \]
 \[
-v = -2 ( -log(5) - ( log(4) - log(5) ) )
+v = 2 ( -log(5) - ( log(4) - log(5) ) )
 \]
 \[
-v = 2 log(4)
+v = -2 log(4)
 \]
-This means that $u = 2log(4)-15$ and thus of course $w_0 = 15-2log(4)$. Our equation for the decision boundary will then become
+This means that $u = -2log(4)-15$ and thus of course $w_0 = 15+2log(4)$. Our equation for the decision boundary will then become
 \[
--6 x_1 + 15 - 2log(4) = 0
+-6 x_1 + 15 + 2log(4) = 0
 \]
 \[
-x_1 = \frac{15-2log(4)}{6} \approx 2.0379
+x_1 = \frac{15+2log(4)}{6} \approx 2.9621
 \]
+**TODO: ONE-LINE EXPLANATION**
 
 \begin{figure}[H]
 \centering
@@ -540,6 +541,8 @@ You do the same thing for $p(c|x,\hat{\phi})$ and you will end up with the follo
 p(c|x,\hat{\phi}) = \frac{p(x|c,\hat{\phi})p(c|\hat{\phi})p(\hat{\phi})}{p(x|c,\hat{\phi})p(c|\hat{\phi})p(\hat{\phi}) + p(x|c,\hat{\theta})p(c|\hat{\theta})p(\hat{\theta})}
 \]
 You compare the two probabilities and see which one is greater
+
+**TODO: Incorporate both models. We are trying to find the best class label, not the best model**
 
 \subsection*{Solution to Problem 6}
 
@@ -651,7 +654,7 @@ v = \frac{K}{N}
 \]
 Finally we can say that
 \[
-\hat{\sigma^2}_{ML} = \frac{1}{N} \sum_{i=1}^N{(y_i - (ax_i + b))^2}
+\hat{\sigma^2}_{ML} = \frac{1}{N} \sum_{i=1}^N{(y_i - (\hat{a}_{ML}x_i + \hat{b}_{ML}))^2}
 \]
 \end{document}
 
