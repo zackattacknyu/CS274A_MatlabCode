@@ -1,0 +1,79 @@
+\documentclass[11pt,psfig]{article}
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{float}
+
+\newcount\refno\refno=1
+\def\ref{\the\refno \global\advance\refno by 1}
+\def\ux{\underline{x}}
+\def\uw{\underline{w}}
+\def\bw{\underline{w}}
+\def\ut{\underline{\theta}}
+\def\umu{\underline{\mu}} 
+\def\bmu{\underline{\mu}} 
+\def\be{p_e^*}
+\newcount\eqnumber\eqnumber=1
+\def\eq{\the \eqnumber \global\advance\eqnumber by 1}
+\def\eqs{\eq}
+\def\eqn{\eqno(\eq)}
+
+ \pagestyle{empty}
+\def\baselinestretch{1.1}
+\topmargin1in \headsep0.3in
+\topmargin0in \oddsidemargin0in \textwidth6.5in \textheight8.5in
+\begin{document}
+\setlength{\parskip}{1.2ex plus0.3ex minus 0.3ex}
+
+
+\vfill\eject
+
+\subsection*{Minimzing MSE for Linear Models}
+**BACK TO. 2-5 NOTES PAGE 2**
+Complexity of solving equations or finding matrix inverse is $O(N d^2 + d^3)$
+
+\subsection*{Minimizing MSE for Non-Linear Equations}
+$MSE(\theta)$ is concave so you can use gradient descent:
+     \[
+		\theta^{new} = \theta^{current} - stepSize*gradient(MSE)
+		\]
+Stochastic Gradient Descent can also be used, faster but noisier
+
+\subsection*{Probabilistic Interpretation of Regression}
+$p(y|x)$ : for fixed x, there is variation in y
+2 types of variation:
+     - Measurement noise
+     - Unobserved Variables
+2 sources of variability:
+     $p(y|x)$: variability in y given x
+     $p(x)$: distribution of input data in the space
+We have a joint distribution: $p(x,y) = p(y|x)p(x)$ and we learn $p(y|x)$
+
+\subsection*{Modeling Framework}
+$y_x = E[y|x] + e$ where 
+     $y_x$: what we observe
+     $E[y|x]$: what we try to learn with f(x,theta)
+     $e$: unpredictable error term
+
+\subsection*{Simple Model:}
+     $p(y|x) = N( f(x,theta), sigma^2)$ where $f(x,theta) = theta^Tx$
+
+\subsection*{Conditional Likelihood for Regression}
+\[
+L(\theta) = \prod{p(y_i|x_i,\theta)}
+\]
+
+**TODO: Go back to Gaussian Model for Conditional Likelihood Regression. Page 2-3 of 2-12 Notes
+**TODO: Go to Bayesian View of Regression
+**TODO: Go back to 2-19 Notes.
+
+
+\end{document}
+
+
+
+
+
+
+
+
