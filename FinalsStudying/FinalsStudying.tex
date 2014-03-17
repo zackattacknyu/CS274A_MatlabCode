@@ -50,22 +50,67 @@ $p(y|x)$ : for fixed x, there is variation in y
 We have a joint distribution: $p(x,y) = p(y|x)p(x)$ and we learn $p(y|x)$
 
 \subsection*{Modeling Framework}
-$y_x = E[y|x] + e$ where 
-     $y_x$: what we observe
-     $E[y|x]$: what we try to learn with f(x,theta)
+$y_x = E[y|x] + e$ where \\
+     $y_x$: what we observe\\
+     $E[y|x]$: what we try to learn with $f(x,\theta)$\\
      $e$: unpredictable error term
 
 \subsection*{Simple Model:}
-     $p(y|x) = N( f(x,theta), sigma^2)$ where $f(x,theta) = theta^Tx$
+     $p(y|x) = N( f(x,\theta), \sigma^2)$ where $f(x,\theta) = \theta^Tx$
 
 \subsection*{Conditional Likelihood for Regression}
 \[
 L(\theta) = \prod{p(y_i|x_i,\theta)}
 \]
 
-**TODO: Go back to Gaussian Model for Conditional Likelihood Regression. Page 2-3 of 2-12 Notes
-**TODO: Go to Bayesian View of Regression
-**TODO: Go back to 2-19 Notes.
+As an example, we can use a Gaussian model for $p(y|x,\theta)$.\\
+This will give us
+\[
+p(y|x,\theta) = \frac{1}{\sigma\sqrt{2\pi}} exp(-\frac{1}{2\sigma^2}(y-f(x,\theta))^2)
+\]
+This equation comes from the fact that $E[y|x] = f(x,\theta)$. 
+After doing some algebra
+\[
+log L(\theta) \propto -MSE(\theta)
+\]
+Thus maximizing log likelihood is the same as minimizing MSE. This gives us a useful framework to go beyond. 
+
+\subsection*{Bayesian View of Regression}
+
+Posterior Density on $\theta$ is: 
+\[
+p(\theta|D_x,D_y) \propto p(D_x,D_y|\theta)p(\theta) = p(D_y|D_x,\theta)p(D_x|\theta)p(\theta)
+\]
+\[
+p(\theta|D_x,D_y) \propto p(D_y|D_x,\theta)p(\theta)
+\]
+This is because we do not model $p(D_x|\theta)$
+
+**TODO: BACK TO GAUSSIAN ERROR MODEL IN 2-19 NOTES**
+
+\subsection*{Properties of Minimizing MSE}
+
+Because of this fact:
+\[
+MSE(\theta) = \int{\int{(y-f(x;\theta))^2 p(x,y)\,dx}\,dy}
+\]
+It eventually (**TODO: make sure you can derive this. 2-19 notes**) holds that the optimal value is when $f(x;\theta)=E[y_x]$. \\
+We are limited because\\
+Bias: $f(x,\theta)$ might not be able to exactly approximate $E[y_x]$\\
+Variance: Even if so, only have finite data to learn $E[y_x]$\\
+Tradeoff exists between complex model with low bias but high variance and \\
+simple model with high bias and low variance
+
+\subsection*{Bias-Variance Tradeoff}
+
+**TODO: DERIVE THIS FROM 2-19 NOTES**
+Eventually we have $MSE_x = \sigma_{yx}^2 + Bias^2 + Variance$\\
+This leads to the fundamental bias-variance tradeoff
+\begin{itemize}
+\item simple models with few parameters have high bias, but low variance
+\item complex models with many parameters have low bias, but high variance
+\end{itemize}
+
 
 
 \end{document}
