@@ -111,7 +111,60 @@ This leads to the fundamental bias-variance tradeoff
 \item complex models with many parameters have low bias, but high variance
 \end{itemize}
 
+\subsection*{Logistic Regression Classifier}
 
+Regression but $y_i \in {0,1}$ and $p(y|x)$ is the logistic function
+
+**MAKE SURE TO UNDERSTAND WHERE LOGISTIC FUNCTION COMES FROM**
+
+**MAKE SURE TO REMEMBER FORMULAS AND IDEA FROM 2-24 NOTES**
+
+**BACK TO MULTI-CLASS LOGISTIC REGRESSION AND CONNECTION TO FEED-FORWARD NEURAL NETWORKS ON 2-26 NOTES**
+
+\subsection*{Generative Approach to Classification}
+
+We model $p(x|c)$ instead of $p(c|x)$. Models are generative when we model the distribution of both x's and c's. 
+
+\[
+L(\theta) = \prod{p(x_i|c_i,\theta)p(c_i)}
+\]
+
+Key Points:
+\begin{itemize}
+\item learn how $x_i$ values are distributed for each class, so $\theta_k$ is set of parameters for class k model.
+\item learn p(c=k)
+\item possibly decomposes into k optimization problems
+\item it is optimal if distributional assumptions are correct
+\item predict using bayes rule\[
+p(c=k|x,\theta)\propto p(x|c=k,\theta_k)p(c=k)
+\]  or we could be Bayesian and average over the $\theta$ values. 
+\end{itemize}
+
+Weaknesses of Gaussian model for each class:
+\begin{itemize}
+\item sensitive to Gaussian assumption
+\item scales poorly as d increases. for high dimensions, we can assume covariance matrices are diagonal. 
+\end{itemize}
+
+Naive Bayes Model:
+\\
+If $x_i$ are binary vectors, we can use a Naive Bayes model for each class. Parameters are $\theta_k = \{\theta_{k1},...,\theta_{kd}\}$ where $\theta_{kj}$ is Bernoulli probability that $x_{ij}=1$
+\\
+**FIRST ORDER MARKOV MODEL EXAMPLE WILL NOT BE ON THE FINAL**
+
+\subsection*{Discriminant Functions}
+
+To make a decision about mostly class, we can compute $argmax_k \,p(c=k|x)$\\
+Using Bayes rule, this is $argmax_k \, p(x|c=k)p(c=k)$\\
+This is equal to $argmax_k \, log(p(x|c=k)) + log(p(c=k))$
+\\
+All of these can be used as discriminant functions $g_k(x)$
+
+For 2 class case, decision boundary is when $g(x) = g_1(x)-g_2(x) = 0$
+
+**BACK TO MULTIVARIATE GAUSSIAN DISCRIMINANT FUNCTION FROM 2-26**
+
+**CONTINUE STUDYING AT 3-3 NOTES**
 
 \end{document}
 
