@@ -164,7 +164,92 @@ For 2 class case, decision boundary is when $g(x) = g_1(x)-g_2(x) = 0$
 
 **BACK TO MULTIVARIATE GAUSSIAN DISCRIMINANT FUNCTION FROM 2-26**
 
-**CONTINUE STUDYING AT 3-3 NOTES**
+\subsection*{Finite Mixture Models Definition}
+Definition is
+\[
+p(x) = \sum{p(x,z)} = \sum p_k(x|\theta_k,z=k)p(z=k)
+\]
+where $\sum{p(z=k)}=1$
+\\
+The z variable is hidden and the densities can be a mixture
+
+\subsection*{Learning Mixture Models}
+
+Given data $D={x_i}$ and form of each component $p_k(x|\theta_k)$. 
+\\
+Pseudo-code:
+\\
+for i = 1:N
+\begin{itemize}
+\item sample component $p(z=k)$ for i-th data point, call it k*
+\item sample $x_i$ from $k*$. $p_k(x|\theta_k,z=k*)$
+\end{itemize}
+
+Let $\alpha_k$ be the component weight, then log likelihood is
+\[
+l(\theta) = \sum{log(p(x_i|\theta))} = \sum{log\sum{p_k(x_i|\theta_k)\alpha_k}}
+\]
+
+*BACK TO EM ALGORITHM PROCEDURE FROM 3-5 NOTES**
+
+\subsection*{Notes about EM}
+
+- EM converges to a local minimum of the likelihood or log-likelihood. We are essentially doing a search in $\theta$ space. 
+\\
+- similar to gradient ascent but more popular because step size is chosen automatically
+\\
+EM respects parameter constraints
+\\
+The rate at which EM converges is a function of how much missing info is in the problem. Two Gaussians close together has a lot of missing info, but if they are far apart, the uncertainty is lower.
+\\
+EM can be mixed with other methods
+
+\subsection*{Variations of EM}
+
+Online EM: in the E and M step only use a subset of points. Useful when N is large. After many noisy steps, it eventually converges
+\\
+Generalized EM: *BACK TO. IN 3-5 NOTES*
+\\
+Approximate E steps: in some models, computing the likelihood in the E step so we can replace the E step with an approximation, such as Monte Carlo sampling
+\\
+Semi-supervised learning: some $x_i$ have labels and some do not. This is handled nicely in EM since we can fix our weights for the $x_i$ that have values. 
+
+\subsection*{Singular Solutions in EM}
+
+To avoid it, common solution is to set lower limit on $\sigma_k^2$.\\
+Another method is to put priors $p(\theta)$ on parameters and extend EM to compute MAP estimates instead of ML in the M step. Gives us a weighted average of our usual estimate
+\[
+\Sigma_{MAP,k} = \alpha \Sigma_k^{ML} + (1-\alpha)\Sigma_0
+\]
+The prior $\Sigma_0$ is usually chosen to be diagonal. 
+
+\subsection*{Kernal Density Estimation}
+
+*GO BACK TO. IN 3-10 NOTES**
+
+\subsection*{Hidden Markov Models}
+
+At each time $t$, $z_t$ produces a new data point $x_t$ and then transitions to a new state $z_{t+1}$\\
+Two assumptions:
+\\
+observations $x_t$ are CI of all other variables given $z_t$ so observation at time t depends only on the current state
+\\
+the $z_t$ values form a first order Markov Chain.\\
+Equation from graphical model is the following
+\[
+p(x_{1...T},z_{1...T}) = \prod p(x_t|z_t)p(z_t|z_{t-1})
+\]
+Two sets of parameters:
+**BACK TO. IN 3-10 NOTES**
+\\
+
+\subsection*{Computing Likelihood of HMMs}
+
+**BACK TO EFFICIENT COMPUTATION OF HMM LIKELIHOOD IN 3-10 NOTES AND SOME IN 3-12 NOTES**
+
+**FINAL MATERIAL ENDS HERE. EM FOR HMM WILL NOT BE ON FINAL**
+
+
 
 \end{document}
 
