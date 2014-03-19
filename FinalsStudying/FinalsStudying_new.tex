@@ -29,6 +29,11 @@
 \vfill\eject
 
 \subsection*{Minimzing MSE for Linear Models}
+
+$f(x,\theta)$ 	is our model of $y$ given $x$.\\
+
+Linear model: $f(x,\theta)=\theta^T x$
+
 In Linear Regression $f(x,\theta)=\theta^T x$\\
 Linear models are linear in the parameters but can be non-linear in the inputs $x_j$\\
 Non-linear models are not linear in both senses
@@ -360,7 +365,13 @@ The prior $\Sigma_0$ is usually chosen to be diagonal.
 
 \subsection*{Kernal Density Estimation}
 
-*GO BACK TO. IN 3-10 NOTES**
+Idea is that at each data point, we put a Gaussian. We fix the covariance matrix. Otherwise, the variance would converge to zero. 
+
+\[
+p(x) = \frac{1}{n} \sum{N(x;x_i,\Sigma)}
+\]
+
+If the covariance is large, there will be a good smooth curve. Otherwise, there will be many peaks and valleys. 
 
 \subsection*{Hidden Markov Models}
 

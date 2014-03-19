@@ -34,23 +34,54 @@ $f(x,\theta)$ 	is our model of $y$ given $x$.\\
 
 Linear model: $f(x,\theta)=\theta^T x$
 
+In Linear Regression $f(x,\theta)=\theta^T x$\\
+Linear models are linear in the parameters but can be non-linear in the inputs $x_j$\\
+Non-linear models are not linear in both senses
+\[
+f(x,\theta)=\sum{g_k(x,\theta_k)}
+\]
+Our initial goal is to minimize the mean squared error
+\[
+MSE(\theta) = \frac{1}{N} \sum{ (y_i-f(x_i,\theta))^2 }
+\]
+If $f(x,\theta)$ is linear, then minimizing is solving a set of p linear equations, with p as number of parameters. If not linear, it is a much more complex problem and gradient methods have to be used. 
+
+\subsection*{Minimizing MSE with Linear Model}
+
+Let $X_D=(x_1^T,...,x_N^T)$, an $N \times d$ matrix and $Y_D=(y_1,...,y_N)$, an $N \times 1$ matrix.
+Then the following is true
+\[
+MSE(\theta) = \sum_{i=1}^N{(y_i-\theta^T x_i)^2} = (Y_D-X_D\theta)^T(Y_D-X_D\theta)
+\]
+It is minimized when
+\[
+X_D^T X_D \theta = X_D^T Y
+\]
+This is a set of d simultaneous equations.
+\[
+\hat{\theta}_{MSE} = (X_D^T X_D)^{-1} X_D^T Y_D
+\]
+
 Complexity of solving equations or finding matrix inverse is $O(N d^2 + d^3)$
 
-\subsection*{Minimizing MSE for Non-Linear Equations}
-$MSE(\theta)$ is concave so you can use gradient descent:
+\subsection*{Minimizing MSE in general}
+$MSE(\theta)$ is concave so you can use gradient descent for linear and non-linear models:
      \[
-		\theta^{new} = \theta^{current} - stepSize*gradient(MSE)
+		\theta^{new} = \theta^{current} - stepSize\cdot \triangledown(MSE)
 		\]
 Stochastic Gradient Descent can also be used, faster but noisier
+\[
+\triangledown(MSE) = \frac{\partial MSE}{\partial \theta_j}
+\]
 
 \subsection*{Probabilistic Interpretation of Regression}
-$p(y|x)$ : for fixed x, there is variation in y
-2 types of variation:
-     - Measurement noise
-     - Unobserved Variables
-2 sources of variability:
-     $p(y|x)$: variability in y given x
-     $p(x)$: distribution of input data in the space
+$p(y|x)$ : for fixed x, there is variation in y\\
+2 types of variation:\\
+     - Measurement noise\\
+     - Unobserved Variables\\
+2 sources of variability:\\
+     $p(y|x)$: variability in y given x\\
+     $p(x)$: distribution of input data in the space\\
 We have a joint distribution: $p(x,y) = p(y|x)p(x)$ and we learn $p(y|x)$
 
 \subsection*{Modeling Framework}
@@ -90,7 +121,36 @@ p(\theta|D_x,D_y) \propto p(D_y|D_x,\theta)p(\theta)
 \]
 This is because we do not model $p(D_x|\theta)$
 
-**TODO: BACK TO GAUSSIAN ERROR MODEL IN 2-19 NOTES**
+\subsection*{Gaussian Error Model}
+
+\[
+L(\theta) = p(D_y|D_x,\theta) \propto \prod{exp(-\frac{1}{2}(\frac{y_i-f(x;\theta)}{\sigma})^2)}
+\]
+We model the $y_i$ as CI given $x_i$ and $\theta$. 
+\[
+p(y_i|x_i) = N( f(x_i,\theta), \sigma^2)
+\]
+Common to have independent priors on the $\theta_j$
+\[
+p(\theta) = \prod{p(\theta_j)}
+\]
+As an example
+\[
+p(\theta_j) = N(0,\sigma_0^2)
+\]
+
+Eventually we have
+\[
+-log(p(\theta|D_x,D_y)) \propto \sum{(y_i - f(x_i;\theta))^2} + \lambda \sum{\theta_j^2}
+\]
+where $\lambda = \frac{\sigma^2}{\sigma_0^2}$\\
+So the negative of our log likelihood is the squared error plus $\lambda$ times the sum of the weights squared. \\
+In non-Bayesian setting, $\lambda$ may be fit using cross-validation on our data to determine our best value. 
+\\
+In Bayesian setting, we would instead compute $\lambda$ using our prior. 
+\\
+Could use Laplacian Prior, which is proportional to $e^{-|\theta_j|}$. It will push the weights toward zero.\\
+Another prior is the spike and slab, consists of a mixture of delta function and a Gaussian, both centered at 0
 
 \subsection*{Properties of Minimizing MSE}
 
@@ -117,13 +177,46 @@ This leads to the fundamental bias-variance tradeoff
 
 \subsection*{Logistic Regression Classifier}
 
-Regression but $y_i \in {0,1}$ and $p(y|x)$ is the logistic function
+Regression but $y_i \in {0,1}$ and $p(y|x)$ is the logistic function. Good explanation of Logistic Regression:\\
+http://www.stat.cmu.edu/~cshalizi/350/lectures/26/lecture-26.pdf
+\\
+We use the log function so that changing an input variable multiplies the probability by a fixed amount. To get an unbounded range, we use the logistic transformation, $log(\frac{p}{1-p})$. We make this a linear function. This gives us the logistic regression equation. \\
+\[
+p(c=1|x) = \frac{1}{1 + exp(-(\theta^Tx + \theta_0))}
+\]
+Defines linear decision boundary, since we set $p(c=1|x)=0.5$ and solve the resulting linear equation for x. Can write as log-odds
+\[
+log(\frac{p(c=1|x)}{p(c=0|x)})
+\]
+Let $\theta = (\theta_1,...,\theta_d)$ and $x=(x_1,...,x_d)$. Assume the dth entry is always 1 because this accounts for the bias. Conditional Likelihood is
+\[
+L(\theta) = \prod{p(c_i|x_i,\theta)}
+\]
+Let $f(x,\theta) = p(c_i=1|x_i,\theta)$ then
+\[
+L(\theta) = \prod{f(x_i;\theta)^{c_i}(1 - f(x_i;\theta))^{1-c_i}}
+\]
+\[
+l(theta) = \sum{c_i log(f(x_i;\theta)) + (1-c_i)log(1-f(x_i;\theta))}
+\]
+This is the log-loss function. No closed form solution to $\hat{\theta}_{ML}$. 
+*TODO: BACK TO GRADIENT TECHNIQUES AND NEWTON-RAPHSON ON 2-24 NOTES*
 
-**MAKE SURE TO UNDERSTAND WHERE LOGISTIC FUNCTION COMES FROM**
+\subsection*{Multi-class Logistic Regression}
 
-**MAKE SURE TO REMEMBER FORMULAS AND IDEA FROM 2-24 NOTES**
+\[
+p(c=k|x) = \frac{exp(\theta_k^T x)}{\sum{exp(\theta_k^Tx)}}
+\]
+We have a weight vector for each class. 
 
-**BACK TO MULTI-CLASS LOGISTIC REGRESSION AND CONNECTION TO FEED-FORWARD NEURAL NETWORKS ON 2-26 NOTES**
+\subsection*{Logistic Functions and Feed-Forward Neural Networks}
+
+Example of feed forward neural network\\
+Diagram with $x_1,x_2,x_3$ each connected to $h_1(x),h_2(x)$ which are connected to $g(x)$\\
+$h_j$ are known as hidden units, are non linear functions of $w_j^Tx$. Often function used is logistic function. \\
+$g( h_1(x),...,h_H(x)) = g(h)$ is a linear or nonlinear function of $w^Th(x)$\\
+For learning, minimize $\sum{(y_i-g(x_i;\theta))^2}$ as function of $\theta$ (could use log-loss for binary $y_i$)\\
+Backpropagation can be considered as an effective way to do gradient calculation.
 
 \subsection*{Generative Approach to Classification}
 
@@ -194,7 +287,50 @@ Let $\alpha_k$ be the component weight, then log likelihood is
 l(\theta) = \sum{log(p(x_i|\theta))} = \sum{log\sum{p_k(x_i|\theta_k)\alpha_k}}
 \]
 
-*BACK TO EM ALGORITHM PROCEDURE FROM 3-5 NOTES**
+\subsection*{The EM algorithm}
+
+We assume that
+\[
+p(x|\Theta) = \sum{\alpha_k p_k(x|z_k,\theta_k)}
+\]
+$p_k(x|z_k,\theta_k)$ are mixture components\\
+$z$ is a vector of binary indicator variables\\
+$\alpha_k = p(z_k)$ is the probability that a randomly chosen $x$ was generated by component $k$. \\
+Can compute membership weights as follows:
+\[
+w_{ik} = p(z_{ik}=1|x_i,\Theta) = \frac{p(x_i|z_k,\theta_k)\alpha_k}{\sum{p_m(x_i|z_m,\theta_m)\alpha_m}}
+\]
+This is just from direction application of Baye's rule\\
+Each distribution is a multivariate Gaussian for our case. \\
+E-step: compute the membership weights using above formula and $\alpha_k$ values. \\
+Note that $\sum{w_{ik}} = 1$
+\\
+M-step: Calculate new parameter values. Let $N_k = \sum{w_{ik}}$ which is effectively the number of components assigned a particular weight. Then
+\[
+\alpha_k^{new} = \frac{N_k}{N}
+\]
+\[
+\mu_k^{new} = \frac{1}{N_k} \sum{w_{ik}.x_i}
+\]
+\[
+\Sigma_k^{new} = \frac{1}{N_k} \sum{w_{ik}.(x_i-\mu_k^{new})(x_i-\mu_k^{new})^t}
+\]
+Convergence is defined using the log-likelihood and seeing when it stops changing significantly. Note that
+\[
+l(\theta) = \sum_{i=1}^N{(log(\sum_{k=1}^K{\alpha_k p_k(x_i|z_k,\theta_k)}))}
+\]
+
+\subsection*{k-Means clustering}
+
+Here is the procedure:\\
+1. Randomly select K mean vectors\\
+2. Assign each of the n data vectors to cluster corresponding to whichever mean it is closest to, using Euclidean distance\\
+3. Compute its new mean as the mean of the data vectors that were assigned to this cluster in Step 2\\
+4. Check for convergence: see if in step 2, any vectors changed cluster assignments\\
+One can reduce Gaussian mixture to k-means by doing the following:\\
+1. Fix all the covariances for the K components to be identity matrix and not update them during the M-step\\
+2. during the E-step, assign membership probability of 1 for component it is most likely to belong to and 0 for all other memberships. 
+
 
 \subsection*{Notes about EM}
 
@@ -212,7 +348,7 @@ EM can be mixed with other methods
 
 Online EM: in the E and M step only use a subset of points. Useful when N is large. After many noisy steps, it eventually converges
 \\
-Generalized EM: *BACK TO. IN 3-5 NOTES*
+Generalized EM: In the M-step, instead of maximizing $l(\theta)$, we just move uphill. Useful when M step cannot be computed in closed form. 
 \\
 Approximate E steps: in some models, computing the likelihood in the E step so we can replace the E step with an approximation, such as Monte Carlo sampling
 \\
