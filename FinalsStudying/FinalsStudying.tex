@@ -200,7 +200,37 @@ L(\theta) = \prod{f(x_i;\theta)^{c_i}(1 - f(x_i;\theta))^{1-c_i}}
 l(theta) = \sum{c_i log(f(x_i;\theta)) + (1-c_i)log(1-f(x_i;\theta))}
 \]
 This is the log-loss function. No closed form solution to $\hat{\theta}_{ML}$. 
-*TODO: BACK TO GRADIENT TECHNIQUES AND NEWTON-RAPHSON ON 2-24 NOTES*
+
+\subsection*{Newton-Raphson}
+Basic Iteration of newton-raphson:
+\[
+\theta^{new} = \theta^{current} + H^{-1} \triangledown l(\theta)
+\]
+where $H$ is the Hessian defined by
+\[
+H_ij = \frac{\partial^2}{\partial i \partial j} l(\theta)
+\]
+$\triangledown l(\theta)$ is the gradient vector\\
+Gradient can be written as $X^T (f-c)$ where $f_i = f(x_i,\theta)$\\
+Hessian be written as $-X^T V X$ where $V$ is diagonal with $v_ii = f_i(1-f_i)$\\
+We end up with $\theta^{new} = \theta^{old} + (X^T V X)^{-1} X^T (f-c)$\\
+It takes $O(d^3)$ operations to invert the Hessian matrix
+
+\subsection*{Gradient Descent}
+
+With this, we have
+\[
+\theta^{new} = \theta^{current} + \epsilon \triangledown l(\theta)
+\]
+It has complexity $O(dN)$\\
+
+\subsection*{Stocastic Gradient Descent}
+
+We often use Stochastic Gradient which in the extreme case each update is based on a single data point
+\[
+\theta^{new} = \theta^{current} + \epsilon (f_i-c_i)x_i
+\]
+Parameters are updated after each visit, so there are N updates per iteration. Can converge before looking at all the data. 
 
 \subsection*{Multi-class Logistic Regression}
 
@@ -259,7 +289,8 @@ All of these can be used as discriminant functions $g_k(x)$
 
 For 2 class case, decision boundary is when $g(x) = g_1(x)-g_2(x) = 0$
 
-**BACK TO MULTIVARIATE GAUSSIAN DISCRIMINANT FUNCTION FROM 2-26**
+For Multivariate Gaussian classifier, $g_k(x) = log p(x|c_k) + log p(c_k)$\\
+and it holds that $p(x|c_k) = N(\mu_k,\Sigma_k)$, thus $g_k$ can be derived easily.
 
 \subsection*{Finite Mixture Models Definition}
 Definition is
@@ -386,12 +417,27 @@ Equation from graphical model is the following
 p(x_{1...T},z_{1...T}) = \prod p(x_t|z_t)p(z_t|z_{t-1})
 \]
 Two sets of parameters:
-**BACK TO. IN 3-10 NOTES**
+\\
+1. Transition Matrix that is K by K. $a_ij = p(z_t=j|z_{t-1}=i)$
+\\
+2. K emission distributions/densities $p(x|z=j)$
 \\
 
 \subsection*{Computing Likelihood of HMMs}
 
-**BACK TO EFFICIENT COMPUTATION OF HMM LIKELIHOOD IN 3-10 NOTES AND SOME IN 3-12 NOTES**
+By Law of Total Probability, 
+\[
+\alpha_T(j) = p(z_T=j) = \sum{p(z_T=j,z_{T-1} = i, x_{1...T}) }
+\]
+By graphical model structure
+\[
+\alpha_T(j) = \sum{p(x_T|z_T=j) p(z_T=j|z_{T-1} = i,X_{1...T-1}) }
+\]
+Given $\alpha_{T-1}(i)$ we can compute $\alpha_T(j)$ in time $O(K^2 + K f(d))$. \\
+First term is due to face that we need to compute all i,j pairs\\
+function f includes complexity of computing the likelihood of our data point\\
+
+**DERIVATION OF FORWARD-BACKWARD ALGORITHM FOR HMM WILL NOT BE ON THE FINAL**
 
 **FINAL MATERIAL ENDS HERE. EM FOR HMM WILL NOT BE ON FINAL**
 
