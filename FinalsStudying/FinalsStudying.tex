@@ -159,7 +159,27 @@ Because of this fact:
 MSE(\theta) = \int{\int{(y-f(x;\theta))^2 p(x,y)\,dx}\,dy} = E_{p(x,y)}[(y-f(x;\theta))^2]
 \]
 This is from the fact that we are taking N to infinity, so we are going over all possible x and y values and figuring out the expected mean squared error. \\
-It eventually (**TODO: make sure you can derive this. 2-19 notes**) holds that the optimal value is when $f(x;\theta)=E[y_x]$. \\
+We can rewrite this as
+\[
+\int{ \int{ (y-f(x;\theta))^2 p(y|x)dy} p(x)dx } = \int{ MSE_x p(x)dx }
+\]
+Suppose we are at a particular $x$.
+\[
+MSE_x = \int (y_x - f(x; \theta))^2 p(y|x) dy
+\]
+\[
+= \int (y_x - E[y_x] + E[y_x] - f(x; \theta))^2 p(y|x) dy
+\]
+Then a miracle occurs
+\[
+= \int (y_x - E[y_x])^2 p(y|x) dy + \int (E[y_x] - f(x; \theta))^2 p(y|x) dy
+\]
+The miracle is that
+\[
+\int{(E[y_x] - f(x;\theta))(y_x - E[y_x])\,dx} = 0
+\]
+\\
+It eventually holds that the optimal value is when $f(x;\theta)=E[y_x]$. \\
 We are limited because\\
 Bias: $f(x,\theta)$ might not be able to exactly approximate $E[y_x]$\\
 Variance: Even if so, only have finite data to learn $E[y_x]$\\
@@ -167,8 +187,22 @@ Tradeoff exists between complex model with low bias but high variance and \\
 simple model with high bias and low variance
 
 \subsection*{Bias-Variance Tradeoff}
+Let $D$ be a data set of size $N$. Let $p(D)$ be a distribution over all possible data sets of size $N$. Note that this is a frequentist model. We will analyze the average performance with respect to $p(D)$.
 
-**TODO: DERIVE THIS FROM 2-19 NOTES**
+Now $f(x; \theta)$ is a random quantity w.r.t. $p(D)$, because $\theta$ is random w.r.t $p(D)$. Note that $\theta$ is a function of $D$. For different data sets $D$, we get different $\theta$'s, which give different $f$'s.
+
+We define $\bar{f}_x = E_p(D)[f(x; \theta)]$. \newline
+Consider $E_{p(D)}[(E[y_x] - f(x; \theta))^2]$, which is the part of our error at $x$ that we can approximate, averaged over all possible data sets of size $N$.
+
+\[
+E_{p(D)}[(E[y_x] - \bar{f}_x + \bar{f}_x - f(x; \theta))^2]
+\]
+Cross terms cancel out
+\[
+= E_{p(D)}[(E[y_x] - \bar{f}_x)^2] + E_{p(D)}[(\bar{f}_x - f(x; \theta)^2)]
+\]
+
+The first term is the square of our bias, which gives our approximation error. The second term is the variance, which gives our estimation error. For each $x$, we average this w.r.t. $p(x)$.\\
 Eventually we have $MSE_x = \sigma_{yx}^2 + Bias^2 + Variance$\\
 This leads to the fundamental bias-variance tradeoff
 \begin{itemize}
